@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
     {
         //kqc3yy is a noob
         //M-East is a noob
+        //SecSad is a noob
+        //TexturephobeCreator is a noob
     }
 
     // Update is called once per frame
