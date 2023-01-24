@@ -13,12 +13,15 @@ public class Player : MonoBehaviour
     [SerializeField] private Rigidbody _rb;
     [SerializeField] private float _speed = 5;
     [SerializeField] private float _turnSpeed = 360;
-    private Vector3 _input;
 
+    private Vector3 newPos;
+    private Vector3 _input;
+    [SerializeField] GameObject Camera;
     private void Update()
     {
         GatherInput();
         Look();
+        //Camera.transform.position
     }
 
     private void FixedUpdate()
