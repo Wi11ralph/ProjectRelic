@@ -17,16 +17,24 @@ public class Player : MonoBehaviour
     private Vector3 newPos;
     private Vector3 _input;
     [SerializeField] GameObject Camera;
+    private bool isJumpPressed = false;
+    private void Start()
+    {
+        newPos = Camera.transform.position;
+
+    }
     private void Update()
     {
         GatherInput();
         Look();
-        //Camera.transform.position
+        Camera.transform.position = newPos + transform.position;
+        isJumpPressed = Input.GetButtonDown("Jump");
     }
 
     private void FixedUpdate()
     {
         Move();
+        Jump();
     }
 
     private void GatherInput()
@@ -45,6 +53,16 @@ public class Player : MonoBehaviour
     private void Move()
     {
         _rb.MovePosition(transform.position + transform.forward * _input.normalized.magnitude * _speed * Time.deltaTime);
+    }
+    private void Jump()
+    {
+        if (isJumpPressed)
+        {
+            // the cube is going to move upwards in 10 units per second
+            _rb.velocity += new Vector3(0, 10, 0);
+            Debug.Log("jump");
+        }
+
     }
 }
 
