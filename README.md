@@ -19,3 +19,5 @@ To download the project you must clone the repository using git GUI and then it 
 Then to save any changes you need to save all files, close out of unity or any other programs, click Rescan in the Git gui and then click stage changed.
 staging the changes basically tells what files will be added to the commit and the commit is the next thing you will have to do.
 just enter a commit message with what you added in that update. after making a commit you need to push and this will make all the files that you updated appear on GitHub.
+
+If you want the updated project and you are on an old version you can always do a pull which will update your files. You can also clone the repository again and drag in missing files that you dont have but always make sure if you push any new changes everything is more up to date, we don't want to end up deleting lines of code and be confused why something isn't working
