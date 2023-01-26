@@ -21,6 +21,8 @@ public class Player : MonoBehaviour
     private Vector3 newPos;
     private Vector3 _input;
     private float distToGround = 1f;
+    private float distToX = 1f;
+    private float distToZ = 1f;
     private bool isGrounded = false;
 
     [SerializeField] GameObject Camera;
@@ -29,7 +31,8 @@ public class Player : MonoBehaviour
     {
         newPos = Camera.transform.position;
         distToGround = GetComponent<Collider>().bounds.extents.y;
-
+        distToX = GetComponent<Collider>().bounds.extents.x;
+        distToZ = GetComponent<Collider>().bounds.extents.z;
     }
     private void Update()
     {
@@ -76,6 +79,22 @@ public class Player : MonoBehaviour
             //debug.text = "Not Grounded";
             isGrounded = false;
         }
+    }
+
+    private void WallCheck()
+    {
+        if(place_meeting(new Vector3(1,0,0), distToX + _speed))
+        {
+
+        }
+
+    }
+
+    private bool place_meeting(Vector3 angle, float waht)
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, angle, out hit, waht)) return true; //distToX + _speed
+        else return false;
     }
 
     private void Move()
