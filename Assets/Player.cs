@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     //TexturephobeCreator is a noob
     //hm
 
-    [SerializeField] private Rigidbody _rb;
+    //[SerializeField] private Rigidbody _rb;
     [SerializeField] private float _speed = 5;
     [SerializeField] private float _turnSpeed = 360;
 
@@ -44,6 +44,7 @@ public class Player : MonoBehaviour
     {
         Move();
         GroundCheck();
+        Debug.Log(_input);
     }
 
     private void GatherInput()
@@ -79,14 +80,15 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
-        _rb.MovePosition(transform.position + transform.forward * _input.normalized.magnitude * _speed * Time.deltaTime);
+        //_rb.MovePosition(transform.position + transform.forward * _input.normalized.magnitude * _speed * Time.deltaTime);
+        transform.position += transform.forward * _input.normalized.magnitude * _speed * Time.deltaTime;
     }
     private void Jump()
     {
         if (isJumpPressed && isGrounded)
         {
             // the cube is going to move upwards in 10 units per second
-            _rb.velocity = new Vector3(0, 8, 0);
+            //_rb.velocity = new Vector3(0, 8, 0);
             Debug.Log("jump");
         }
 
