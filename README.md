@@ -21,3 +21,7 @@ staging the changes basically tells what files will be added to the commit and t
 just enter a commit message with what you added in that update. after making a commit you need to push and this will make all the files that you updated appear on GitHub.
 
 If you want the updated project and you are on an old version you can always do a pull which will update your files. You can also clone the repository again and drag in missing files that you dont have but always make sure if you push any new changes everything is more up to date, we don't want to end up deleting lines of code and be confused why something isn't working
+
+## Extra Downloads
+Git GUI: https://git-scm.com/download/win
+Unity Editor (please use this version since it is as same as the college): https://download.unity3d.com/download_unity/9636b062134a/UnityDownloadAssistant-2022.1.23f1.exe
