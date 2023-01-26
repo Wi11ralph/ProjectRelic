@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -14,13 +15,20 @@ public class Player : MonoBehaviour
     [SerializeField] private float _speed = 5;
     [SerializeField] private float _turnSpeed = 360;
 
+    public Text debug;
+    float _slopeAngle;
+
     private Vector3 newPos;
     private Vector3 _input;
+    private float distToGround = 1f;
+    private bool isGrounded = false;
+
     [SerializeField] GameObject Camera;
     private bool isJumpPressed = false;
     private void Start()
     {
         newPos = Camera.transform.position;
+        distToGround = GetComponent<Collider>().bounds.extents.y;
 
     }
     private void Update()
@@ -29,12 +37,13 @@ public class Player : MonoBehaviour
         Look();
         Camera.transform.position = newPos + transform.position;
         isJumpPressed = Input.GetButtonDown("Jump");
+        Jump();
     }
 
     private void FixedUpdate()
     {
         Move();
-        Jump();
+        GroundCheck();
     }
 
     private void GatherInput()
@@ -50,16 +59,34 @@ public class Player : MonoBehaviour
         transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, _turnSpeed * Time.deltaTime);
     }
 
+    private void GroundCheck()
+    {
+
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, distToGround + 0.1f))
+        {
+            _slopeAngle = (Vector3.Angle(hit.normal, transform.forward) - 90);
+            //debug.text = "Grounded on " + hit.transform.name;
+            //debug.text += "\nSlope Angle: " + _slopeAngle.ToString("N0") + "°";
+            isGrounded = true;
+        }
+        else
+        {
+            //debug.text = "Not Grounded";
+            isGrounded = false;
+        }
+    }
+
     private void Move()
     {
         _rb.MovePosition(transform.position + transform.forward * _input.normalized.magnitude * _speed * Time.deltaTime);
     }
     private void Jump()
     {
-        if (isJumpPressed)
+        if (isJumpPressed && isGrounded)
         {
             // the cube is going to move upwards in 10 units per second
-            _rb.velocity += new Vector3(0, 10, 0);
+            _rb.velocity = new Vector3(0, 8, 0);
             Debug.Log("jump");
         }
 
