@@ -30,7 +30,6 @@ public class Player : MonoBehaviour
     private bool isGrounded = false;
     private float yVelocity;
     private float gravityAcceleration;
-    private float moveSpeed;
     private float jumpSpeed;
 
     [SerializeField] GameObject Camera;
@@ -38,6 +37,7 @@ public class Player : MonoBehaviour
     private bool isSprintPressed = false;
     private void Start()
     {
+        Initialize();
         newPos = Camera.transform.position;
     }
     private void Update()
@@ -45,15 +45,13 @@ public class Player : MonoBehaviour
         GatherInput();
         Look();
         Camera.transform.position = newPos + transform.position;
-        isJumpPressed = Input.GetButtonDown("Jump");
-        isSprintPressed = Input.GetButtonDown("Sprint");
+        
+        Debug.Log(_input);
     }
 
     private void FixedUpdate()
     {
-        Move(isJumpPressed, isSprintPressed);
-        GroundCheck();
-        Debug.Log(_input);
+        Move();
     }
 
     private void GatherInput()
@@ -68,45 +66,25 @@ public class Player : MonoBehaviour
         var rot = Quaternion.LookRotation(_input.ToIso(), Vector3.up);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, _turnSpeed * Time.deltaTime);
     }
-
-    private void GroundCheck()
+    private void Initialize()
     {
-
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, distToGround + 0.1f))
-        {
-            _slopeAngle = (Vector3.Angle(hit.normal, transform.forward) - 90);
-            //debug.text = "Grounded on " + hit.transform.name;
-            //debug.text += "\nSlope Angle: " + _slopeAngle.ToString("N0") + "°";
-            isGrounded = true;
-        }
-        else
-        {
-            //debug.text = "Not Grounded";
-            isGrounded = false;
-        }
+        gravityAcceleration = gravity * Time.fixedDeltaTime * Time.fixedDeltaTime;
+        jumpSpeed = Mathf.Sqrt(jumpHeight * -2f * gravityAcceleration);
     }
-
-
-    private bool place_meeting(Vector3 angle, float waht)
+    private void Move()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, angle, out hit, waht)) return true; //distToX + _speed
-        else return false;
-    }
+        isJumpPressed = Input.GetButtonDown("Jump");
+        //isSprintPressed = Input.GetButtonDown("Sprint");
 
-    private void Move(bool jump, bool sprint)
-    {
         Vector3 moveDirection = transform.forward * _input.normalized.magnitude * _speed * Time.deltaTime;
-        moveDirection *= moveSpeed;
 
-        if (sprint)
+        if (isSprintPressed)
             moveDirection *= 2f;
 
         if (controller.isGrounded)
         {
             yVelocity = 0f;
-            if (jump)
+            if (isJumpPressed)
                 yVelocity = jumpSpeed;
         }
         yVelocity += gravityAcceleration;
