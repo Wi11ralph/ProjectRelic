@@ -1,4 +1,4 @@
-Base path: 'C:/Users/40165278/Downloads/Editor/Data', plugins path 'C:/Users/40165278/Downloads/Editor/Data/PlaybackEngines'
+Base path: 'C:/Users/40165278/Documents/Editor/Data', plugins path 'C:/Users/40165278/Documents/Editor/Data/PlaybackEngines'
 Cmd: initializeCompiler
 
 Cmd: shutdown

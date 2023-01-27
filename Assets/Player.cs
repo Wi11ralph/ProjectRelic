@@ -14,25 +14,31 @@ public class Player : MonoBehaviour
     //[SerializeField] private Rigidbody _rb;
     [SerializeField] private float _speed = 5;
     [SerializeField] private float _turnSpeed = 360;
+    [SerializeField] private float gravity;
+    [SerializeField] private float movementSpeed;
+    [SerializeField] private float jumpHeight;
+    [SerializeField] private CharacterController controller;
 
     public Text debug;
     float _slopeAngle;
 
+
     private Vector3 newPos;
     private Vector3 _input;
+
     private float distToGround = 1f;
-    private float distToX = 1f;
-    private float distToZ = 1f;
     private bool isGrounded = false;
+    private float yVelocity;
+    private float gravityAcceleration;
+    private float moveSpeed;
+    private float jumpSpeed;
 
     [SerializeField] GameObject Camera;
     private bool isJumpPressed = false;
+    private bool isSprintPressed = false;
     private void Start()
     {
         newPos = Camera.transform.position;
-        distToGround = GetComponent<Collider>().bounds.extents.y;
-        distToX = GetComponent<Collider>().bounds.extents.x;
-        distToZ = GetComponent<Collider>().bounds.extents.z;
     }
     private void Update()
     {
@@ -40,12 +46,12 @@ public class Player : MonoBehaviour
         Look();
         Camera.transform.position = newPos + transform.position;
         isJumpPressed = Input.GetButtonDown("Jump");
-        Jump();
+        isSprintPressed = Input.GetButtonDown("Sprint");
     }
 
     private void FixedUpdate()
     {
-        Move();
+        Move(isJumpPressed, isSprintPressed);
         GroundCheck();
         Debug.Log(_input);
     }
@@ -81,14 +87,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void WallCheck()
-    {
-        if(place_meeting(new Vector3(1,0,0), distToX + _speed))
-        {
-
-        }
-
-    }
 
     private bool place_meeting(Vector3 angle, float waht)
     {
@@ -97,10 +95,24 @@ public class Player : MonoBehaviour
         else return false;
     }
 
-    private void Move()
+    private void Move(bool jump, bool sprint)
     {
-        //_rb.MovePosition(transform.position + transform.forward * _input.normalized.magnitude * _speed * Time.deltaTime);
-        transform.position += transform.forward * _input.normalized.magnitude * _speed * Time.deltaTime;
+        Vector3 moveDirection = transform.forward * _input.normalized.magnitude * _speed * Time.deltaTime;
+        moveDirection *= moveSpeed;
+
+        if (sprint)
+            moveDirection *= 2f;
+
+        if (controller.isGrounded)
+        {
+            yVelocity = 0f;
+            if (jump)
+                yVelocity = jumpSpeed;
+        }
+        yVelocity += gravityAcceleration;
+
+        moveDirection.y = yVelocity;
+        controller.Move(moveDirection);
     }
     private void Jump()
     {
