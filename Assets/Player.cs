@@ -12,7 +12,6 @@ public class Player : MonoBehaviour
     //hm
 
     //[SerializeField] private Rigidbody _rb;
-    [SerializeField] private float _speed = 5;
     [SerializeField] private float _turnSpeed = 360;
     [SerializeField] private float gravity;
     [SerializeField] private float movementSpeed;
@@ -22,9 +21,14 @@ public class Player : MonoBehaviour
     public Text debug;
     float _slopeAngle;
 
+    private float Lerp(float firstFloat, float secondFloat, float by)
+    {
+        return firstFloat * (1 - by) + secondFloat * by;
+    }
 
     private Vector3 newPos;
     private Vector3 _input;
+    private Vector3 moveDirection;
 
     private float distToGround = 1f;
     private bool isGrounded = false;
@@ -44,14 +48,15 @@ public class Player : MonoBehaviour
     {
         GatherInput();
         Look();
+        Move();
         Camera.transform.position = newPos + transform.position;
-        
-        Debug.Log(_input);
+
+        //Debug.Log(_input);
     }
 
     private void FixedUpdate()
     {
-        Move();
+        
     }
 
     private void GatherInput()
@@ -68,19 +73,23 @@ public class Player : MonoBehaviour
     }
     private void Initialize()
     {
-        gravityAcceleration = gravity * Time.fixedDeltaTime * Time.fixedDeltaTime;
+        gravityAcceleration = gravity * Time.deltaTime * Time.deltaTime;
         jumpSpeed = Mathf.Sqrt(jumpHeight * -2f * gravityAcceleration);
     }
     private void Move()
     {
-        isJumpPressed = Input.GetButtonDown("Jump");
-        //isSprintPressed = Input.GetButtonDown("Sprint");
+        isJumpPressed = Input.GetButton("Jump");
+        isSprintPressed =  Input.GetKey(KeyCode.LeftShift);
 
-        Vector3 moveDirection = transform.forward * _input.normalized.magnitude * _speed * Time.deltaTime;
+        moveDirection = transform.forward * _input.normalized.magnitude * movementSpeed * Time.deltaTime;
 
         if (isSprintPressed)
-            moveDirection *= 2f;
-
+            moveDirection *= 3f;
+        Jump();
+        controller.Move(moveDirection);
+    }
+    private void Jump()
+    {
         if (controller.isGrounded)
         {
             yVelocity = 0f;
@@ -90,17 +99,6 @@ public class Player : MonoBehaviour
         yVelocity += gravityAcceleration;
 
         moveDirection.y = yVelocity;
-        controller.Move(moveDirection);
-    }
-    private void Jump()
-    {
-        if (isJumpPressed && isGrounded)
-        {
-            // the cube is going to move upwards in 10 units per second
-            //_rb.velocity = new Vector3(0, 8, 0);
-            Debug.Log("jump");
-        }
-
     }
 }
 
@@ -109,6 +107,7 @@ public static class Helpers
     private static Matrix4x4 _isoMatrix = Matrix4x4.Rotate(Quaternion.Euler(0, 45, 0));
     public static Vector3 ToIso(this Vector3 input) => _isoMatrix.MultiplyPoint3x4(input);
 }
+
 
 
 
