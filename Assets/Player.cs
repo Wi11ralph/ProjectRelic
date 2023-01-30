@@ -21,17 +21,13 @@ public class Player : MonoBehaviour
     public Text debug;
     float _slopeAngle;
 
-    private float Lerp(float firstFloat, float secondFloat, float by)
-    {
-        return firstFloat * (1 - by) + secondFloat * by;
-    }
+  
 
     private Vector3 newPos;
     private Vector3 _input;
     private Vector3 moveDirection;
 
-    private float distToGround = 1f;
-    private bool isGrounded = false;
+    private float speedMulti = 1f;
     private float yVelocity;
     private float gravityAcceleration;
     private float jumpSpeed;
@@ -83,8 +79,12 @@ public class Player : MonoBehaviour
 
         moveDirection = transform.forward * _input.normalized.magnitude * movementSpeed * Time.deltaTime;
 
-        if (isSprintPressed)
-            moveDirection *= 3f;
+        if (isSprintPressed && _input.normalized.magnitude != 0) {
+            speedMulti = Mathf.Lerp(speedMulti, 2.7f, 0.005f);
+            moveDirection *= speedMulti;
+            Debug.Log(speedMulti);
+        } else speedMulti = 1f;
+
         Jump();
         controller.Move(moveDirection);
     }
