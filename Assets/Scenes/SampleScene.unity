@@ -631,6 +631,12 @@ MonoBehaviour:
   gravity: -0.63
   movementSpeed: 3
   jumpHeight: 1.7
+  xClamp:
+  - -10
+  - 10
+  zClamp:
+  - -10
+  - 10
   controller: {fileID: 1581737627}
   debug: {fileID: 0}
   Camera: {fileID: 2106826421}

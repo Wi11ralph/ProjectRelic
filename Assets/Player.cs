@@ -12,10 +12,14 @@ public class Player : MonoBehaviour
     //hm
 
     //[SerializeField] private Rigidbody _rb;
+
+    
     [SerializeField] private float _turnSpeed = 360;
     [SerializeField] private float gravity;
     [SerializeField] private float movementSpeed;
     [SerializeField] private float jumpHeight;
+    [SerializeField] private float[] xClamp = {-10,10};
+    [SerializeField] private float[] zClamp = {-10,10};
     [SerializeField] private CharacterController controller;
 
     public Text debug;
@@ -45,7 +49,11 @@ public class Player : MonoBehaviour
         GatherInput();
         Look();
         Move();
-        Camera.transform.position = newPos + transform.position;
+        Camera.transform.position = new Vector3(
+            Mathf.Clamp(newPos.x + transform.position.x, xClamp[0], xClamp[1]),
+            newPos.y + transform.position.y,
+            Mathf.Clamp(newPos.z + transform.position.z, zClamp[0], xClamp[1])
+        );
 
         //Debug.Log(_input);
     }
