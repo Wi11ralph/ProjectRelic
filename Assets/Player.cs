@@ -24,18 +24,25 @@ public class Player : MonoBehaviour
     
     [CustomEditor(typeof(Player))]
     [CanEditMultipleObjects]
+    [HideInInspector]
+    [System.Serializable]
+
     public class MyPlayerEditor : Editor
     {
 
+
         public override void OnInspectorGUI()
         {
+            serializedObject.Update();
             GUILayout.Label("This is a Label in a Custom Editor");
 
             Player p = (Player)target;
+            SerializedProperty ts = serializedObject.FindProperty("_turnSpeed");
             p._turnSpeed =  EditorGUILayout.FloatField("Turning speed", p._turnSpeed);
             p.gravity = EditorGUILayout.FloatField("Gravity", p.gravity);
             p.movementSpeed = EditorGUILayout.FloatField("Move speed", p.movementSpeed);
             p.jumpHeight = EditorGUILayout.FloatField("Jump height", p.jumpHeight);
+            serializedObject.ApplyModifiedProperties();
 
         }
     }
