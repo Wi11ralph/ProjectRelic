@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor.EditorTools;
 using UnityEditor;
-
 public class Player : MonoBehaviour
 {
     //kqc3yy is a noob
@@ -21,19 +21,25 @@ public class Player : MonoBehaviour
     public Text debug;
     float _slopeAngle;
 
-    /*
+    
     [CustomEditor(typeof(Player))]
+    [CanEditMultipleObjects]
     public class MyPlayerEditor : Editor
     {
+
         public override void OnInspectorGUI()
         {
             GUILayout.Label("This is a Label in a Custom Editor");
 
             Player p = (Player)target;
-            p._turnSpeed = EditorGuiLayout.FloatField("Turning speed", p._turnSpeed);
+            p._turnSpeed =  EditorGUILayout.FloatField("Turning speed", p._turnSpeed);
+            p.gravity = EditorGUILayout.FloatField("Gravity", p.gravity);
+            p.movementSpeed = EditorGUILayout.FloatField("Move speed", p.movementSpeed);
+            p.jumpHeight = EditorGUILayout.FloatField("Jump height", p.jumpHeight);
+
         }
     }
-    */
+    
     [SerializeField] private float _turnSpeed = 360;
     [SerializeField] private float gravity;
     [SerializeField] private float movementSpeed;
