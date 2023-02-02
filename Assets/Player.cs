@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor;
 
 public class Player : MonoBehaviour
 {
@@ -14,19 +15,34 @@ public class Player : MonoBehaviour
     //[SerializeField] private Rigidbody _rb;
 
     
-    [SerializeField] private float _turnSpeed = 360;
-    [SerializeField] private float gravity;
-    [SerializeField] private float movementSpeed;
-    [SerializeField] private float jumpHeight;
-    [SerializeField] private float[] xClamp = {-10,10};
-    [SerializeField] private float[] zClamp = {-10,10};
-    [SerializeField] private CharacterController controller;
+ 
+
 
     public Text debug;
     float _slopeAngle;
 
-  
+    /*
+    [CustomEditor(typeof(Player))]
+    public class MyPlayerEditor : Editor
+    {
+        public override void OnInspectorGUI()
+        {
+            GUILayout.Label("This is a Label in a Custom Editor");
 
+            Player p = (Player)target;
+            p._turnSpeed = EditorGuiLayout.FloatField("Turning speed", p._turnSpeed);
+        }
+    }
+    */
+    [SerializeField] private float _turnSpeed = 360;
+    [SerializeField] private float gravity;
+    [SerializeField] private float movementSpeed;
+    [SerializeField] private float jumpHeight;
+    [SerializeField] private float[] xClamp = { -10, 10 };
+    [SerializeField] private float[] zClamp = { -10, 10 };
+    [SerializeField] private CharacterController controller;
+
+    private int dJump;
     private Vector3 newPos;
     private Vector3 _input;
     private Vector3 moveDirection;
@@ -39,6 +55,7 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject Camera;
     private bool isJumpPressed = false;
     private bool isSprintPressed = false;
+    private bool waitForFalse = false;
     private void Start()
     {
         Initialize();
@@ -100,10 +117,18 @@ public class Player : MonoBehaviour
     {
         if (controller.isGrounded)
         {
+            dJump = 1;
             yVelocity = 0f;
-            if (isJumpPressed)
-                yVelocity = jumpSpeed;
         }
+        
+        if (isJumpPressed && !waitForFalse && dJump <= 2)
+        {
+            yVelocity = jumpSpeed;
+            waitForFalse = true;
+            dJump++;
+        }
+        else if (!isJumpPressed) waitForFalse = false;
+
         yVelocity += gravityAcceleration;
 
         moveDirection.y = yVelocity;
