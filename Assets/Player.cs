@@ -22,38 +22,97 @@ public class Player : MonoBehaviour
     float _slopeAngle;
 
     
+    
+    
+    [System.Serializable]
+    public class Clamp
+    {
+        public float min;
+        public float max;
+
+        public Clamp(float minn, float maxx)
+        {
+            min = minn;
+            max = maxx;
+        }
+    }
+
     [CustomEditor(typeof(Player))]
     [CanEditMultipleObjects]
     [HideInInspector]
-    [System.Serializable]
-
     public class MyPlayerEditor : Editor
     {
+        private SerializedProperty turnSpeed, gravity, movementSpeed, jumpHeight, _xClamp, _zClamp, cnrtl, cam;
 
+        private void OnEnable()
+        {
+            turnSpeed = serializedObject.FindProperty("_turnSpeed");
+            gravity = serializedObject.FindProperty("_gravity");
+            movementSpeed = serializedObject.FindProperty("_movementSpeed");
+            jumpHeight = serializedObject.FindProperty("_jumpHeight");
 
+            _xClamp = serializedObject.FindProperty("xClamp");
+            _zClamp = serializedObject.FindProperty("zClamp");
+
+            cnrtl = serializedObject.FindProperty("controller");
+            cam = serializedObject.FindProperty("Camera");
+        }
+        protected static bool showRef = false;
+        protected static bool showClamp = false;
+        protected static bool showMovement = true;
         public override void OnInspectorGUI()
         {
             serializedObject.Update();
-            GUILayout.Label("This is a Label in a Custom Editor");
 
-            Player p = (Player)target;
-            SerializedProperty ts = serializedObject.FindProperty("_turnSpeed");
-            p._turnSpeed =  EditorGUILayout.FloatField("Turning speed", p._turnSpeed);
-            p.gravity = EditorGUILayout.FloatField("Gravity", p.gravity);
-            p.movementSpeed = EditorGUILayout.FloatField("Move speed", p.movementSpeed);
-            p.jumpHeight = EditorGUILayout.FloatField("Jump height", p.jumpHeight);
+            //Player p = (Player)target;
+            //SerializedProperty ts = serializedObject.FindProperty("_turnSpeed");
+            //EditorGUILayout.PropertyField(turnSpeed, new GUIContent("How fast boi SPIN"));
+            GUIStyle myFoldoutStyle = new GUIStyle(EditorStyles.foldout);
+            myFoldoutStyle.fontStyle = FontStyle.Bold;
+            myFoldoutStyle.fontSize = 14;
+
+            showMovement = EditorGUILayout.Foldout(showMovement, "Movement", myFoldoutStyle); 
+            if (showMovement)
+            {
+                EditorGUI.indentLevel++;
+                EditorGUILayout.PropertyField(gravity);
+                EditorGUILayout.PropertyField(jumpHeight);
+                EditorGUILayout.PropertyField(movementSpeed);
+                EditorGUILayout.PropertyField(turnSpeed);
+                EditorGUI.indentLevel--;
+            }
+            showClamp = EditorGUILayout.Foldout(showClamp, "Camera Clamp", myFoldoutStyle); 
+            if (showClamp)
+            {
+                EditorGUI.indentLevel++;
+                EditorGUILayout.PropertyField(_xClamp);
+                EditorGUILayout.PropertyField(_zClamp);
+                EditorGUI.indentLevel--;
+            }
+            showRef = EditorGUILayout.Foldout(showRef, "Refrences", myFoldoutStyle); 
+            if (showRef)
+            {
+                EditorGUI.indentLevel++;
+                EditorGUILayout.PropertyField(cnrtl);
+                EditorGUILayout.PropertyField(cam);
+                EditorGUI.indentLevel--;
+            }
+
             serializedObject.ApplyModifiedProperties();
 
         }
     }
     
     [SerializeField] private float _turnSpeed = 360;
-    [SerializeField] private float gravity;
-    [SerializeField] private float movementSpeed;
-    [SerializeField] private float jumpHeight;
-    [SerializeField] private float[] xClamp = { -10, 10 };
-    [SerializeField] private float[] zClamp = { -10, 10 };
+    [SerializeField] private float _gravity;
+    [SerializeField] private float _movementSpeed;
+    [SerializeField] private float _jumpHeight;
+
+    [SerializeField] private Clamp xClamp = new Clamp(-10, 10);
+    [SerializeField] private Clamp zClamp = new Clamp(-10, 10);
+
     [SerializeField] private CharacterController controller;
+    [SerializeField] GameObject Camera;
 
     private int dJump;
     private Vector3 newPos;
@@ -65,7 +124,7 @@ public class Player : MonoBehaviour
     private float gravityAcceleration;
     private float jumpSpeed;
 
-    [SerializeField] GameObject Camera;
+    
     private bool isJumpPressed = false;
     private bool isSprintPressed = false;
     private bool waitForFalse = false;
@@ -80,9 +139,9 @@ public class Player : MonoBehaviour
         Look();
         Move();
         Camera.transform.position = new Vector3(
-            Mathf.Clamp(newPos.x + transform.position.x, xClamp[0], xClamp[1]),
+            Mathf.Clamp(newPos.x + transform.position.x, xClamp.min, xClamp.max),
             newPos.y + transform.position.y,
-            Mathf.Clamp(newPos.z + transform.position.z, zClamp[0], xClamp[1])
+            Mathf.Clamp(newPos.z + transform.position.z, zClamp.min, xClamp.max)
         );
 
         //Debug.Log(_input);
@@ -107,15 +166,17 @@ public class Player : MonoBehaviour
     }
     private void Initialize()
     {
-        gravityAcceleration = gravity * Time.deltaTime * Time.deltaTime;
-        jumpSpeed = Mathf.Sqrt(jumpHeight * -2f * gravityAcceleration);
+        
+
+        gravityAcceleration = _gravity * Time.deltaTime * Time.deltaTime;
+        jumpSpeed = Mathf.Sqrt(_jumpHeight * -2f * gravityAcceleration);
     }
     private void Move()
     {
         isJumpPressed = Input.GetButton("Jump");
         isSprintPressed =  Input.GetKey(KeyCode.LeftShift);
 
-        moveDirection = transform.forward * _input.normalized.magnitude * movementSpeed * Time.deltaTime;
+        moveDirection = transform.forward * _input.normalized.magnitude * _movementSpeed * Time.deltaTime;
 
         if (isSprintPressed && _input.normalized.magnitude != 0) {
             speedMulti = Mathf.Lerp(speedMulti, 2.7f, 0.005f);

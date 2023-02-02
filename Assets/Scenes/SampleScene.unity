@@ -627,18 +627,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a3a27005dfa5dd4ab02ac14041efac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _turnSpeed: 568.15
-  gravity: -0.63
-  movementSpeed: 3
-  jumpHeight: 1.7
-  xClamp:
-  - -10
-  - 10
-  zClamp:
-  - -10
-  - 10
-  controller: {fileID: 1581737627}
   debug: {fileID: 0}
+  _turnSpeed: 360
+  _gravity: -2
+  _movementSpeed: 2.8
+  _jumpHeight: 1.79
+  xClamp:
+    min: -10
+    max: 10
+  zClamp:
+    min: -10
+    max: 10
+  controller: {fileID: 1581737627}
   Camera: {fileID: 2106826421}
 --- !u!65 &1581737623
 BoxCollider:
