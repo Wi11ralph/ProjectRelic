@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEditor.EditorTools;
 using UnityEditor;
 public class Player : MonoBehaviour
 {
@@ -58,7 +57,7 @@ public class Player : MonoBehaviour
             cam = serializedObject.FindProperty("Camera");
         }
         protected static bool showRef = false;
-        protected static bool showClamp = false;
+        protected static bool showClamp = true;
         protected static bool showMovement = true;
         public override void OnInspectorGUI()
         {
@@ -104,12 +103,12 @@ public class Player : MonoBehaviour
     }
     
     [SerializeField] private float _turnSpeed = 360;
-    [SerializeField] private float _gravity;
-    [SerializeField] private float _movementSpeed;
-    [SerializeField] private float _jumpHeight;
+    [SerializeField] private float _gravity = -2;
+    [SerializeField] private float _movementSpeed = 2.8f;
+    [SerializeField] private float _jumpHeight = 1.8f;
 
-    [SerializeField] private Clamp xClamp = new Clamp(-10, 10);
-    [SerializeField] private Clamp zClamp = new Clamp(-10, 10);
+    [SerializeField] private Clamp xClamp = new(-10, 10);
+    [SerializeField] private Clamp zClamp = new(-10, 10);
 
     [SerializeField] private CharacterController controller;
     [SerializeField] GameObject Camera;
@@ -124,7 +123,7 @@ public class Player : MonoBehaviour
     private float gravityAcceleration;
     private float jumpSpeed;
 
-    
+    private bool doOnece = true;
     private bool isJumpPressed = false;
     private bool isSprintPressed = false;
     private bool waitForFalse = false;
@@ -141,7 +140,7 @@ public class Player : MonoBehaviour
         Camera.transform.position = new Vector3(
             Mathf.Clamp(newPos.x + transform.position.x, xClamp.min, xClamp.max),
             newPos.y + transform.position.y,
-            Mathf.Clamp(newPos.z + transform.position.z, zClamp.min, xClamp.max)
+            Mathf.Clamp(newPos.z + transform.position.z, zClamp.min, zClamp.max)
         );
 
         //Debug.Log(_input);
@@ -167,9 +166,10 @@ public class Player : MonoBehaviour
     private void Initialize()
     {
         
-
-        gravityAcceleration = _gravity * Time.deltaTime * Time.deltaTime;
+        gravityAcceleration = _gravity * 0.02f * 0.02f;
         jumpSpeed = Mathf.Sqrt(_jumpHeight * -2f * gravityAcceleration);
+        
+        
     }
     private void Move()
     {
@@ -181,7 +181,7 @@ public class Player : MonoBehaviour
         if (isSprintPressed && _input.normalized.magnitude != 0) {
             speedMulti = Mathf.Lerp(speedMulti, 2.7f, 0.005f);
             moveDirection *= speedMulti;
-            Debug.Log(speedMulti);
+            //Debug.Log(speedMulti);
         } else speedMulti = 1f;
 
         Jump();
