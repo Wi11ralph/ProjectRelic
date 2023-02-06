@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
 
 
     public Text debug;
-    float _slopeAngle;
+    //float _slopeAngle;
 
     
     
@@ -122,8 +122,7 @@ public class Player : MonoBehaviour
     private float yVelocity;
     private float gravityAcceleration;
     private float jumpSpeed;
-
-    private bool doOnece = true;
+    
     private bool isJumpPressed = false;
     private bool isSprintPressed = false;
     private bool waitForFalse = false;
@@ -131,9 +130,11 @@ public class Player : MonoBehaviour
     {
         Initialize();
         newPos = Camera.transform.position;
+
     }
     private void Update()
     {
+        //Debug.Log(newPos); (-4.17, 3.95, -4.15)
         GatherInput();
         Look();
         Move();
