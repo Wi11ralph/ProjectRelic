@@ -1040,6 +1040,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scene: Room2
+  player: {fileID: 0}
 --- !u!4 &1538811703
 Transform:
   m_ObjectHideFlags: 0
@@ -1090,7 +1091,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debug: {fileID: 0}
   _turnSpeed: 360
-  _gravity: -1.5
+  _gravity: -2
   _movementSpeed: 2.8
   _jumpHeight: 1.8
   xClamp:
