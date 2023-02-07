@@ -13,16 +13,9 @@ public class Player : MonoBehaviour
 
     //[SerializeField] private Rigidbody _rb;
 
-    
- 
-
-
     public Text debug;
     //float _slopeAngle;
 
-    
-    
-    
     [System.Serializable]
     public class Clamp
     {
@@ -126,7 +119,6 @@ public class Player : MonoBehaviour
     private bool isJumpPressed = false;
     private bool isSprintPressed = false;
     private bool waitForFalse = false;
-    private bool doOne = true;
     
     private void Start()
     {
@@ -172,15 +164,13 @@ public class Player : MonoBehaviour
         gravityAcceleration = _gravity * 0.02f * 0.02f;
         jumpSpeed = Mathf.Sqrt(_jumpHeight * -2f * gravityAcceleration);
 
-        //if (SceneLoader.pos.y >= 0.5f) transform.position = SceneLoader.pos;
-        transform.position = SceneLoader.pos;
+        if (SceneLoader.pos.y >= 0.5f) transform.position = SceneLoader.pos;
         transform.rotation = SceneLoader.rot;
 
         Physics.SyncTransforms();
     }
     private void Move()
     {
-        if (doOne) Debug.Log("m s: " + transform.position);
         isJumpPressed = Input.GetButton("Jump");
         isSprintPressed =  Input.GetKey(KeyCode.LeftShift);
 
@@ -193,10 +183,7 @@ public class Player : MonoBehaviour
         } else speedMulti = 1f;
 
         Jump();
-        if (doOne) Debug.Log("m b: " + transform.position);
         controller.Move(moveDirection);
-        
-        doOne = false;
     }
     private void Jump()
     {
