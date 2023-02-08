@@ -15,12 +15,8 @@ public class SceneLoader : MonoBehaviour
     }
     void LoadScene()
     {
-        Debug.Log("b4");
-        Debug.Log("Position:" + pos + "Rotation:" + rot);
         pos = player.transform.position;
         rot = player.transform.rotation;
-        Debug.Log("Position:" +pos+ "Rotation:"+ rot);
-        Debug.Log("Scene loading: " + scene);
         SceneManager.LoadScene(scene, LoadSceneMode.Single);
     }
 

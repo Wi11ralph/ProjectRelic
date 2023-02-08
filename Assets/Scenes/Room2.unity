@@ -581,11 +581,11 @@ MonoBehaviour:
   _movementSpeed: 2.8
   _jumpHeight: 1.8
   xClamp:
-    min: -100
-    max: 100
+    min: -10
+    max: 10
   zClamp:
-    min: -100
-    max: 100
+    min: -10
+    max: 10
   controller: {fileID: 1581737627}
   Camera: {fileID: 2106826421}
 --- !u!65 &1581737623

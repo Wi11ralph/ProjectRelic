@@ -7,7 +7,7 @@ public class TriggerArea : MonoBehaviour
     [SerializeField] private int id;
 
     private float time = 0.0f;
-    private float interpolationPeriod = 0.8f;
+    [SerializeField] private float timeToDrop = 0.8f;
     private bool collideWait = false;
     private void OnTriggerEnter(Collider other)
     {
@@ -21,7 +21,7 @@ public class TriggerArea : MonoBehaviour
     {
         if(collideWait) time += Time.deltaTime;
         else time = 0.0f;
-        if (time >= interpolationPeriod)
+        if (time >= timeToDrop)
         {
             GameEvents.current.DoorwayTriggerExit(id);
             time = 0.0f;

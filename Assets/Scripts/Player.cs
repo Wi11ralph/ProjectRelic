@@ -19,8 +19,7 @@ public class Player : MonoBehaviour
     [System.Serializable]
     public class Clamp
     {
-        public float min;
-        public float max;
+        public float min,max;
 
         public Clamp(float minn, float maxx)
         {
@@ -28,13 +27,30 @@ public class Player : MonoBehaviour
             max = maxx;
         }
     }
+    [SerializeField] private float _turnSpeed = 360;
+    [SerializeField] private float _gravity = -2;
+    [SerializeField] private float _movementSpeed = 2.8f;
+    [SerializeField] private float _jumpHeight = 1.8f;
+
+    [SerializeField] private Clamp xClamp = new(-10, 10);
+    [SerializeField] private Clamp zClamp = new(-10, 10);
+
+    [SerializeField] private CharacterController controller;
+    [SerializeField] GameObject Camera;
 
     [CustomEditor(typeof(Player))]
     [CanEditMultipleObjects]
     [HideInInspector]
     public class MyPlayerEditor : Editor
     {
-        private SerializedProperty turnSpeed, gravity, movementSpeed, jumpHeight, _xClamp, _zClamp, cnrtl, cam;
+        private SerializedProperty
+            turnSpeed,
+            gravity,
+            movementSpeed,
+            jumpHeight,
+            xClampMax, zClampMax,
+            xClampMin, zClampMin,
+            cnrtl, cam;
 
         private void OnEnable()
         {
@@ -43,8 +59,11 @@ public class Player : MonoBehaviour
             movementSpeed = serializedObject.FindProperty("_movementSpeed");
             jumpHeight = serializedObject.FindProperty("_jumpHeight");
 
-            _xClamp = serializedObject.FindProperty("xClamp");
-            _zClamp = serializedObject.FindProperty("zClamp");
+            xClampMax = serializedObject.FindProperty("xClamp.max");
+            zClampMax = serializedObject.FindProperty("zClamp.max");
+
+            xClampMin = serializedObject.FindProperty("xClamp.min");
+            zClampMin = serializedObject.FindProperty("zClamp.min");
 
             cnrtl = serializedObject.FindProperty("controller");
             cam = serializedObject.FindProperty("Camera");
@@ -52,6 +71,8 @@ public class Player : MonoBehaviour
         protected static bool showRef = false;
         protected static bool showClamp = true;
         protected static bool showMovement = true;
+
+        private Vector3 mini, maxi;
         public override void OnInspectorGUI()
         {
             serializedObject.Update();
@@ -59,7 +80,7 @@ public class Player : MonoBehaviour
             //Player p = (Player)target;
             //SerializedProperty ts = serializedObject.FindProperty("_turnSpeed");
             //EditorGUILayout.PropertyField(turnSpeed, new GUIContent("How fast boi SPIN"));
-            GUIStyle myFoldoutStyle = new GUIStyle(EditorStyles.foldout);
+            GUIStyle myFoldoutStyle = new(EditorStyles.foldout);
             myFoldoutStyle.fontStyle = FontStyle.Bold;
             myFoldoutStyle.fontSize = 14;
 
@@ -76,10 +97,19 @@ public class Player : MonoBehaviour
             showClamp = EditorGUILayout.Foldout(showClamp, "Camera Clamp", myFoldoutStyle); 
             if (showClamp)
             {
+                maxi = new(xClampMax.floatValue, 0f, zClampMax.floatValue);
+                mini = new(xClampMin.floatValue, 0f, zClampMin.floatValue);
+                
                 EditorGUI.indentLevel++;
-                EditorGUILayout.PropertyField(_xClamp);
-                EditorGUILayout.PropertyField(_zClamp);
+                maxi = EditorGUILayout.Vector3Field("Maximum", maxi);
+                mini = EditorGUILayout.Vector3Field("Minimum", mini);
                 EditorGUI.indentLevel--;
+
+                xClampMax.floatValue = maxi.x;
+                zClampMax.floatValue = maxi.z;
+
+                xClampMin.floatValue = mini.x;
+                zClampMin.floatValue = mini.z;
             }
             showRef = EditorGUILayout.Foldout(showRef, "Refrences", myFoldoutStyle); 
             if (showRef)
@@ -95,16 +125,6 @@ public class Player : MonoBehaviour
         }
     }
     
-    [SerializeField] private float _turnSpeed = 360;
-    [SerializeField] private float _gravity = -2;
-    [SerializeField] private float _movementSpeed = 2.8f;
-    [SerializeField] private float _jumpHeight = 1.8f;
-
-    [SerializeField] private Clamp xClamp = new(-10, 10);
-    [SerializeField] private Clamp zClamp = new(-10, 10);
-
-    [SerializeField] private CharacterController controller;
-    [SerializeField] GameObject Camera;
 
     private int dJump;
     private Vector3 newPos;
