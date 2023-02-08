@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     //[SerializeField] private Rigidbody _rb;
 
     public Text debug;
-    //float _slopeAngle;
+    float _slopeAngle;
 
     [System.Serializable]
     public class Clamp
@@ -35,8 +35,8 @@ public class Player : MonoBehaviour
     [SerializeField] private Clamp xClamp = new(-10, 10);
     [SerializeField] private Clamp zClamp = new(-10, 10);
 
-    [SerializeField] private CharacterController controller;
-    [SerializeField] GameObject Camera;
+    [SerializeField] private Rigidbody _rb;
+    [SerializeField] private GameObject Camera;
 
     [CustomEditor(typeof(Player))]
     [CanEditMultipleObjects]
@@ -50,7 +50,7 @@ public class Player : MonoBehaviour
             jumpHeight,
             xClampMax, zClampMax,
             xClampMin, zClampMin,
-            cnrtl, cam;
+            cnrtl, cam, rb;
 
         private void OnEnable()
         {
@@ -67,6 +67,7 @@ public class Player : MonoBehaviour
 
             cnrtl = serializedObject.FindProperty("controller");
             cam = serializedObject.FindProperty("Camera");
+            rb = serializedObject.FindProperty("_rb");
         }
         protected static bool showRef = false;
         protected static bool showClamp = true;
@@ -88,7 +89,7 @@ public class Player : MonoBehaviour
             if (showMovement)
             {
                 EditorGUI.indentLevel++;
-                EditorGUILayout.PropertyField(gravity);
+                //EditorGUILayout.PropertyField(gravity);
                 EditorGUILayout.PropertyField(jumpHeight);
                 EditorGUILayout.PropertyField(movementSpeed);
                 EditorGUILayout.PropertyField(turnSpeed);
@@ -115,6 +116,7 @@ public class Player : MonoBehaviour
             if (showRef)
             {
                 EditorGUI.indentLevel++;
+                EditorGUILayout.PropertyField(rb);
                 EditorGUILayout.PropertyField(cnrtl);
                 EditorGUILayout.PropertyField(cam);
                 EditorGUI.indentLevel--;
@@ -129,17 +131,20 @@ public class Player : MonoBehaviour
     private int dJump;
     private Vector3 newPos;
     private Vector3 _input;
-    private Vector3 moveDirection;
 
     private float speedMulti = 1f;
-    private float yVelocity;
-    private float gravityAcceleration;
-    private float jumpSpeed;
-    
+    //private float yVelocity;
+    //private float gravityAcceleration;
+    //private float jumpSpeed;
+    private float distToGround = 1f;
+    //float _slopeAngle;
+
     private bool isJumpPressed = false;
     private bool isSprintPressed = false;
     private bool waitForFalse = false;
+    private bool isGrounded = false;
     
+
     private void Start()
     {
         Initialize();
@@ -152,6 +157,7 @@ public class Player : MonoBehaviour
         GatherInput();
         Look();
         Move();
+        GroundCheck();
         Camera.transform.position = new Vector3(
             Mathf.Clamp(newPos.x + transform.position.x, xClamp.min, xClamp.max),
             newPos.y + transform.position.y,
@@ -159,11 +165,6 @@ public class Player : MonoBehaviour
         );
 
         //Debug.Log(_input);
-    }
-
-    private void FixedUpdate()
-    {
-        
     }
 
     private void GatherInput()
@@ -181,49 +182,63 @@ public class Player : MonoBehaviour
     private void Initialize()
     {
 
-        gravityAcceleration = _gravity * 0.02f * 0.02f;
-        jumpSpeed = Mathf.Sqrt(_jumpHeight * -2f * gravityAcceleration);
+        //gravityAcceleration = _gravity * 0.02f * 0.02f;
+        //jumpSpeed = Mathf.Sqrt(_jumpHeight * -2f * gravityAcceleration);
 
         if (SceneLoader.pos.y >= 0.5f) transform.position = SceneLoader.pos;
         transform.rotation = SceneLoader.rot;
 
         Physics.SyncTransforms();
     }
+    private void GroundCheck()
+    {
+
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, distToGround + 0.001f))
+        {
+            _slopeAngle = (Vector3.Angle(hit.normal, transform.forward) - 90);
+            //debug.text = "Grounded on " + hit.transform.name;
+            //debug.text += "\nSlope Angle: " + _slopeAngle.ToString("N0") + "°";
+            isGrounded = true;
+        }
+        else
+        {
+            //debug.text = "Not Grounded";
+            isGrounded = false;
+        }
+    }
     private void Move()
     {
         isJumpPressed = Input.GetButton("Jump");
         isSprintPressed =  Input.GetKey(KeyCode.LeftShift);
 
-        moveDirection = transform.forward * _input.normalized.magnitude * _movementSpeed * Time.deltaTime;
+        //moveDirection = transform.forward * _input.normalized.magnitude * _movementSpeed * Time.deltaTime;
 
         if (isSprintPressed && _input.normalized.magnitude != 0) {
             speedMulti = Mathf.Lerp(speedMulti, 2.7f, 0.005f);
-            moveDirection *= speedMulti;
             //Debug.Log(speedMulti);
         } else speedMulti = 1f;
 
-        Jump();
-        controller.Move(moveDirection);
+
+        //_rb.MovePosition(transform.position + transform.forward * _input.normalized.magnitude * speedMulti * _movementSpeed * Time.deltaTime);
+        _rb.velocity = transform.forward * _input.normalized.magnitude * speedMulti * _movementSpeed;
+        //_rb.velocity = new Vector3(0f,_rb.velocity.y,0f);
+        //Jump();
     }
+
     private void Jump()
     {
-        if (controller.isGrounded)
+        if (isGrounded)
         {
             dJump = 1;
-            yVelocity = 0f;
         }
         
         if (isJumpPressed && !waitForFalse && dJump <= 2)
         {
-            yVelocity = jumpSpeed;
-            waitForFalse = true;
+            _rb.velocity = new Vector3(0, _jumpHeight, 0);
             dJump++;
         }
         else if (!isJumpPressed) waitForFalse = false;
-
-        yVelocity += gravityAcceleration;
-
-        moveDirection.y = yVelocity;
     }
 }
 
