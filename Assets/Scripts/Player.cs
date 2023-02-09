@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Clamp zClamp = new(-10, 10);
 
     [SerializeField] private Rigidbody _rb;
-    [SerializeField] private GameObject Camera;
+    [SerializeField] GameObject Camera;
 
     [CustomEditor(typeof(Player))]
     [CanEditMultipleObjects]
@@ -65,7 +65,7 @@ public class Player : MonoBehaviour
             xClampMin = serializedObject.FindProperty("xClamp.min");
             zClampMin = serializedObject.FindProperty("zClamp.min");
 
-            cnrtl = serializedObject.FindProperty("controller");
+            //cnrtl = serializedObject.FindProperty("controller");
             cam = serializedObject.FindProperty("Camera");
             rb = serializedObject.FindProperty("_rb");
         }
@@ -117,7 +117,7 @@ public class Player : MonoBehaviour
             {
                 EditorGUI.indentLevel++;
                 EditorGUILayout.PropertyField(rb);
-                EditorGUILayout.PropertyField(cnrtl);
+                //EditorGUILayout.PropertyField(cnrtl);
                 EditorGUILayout.PropertyField(cam);
                 EditorGUI.indentLevel--;
             }
@@ -131,6 +131,7 @@ public class Player : MonoBehaviour
     private int dJump;
     private Vector3 newPos;
     private Vector3 _input;
+    private Vector3 moveVec;
 
     private float speedMulti = 1f;
     //private float yVelocity;
@@ -221,9 +222,11 @@ public class Player : MonoBehaviour
 
 
         //_rb.MovePosition(transform.position + transform.forward * _input.normalized.magnitude * speedMulti * _movementSpeed * Time.deltaTime);
-        _rb.velocity = transform.forward * _input.normalized.magnitude * speedMulti * _movementSpeed;
+        moveVec = transform.forward * _input.normalized.magnitude * speedMulti * _movementSpeed;
+        _rb.velocity = new(moveVec.x,_rb.velocity.y,moveVec.z);
+        _rb.angularVelocity = new(0f, 0f, 0f);
         //_rb.velocity = new Vector3(0f,_rb.velocity.y,0f);
-        //Jump();
+        Jump();
     }
 
     private void Jump()
@@ -232,11 +235,11 @@ public class Player : MonoBehaviour
         {
             dJump = 1;
         }
-        
-        if (isJumpPressed && !waitForFalse && dJump <= 2)
+        if (isJumpPressed && !waitForFalse && dJump <= 1)
         {
-            _rb.velocity = new Vector3(0, _jumpHeight, 0);
+            _rb.velocity = new Vector3(_rb.velocity.x, _jumpHeight, _rb.velocity.z);
             dJump++;
+            waitForFalse = true;
         }
         else if (!isJumpPressed) waitForFalse = false;
     }
