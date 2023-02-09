@@ -40,7 +40,7 @@ public class DoorController : MonoBehaviour
             //EditorGUILayout.PropertyField(_id, new GUIContent("ID"));
             EditorGUILayout.BeginHorizontal();
                 GUILayout.Label("ID",iD);
-                EditorGUILayout.IntField(_id.intValue);
+                _id.intValue = EditorGUILayout.IntField(_id.intValue);
             EditorGUILayout.EndHorizontal();
 
             showPos = EditorGUILayout.Foldout(showPos, "Position", myFoldoutStyle);
