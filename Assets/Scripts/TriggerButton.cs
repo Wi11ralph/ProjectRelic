@@ -31,10 +31,11 @@ public class TriggerButton : MonoBehaviour
 
         if (triggerWait) time += Time.deltaTime;
         else time = 0.0f;
-        if (time >= timeToDrop)
+        if (time >= timeToDrop && triggerWait)
         {
             GameEvents.current.DoorwayTriggerExit(id);
             time = 0.0f;
+            triggerWait = false;
         }
     }
     private void Start()
