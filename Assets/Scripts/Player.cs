@@ -44,6 +44,7 @@ public class Player : MonoBehaviour
     private Vector3 newPos;
     private Vector3 _input;
     private Vector3 moveVec;
+    private Vector3 targetCamPos;
 
     private float speedMulti = 1f;
     //private float yVelocity;
@@ -71,12 +72,17 @@ public class Player : MonoBehaviour
         Look();
         Move();
         GroundCheck();
-        Camera.transform.position = new Vector3(
+        targetCamPos = new Vector3(
             Mathf.Clamp(newPos.x + transform.position.x, xClamp.min, xClamp.max),
             newPos.y + transform.position.y,
             Mathf.Clamp(newPos.z + transform.position.z, zClamp.min, zClamp.max)
         );
 
+        Camera.transform.position = new(
+            Mathf.Lerp(Camera.transform.position.x, targetCamPos.x, 0.005f),
+            Mathf.Lerp(Camera.transform.position.y, targetCamPos.y, 0.03f),
+            Mathf.Lerp(Camera.transform.position.z, targetCamPos.z, 0.005f)
+        );
         //Debug.Log(_input);
     }
 
