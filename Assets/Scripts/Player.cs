@@ -63,10 +63,11 @@ public class Player : MonoBehaviour
     {
         Initialize();
         newPos = Camera.transform.position;
-
+        
     }
     private void Update()
     {
+        Debug.Log(Camera.transform.position);
         //Debug.Log(newPos); (-4.17, 3.95, -4.15)
         GatherInput();
         Look();
@@ -106,6 +107,8 @@ public class Player : MonoBehaviour
 
         if (SceneLoader.pos.y >= 0.5f) transform.position = SceneLoader.pos;
         transform.rotation = SceneLoader.rot;
+        Camera.transform.position = SceneLoader.camPos;
+        targetCamPos = SceneLoader.camPos;
 
         Physics.SyncTransforms();
     }

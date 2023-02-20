@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18427426, g: 0.5832499, b: 0.7312815, a: 1}
+  m_IndirectSpecularColor: {r: 0.18428338, g: 0.58320636, b: 0.73126024, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -430,6 +430,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scene: RoomDebug
   player: {fileID: 1581737620}
+  cam: {fileID: 2106826421}
 --- !u!4 &1298509634
 Transform:
   m_ObjectHideFlags: 0
@@ -577,7 +578,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debug: {fileID: 0}
   _turnSpeed: 360
-  _gravity: -1.5
   _movementSpeed: 2
   _jumpHeight: 7
   xClamp:
