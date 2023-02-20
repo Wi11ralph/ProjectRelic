@@ -61,9 +61,8 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        Initialize();
         newPos = Camera.transform.position;
-        
+        Initialize();  
     }
     private void Update()
     {
@@ -107,9 +106,13 @@ public class Player : MonoBehaviour
 
         if (SceneLoader.pos.y >= 0.5f) transform.position = SceneLoader.pos;
         transform.rotation = SceneLoader.rot;
-        Camera.transform.position = SceneLoader.camPos;
-        targetCamPos = SceneLoader.camPos;
-
+        //Camera.transform.position = SceneLoader.camPos;
+        //targetCamPos = SceneLoader.camPos;
+        Camera.transform.position = new(
+            Mathf.Clamp(newPos.x + transform.position.x, xClamp.min, xClamp.max),
+            newPos.y + transform.position.y,
+            Mathf.Clamp(newPos.z + transform.position.z, zClamp.min, zClamp.max)
+        );
         Physics.SyncTransforms();
     }
     private void GroundCheck()
@@ -120,7 +123,7 @@ public class Player : MonoBehaviour
         {
             _slopeAngle = (Vector3.Angle(hit.normal, transform.forward) - 90);
             //debug.text = "Grounded on " + hit.transform.name;
-            //debug.text += "\nSlope Angle: " + _slopeAngle.ToString("N0") + "°";
+            //debug.text += "\nSlope Angle: " + _slopeAngle.ToString("N0") + "ï¿½";
             isGrounded = true;
         }
         else
