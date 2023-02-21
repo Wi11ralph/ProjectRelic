@@ -108,11 +108,7 @@ public class Player : MonoBehaviour
         transform.rotation = SceneLoader.rot;
         //Camera.transform.position = SceneLoader.camPos;
         //targetCamPos = SceneLoader.camPos;
-        Camera.transform.position = new(
-            Mathf.Clamp(newPos.x + transform.position.x, xClamp.min, xClamp.max),
-            newPos.y + transform.position.y,
-            Mathf.Clamp(newPos.z + transform.position.z, zClamp.min, zClamp.max)
-        );
+        Camera.transform.position = SceneLoader.camPos;
         Physics.SyncTransforms();
     }
     private void GroundCheck()

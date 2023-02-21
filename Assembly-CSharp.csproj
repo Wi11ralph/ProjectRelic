@@ -109,6 +109,7 @@
     <Compile Include="Assets\Thirdparty\LeanTween\Testing\TestingColorTweening.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Examples\Scripts\GeneralBasic.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Examples\Scripts\Following.cs" />
+    <Compile Include="Assets\Scripts\Pause.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Thirdparty\LeanTween\ReadMe.txt" />
