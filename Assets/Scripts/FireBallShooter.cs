@@ -32,10 +32,11 @@ public class FireBallShooter : MonoBehaviour
     }
     private void MyInput()
     {
+        if (Pause.active) return;
         if (allowHold) shooting = Input.GetKey(KeyCode.Mouse0);
         else shooting = Input.GetKeyDown(KeyCode.Mouse0);
 
-        if(readyToShoot && shooting && ballsLeft > 0)
+        if(readyToShoot && shooting && ballsLeft > 0 )
         {
             ballsShot = 0;
 

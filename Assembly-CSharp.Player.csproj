@@ -75,6 +75,7 @@
     <Compile Include="Assets\Thirdparty\LeanTween\Testing\Testing243.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Examples\Scripts\PathSplines.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Examples\Scripts\GeneralEventsListeners.cs" />
+    <Compile Include="Assets\Scripts\Pause.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Testing\TestingIssue2.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Testing\Testing240.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Examples\Scripts\TestingZLegacy.cs" />

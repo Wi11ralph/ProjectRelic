@@ -66,7 +66,6 @@ public class Player : MonoBehaviour
     }
     private void Update()
     {
-        Debug.Log(Camera.transform.position);
         //Debug.Log(newPos); (-4.17, 3.95, -4.15)
         GatherInput();
         Look();
@@ -88,6 +87,7 @@ public class Player : MonoBehaviour
 
     private void GatherInput()
     {
+        if (Pause.active) return;
         _input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
     }
 
@@ -130,6 +130,7 @@ public class Player : MonoBehaviour
     }
     private void Move()
     {
+        if (Pause.active) return;
         isJumpPressed = Input.GetButton("Jump");
         isSprintPressed =  Input.GetKey(KeyCode.LeftShift);
 
