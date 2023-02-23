@@ -64,11 +64,15 @@ public class Player : MonoBehaviour
         newPos = Camera.transform.position;
         Initialize();  
     }
+    private void FixedUpdate()
+    {
+        Look();
+    }
     private void Update()
     {
         //Debug.Log(newPos); (-4.17, 3.95, -4.15)
         GatherInput();
-        Look();
+        
         Move();
         GroundCheck();
         targetCamPos = new Vector3(
