@@ -82,9 +82,9 @@ public class Player : MonoBehaviour
         );
 
         Camera.transform.position = new(
-            Mathf.Lerp(Camera.transform.position.x, targetCamPos.x, 0.005f),
-            Mathf.Lerp(Camera.transform.position.y, targetCamPos.y, 0.03f),
-            Mathf.Lerp(Camera.transform.position.z, targetCamPos.z, 0.005f)
+            Mathf.Lerp(Camera.transform.position.x, targetCamPos.x, 1.2f * Time.deltaTime),
+            Mathf.Lerp(Camera.transform.position.y, targetCamPos.y, 2.5f * Time.deltaTime),
+            Mathf.Lerp(Camera.transform.position.z, targetCamPos.z, 1.2f * Time.deltaTime)
         );
         //Debug.Log(_input);
     }
@@ -100,7 +100,7 @@ public class Player : MonoBehaviour
         if (_input == Vector3.zero) return;
 
         var rot = Quaternion.LookRotation(_input.ToIso(), Vector3.up);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, _turnSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, _turnSpeed * Time.fixedDeltaTime);
     }
     private void Initialize()
     {
