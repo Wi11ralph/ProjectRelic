@@ -9,6 +9,7 @@ public class Pause : MonoBehaviour
     private bool input;
     public static bool active;
     private bool wait;
+    private float scaleTime = 1f;
 
     [SerializeField] private CanvasGroup tint;
 
@@ -21,11 +22,14 @@ public class Pause : MonoBehaviour
 
         if (active)
         {
-            
+            scaleTime = Mathf.Lerp(scaleTime, 0f, 3f * Time.unscaledDeltaTime);
         } else
         {
-
+            scaleTime = Mathf.Lerp(scaleTime, 1f, 15f * Time.unscaledDeltaTime);
         }
+        Debug.Log(scaleTime);
+        Debug.Log(Time.timeScale);
+        Time.timeScale = scaleTime;
     }
     private void Pauser()
     {
@@ -36,12 +40,12 @@ public class Pause : MonoBehaviour
             if (!active)
             {
                 StartCoroutine(FadeCanvasGroup(tint, tint.alpha, 0, .5f));
-                Time.timeScale = 1;
+                //Time.timeScale = 1;
             }
             else
             {
                 StartCoroutine(FadeCanvasGroup(tint, tint.alpha, 1, .5f));
-                Time.timeScale = 0;
+                //Time.timeScale = 0;
             }
         }
         wait = true;
