@@ -23,9 +23,11 @@ public class Pause : MonoBehaviour
         if (active)
         {
             scaleTime = Mathf.Lerp(scaleTime, 0f, 3f * Time.unscaledDeltaTime);
+            if (scaleTime <= 0.009) scaleTime = 0;
         } else
         {
-            scaleTime = Mathf.Lerp(scaleTime, 1f, 15f * Time.unscaledDeltaTime);
+            scaleTime = Mathf.Lerp(scaleTime, 1f, 12f * Time.unscaledDeltaTime);
+            if (scaleTime >= 0.99999) scaleTime = 1;
         }
         Debug.Log(scaleTime);
         Debug.Log(Time.timeScale);

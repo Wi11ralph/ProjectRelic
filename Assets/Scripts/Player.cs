@@ -83,7 +83,7 @@ public class Player : MonoBehaviour
 
         Camera.transform.position = new(
             Mathf.Lerp(Camera.transform.position.x, targetCamPos.x, 1.2f * Time.unscaledDeltaTime),
-            Mathf.Lerp(Camera.transform.position.y, targetCamPos.y, 2.5f * Time.unscaledDeltaTime),
+            Mathf.Lerp(Camera.transform.position.y, targetCamPos.y, 4.5f * Time.unscaledDeltaTime),
             Mathf.Lerp(Camera.transform.position.z, targetCamPos.z, 1.2f * Time.unscaledDeltaTime)
         );
         //Debug.Log(_input);
