@@ -61,6 +61,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        Cursor.visible = false;
         newPos = Camera.transform.position;
         Initialize();  
     }
