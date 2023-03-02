@@ -22,10 +22,14 @@ public class Pause : MonoBehaviour
     }
     public class Bttn
     {
+        private GameObject txt;
         private GameObject L1;
         private GameObject L2;
+
+        private Vector3 txtStartSize;
         private Vector3 L1StartPos;
         private Vector3 L2StartPos;
+        
         private float top;
         private float bottom;
 
@@ -47,15 +51,22 @@ public class Pause : MonoBehaviour
                     L2 = buton.transform.GetChild(i).gameObject;
                     L2StartPos = L2.transform.localPosition;
                 }
+                if (buton.transform.GetChild(i).name == "txt")
+                {
+                    txt = buton.transform.GetChild(i).gameObject;
+                    txtStartSize = buton.transform.GetChild(i).localScale;
+                }
             }
         }
         private void Offset(float amount)
         {
+            txt.transform.localScale = Vector3.Lerp(txt.transform.localScale, new Vector3(1.3f, 0.95f, 1f), 5f * Time.unscaledDeltaTime);
             L1.transform.localPosition = Vector3.Lerp(L1.transform.localPosition, L1StartPos - new Vector3(-amount, 0f, 0f), 5f * Time.unscaledDeltaTime);
             L2.transform.localPosition = Vector3.Lerp(L2.transform.localPosition, L2StartPos - new Vector3( amount, 0f, 0f), 5f * Time.unscaledDeltaTime);
         }
         private void Reset()
         {
+            txt.transform.localScale = Vector3.Lerp(txt.transform.localScale, txtStartSize, 5f * Time.unscaledDeltaTime);
             L1.transform.localPosition = Vector3.Lerp(L1.transform.localPosition, L1StartPos, 8f * Time.unscaledDeltaTime);
             L2.transform.localPosition = Vector3.Lerp(L2.transform.localPosition, L2StartPos, 8f * Time.unscaledDeltaTime);
         }
