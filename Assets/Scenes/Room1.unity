@@ -2061,7 +2061,7 @@ MonoBehaviour:
   timeBetweenShooting: 0.74
   timeBetweenShots: 1.04
   maxBalls: 500
-  allowHold: 1
+  allowHold: 0
   player: {fileID: 1581737620}
   attackPoint: {fileID: 592727668}
   allowInvoke: 1
@@ -5730,6 +5730,10 @@ PrefabInstance:
     - target: {fileID: 44054109024347957, guid: 8b9031dfb5468ba4d92c9d8f0d0d83ce, type: 3}
       propertyPath: m_Name
       value: L1
+      objectReference: {fileID: 0}
+    - target: {fileID: 44054109240683422, guid: 8b9031dfb5468ba4d92c9d8f0d0d83ce, type: 3}
+      propertyPath: m_Alpha
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 44054109362938327, guid: 8b9031dfb5468ba4d92c9d8f0d0d83ce, type: 3}
       propertyPath: m_Name
