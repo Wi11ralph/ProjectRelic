@@ -1,14 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 
 public class Pause : MonoBehaviour
 {
     private bool input;
+    private bool mouse;
     public static bool active;
-    private bool wait;
+    public static bool wait;
+    public static float currentValue;
     private float scaleTime = 1f;
 
     [SerializeField] private CanvasGroup tint;
@@ -92,6 +94,7 @@ public class Pause : MonoBehaviour
     [SerializeField] private GameObject bt1;
     [SerializeField] private GameObject bt2;
     [SerializeField] private GameObject bt3;
+    [SerializeField] private SceneLoader sc;
 
     private Bttn button1;
     private Bttn button2;
@@ -103,6 +106,8 @@ public class Pause : MonoBehaviour
     }
     private void Start()
     {
+        tint.alpha = currentValue;
+        
         button1 = new Bttn(bt1,660,560);
         button2 = new Bttn(bt2,485,385);
         button3 = new Bttn(bt3,310,210);
@@ -111,6 +116,7 @@ public class Pause : MonoBehaviour
     {
         
         IfHover();
+        if (mouse) Click();
         GatherInput();
 
         if (input) Pauser();
@@ -139,6 +145,26 @@ public class Pause : MonoBehaviour
         if(button3.Hover(xLined())) bttn = Button.Menu;
 
     }
+    private void Click()
+    {
+        switch (bttn)
+        {
+            case Button.Continue:
+                Pauser();
+                break;
+            case Button.Restart:
+                Scene sm = SceneManager.GetActiveScene();
+                sc.LoadScene(sm.name,true);
+                //SceneManager.LoadScene(sm.name);
+                break;
+            case Button.Menu:
+                //button 1
+                break;
+            case Button.None:
+                //do nothing
+                break;
+        }
+    }
     private void Pauser()
     {
         
@@ -148,13 +174,13 @@ public class Pause : MonoBehaviour
             if (!active)
             {
                 StartCoroutine(FadeCanvasGroup(tint, tint.alpha, 0, .5f));
-                Cursor.visible = false;
+                //Cursor.visible = false;
                 //Time.timeScale = 1;
             }
             else
             {
                 StartCoroutine(FadeCanvasGroup(tint, tint.alpha, 1, .5f));
-                Cursor.visible = true;
+                //Cursor.visible = true;
                 //Time.timeScale = 0;
             }
         }
@@ -164,6 +190,7 @@ public class Pause : MonoBehaviour
     private void GatherInput()
     {
         input = Input.GetKeyDown(KeyCode.Escape);
+        mouse = Input.GetButtonDown("Fire1");
     }
     public IEnumerator FadeCanvasGroup(CanvasGroup cg, float start, float end, float lerpTime = 1)
     {
@@ -175,7 +202,7 @@ public class Pause : MonoBehaviour
             timeSinceStarted = Time.unscaledTime - _timeStartedLerping;
             percentageComplete = timeSinceStarted / lerpTime;
 
-            float currentValue = Mathf.Lerp(start, end, percentageComplete);
+            currentValue = Mathf.Lerp(start, end, percentageComplete);
 
             cg.alpha = currentValue;
 

@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
     
 
     private int dJump;
-    private Vector3 newPos;
+    private Vector3 newPos = new (4.17f, 3.95f, -4.15f);
     private Vector3 _input;
     private Vector3 moveVec;
     private Vector3 targetCamPos;
@@ -61,8 +61,10 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        Cursor.visible = false;
+        //Cursor.visible = false;
         newPos = Camera.transform.position;
+
+        Debug.Log(Camera.transform.position);
         Initialize();  
     }
     private void FixedUpdate()
@@ -71,6 +73,8 @@ public class Player : MonoBehaviour
     }
     private void Update()
     {
+        //Debug.Log(Camera.transform.position);
+        Debug.Log(newPos);
         //Debug.Log(newPos); (-4.17, 3.95, -4.15)
         GatherInput();
         
