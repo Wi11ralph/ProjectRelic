@@ -42,9 +42,9 @@ public class Player : MonoBehaviour
 
     [SerializeField] private Rigidbody _rb;
     [SerializeField] GameObject Camera;
+    [SerializeField] private GameObject groundCheck;
 
-    
-    
+
 
     private int dJump;
     private Vector3 newPos = new (4.17f, 3.95f, -4.15f);
@@ -127,13 +127,17 @@ public class Player : MonoBehaviour
     }
     private void GroundCheck()
     {
-
+        //if (groundCheck.Collider other)
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, distToGround + 0.00001f))
+        if (
+            Physics.Raycast(transform.position, Vector3.down, out hit, distToGround + 0.00001f)                                                               ||
+            Physics.Raycast(new(transform.position.x - 0.5f, transform.position.y, transform.position.z - 0.5f), Vector3.down, out hit, distToGround + 0.05f) ||
+            Physics.Raycast(new(transform.position.x + 0.5f, transform.position.y, transform.position.z + 0.5f), Vector3.down, out hit, distToGround + 0.05f) ||
+            Physics.Raycast(new(transform.position.x - 0.5f, transform.position.y, transform.position.z + 0.5f), Vector3.down, out hit, distToGround + 0.05f) ||
+            Physics.Raycast(new(transform.position.x + 0.5f, transform.position.y, transform.position.z - 0.5f), Vector3.down, out hit, distToGround + 0.05f)
+           )
         {
             _slopeAngle = (Vector3.Angle(hit.normal, transform.forward) - 90);
-            //debug.text = "Grounded on " + hit.transform.name;
-            //debug.text += "\nSlope Angle: " + _slopeAngle.ToString("N0") + "�";
             isGrounded = true;
         }
         else
