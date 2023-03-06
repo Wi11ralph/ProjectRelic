@@ -1104,7 +1104,7 @@ RectTransform:
   m_Children:
   - {fileID: 44054109240683421}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1187,6 +1187,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tint: {fileID: 44054109240683422}
   t: {fileID: 44054109620359756}
+  bt1: {fileID: 44054109036001048}
+  bt2: {fileID: 44054109368515684}
+  bt3: {fileID: 44054110698456748}
+  sc: {fileID: 0}
 --- !u!1 &44054110472219678
 GameObject:
   m_ObjectHideFlags: 0

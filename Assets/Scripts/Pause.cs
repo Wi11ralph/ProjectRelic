@@ -8,6 +8,7 @@ public class Pause : MonoBehaviour
 {
     private bool input;
     private bool mouse;
+
     public static bool active;
     public static bool wait;
     public static float currentValue;

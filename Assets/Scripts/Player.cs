@@ -27,6 +27,12 @@ public class Player : MonoBehaviour
             max = maxx;
         }
     }
+
+    public static bool fireRelic = false;
+    public static bool airRelic = false;
+
+    private int jumpWaiter = 0;
+
     [SerializeField] private float _turnSpeed = 360;
     [SerializeField] private float _movementSpeed = 2.8f;
     [SerializeField] private float _jumpHeight = 1.8f;
@@ -50,7 +56,7 @@ public class Player : MonoBehaviour
     //private float yVelocity;
     //private float gravityAcceleration;
     //private float jumpSpeed;
-    private float distToGround = 1f;
+    private float distToGround = 0.5f;
     //float _slopeAngle;
 
     private bool isJumpPressed = false;
@@ -63,8 +69,7 @@ public class Player : MonoBehaviour
     {
         //Cursor.visible = false;
         newPos = Camera.transform.position;
-
-        Debug.Log(Camera.transform.position);
+         
         Initialize();  
     }
     private void FixedUpdate()
@@ -124,7 +129,7 @@ public class Player : MonoBehaviour
     {
 
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, distToGround + 0.001f))
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, distToGround + 0.00001f))
         {
             _slopeAngle = (Vector3.Angle(hit.normal, transform.forward) - 90);
             //debug.text = "Grounded on " + hit.transform.name;
@@ -163,10 +168,12 @@ public class Player : MonoBehaviour
     {
         if (isGrounded)
         {
-            dJump = 1;
+            jumpWaiter--;
+            if(jumpWaiter < 1) dJump = 1;
         }
         if (isJumpPressed && !waitForFalse && dJump <= 1)
         {
+            jumpWaiter = 10;
             _rb.velocity = new Vector3(_rb.velocity.x, _jumpHeight, _rb.velocity.z);
             dJump++;
             waitForFalse = true;
