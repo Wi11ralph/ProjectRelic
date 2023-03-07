@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
     public static bool fireRelic = false;
     public static bool airRelic = false;
 
-    private int jumpWaiter = 0;
+    private float jumpWaiter = 0;
 
     [SerializeField] private float _turnSpeed = 360;
     [SerializeField] private float _movementSpeed = 2.8f;
@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject groundCheck;
 
 
-
+    private Player cb;
     private int dJump;
     private Vector3 newPos = new (4.17f, 3.95f, -4.15f);
     private Vector3 _input;
@@ -56,7 +56,7 @@ public class Player : MonoBehaviour
     //private float yVelocity;
     //private float gravityAcceleration;
     //private float jumpSpeed;
-    private float distToGround = 0.5f;
+    //private float distToGround = 0.5f;
     //float _slopeAngle;
 
     private bool isJumpPressed = false;
@@ -67,24 +67,32 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+
         //Cursor.visible = false;
+        
+        if (this.tag != "Player") return;
         newPos = Camera.transform.position;
-         
+        Collider collider = groundCheck.GetComponent<Collider>();
+        cb = collider.gameObject.AddComponent<Player>();
+        //cb.Initialize();
+
         Initialize();  
     }
     private void FixedUpdate()
     {
+        if (this.tag != "Player") return;
         Look();
     }
     private void Update()
     {
         //Debug.Log(Camera.transform.position);
-        Debug.Log(newPos);
+        if (this.tag != "Player") return;
+        
         //Debug.Log(newPos); (-4.17, 3.95, -4.15)
         GatherInput();
         
         Move();
-        GroundCheck();
+        //GroundCheck();
         targetCamPos = new Vector3(
             Mathf.Clamp(newPos.x + transform.position.x, xClamp.min, xClamp.max),
             newPos.y + transform.position.y,
@@ -114,7 +122,7 @@ public class Player : MonoBehaviour
     }
     private void Initialize()
     {
-
+        if (this.tag != "Player") return;
         //gravityAcceleration = _gravity * 0.02f * 0.02f;
         //jumpSpeed = Mathf.Sqrt(_jumpHeight * -2f * gravityAcceleration);
 
@@ -125,26 +133,15 @@ public class Player : MonoBehaviour
         Camera.transform.position = SceneLoader.camPos;
         Physics.SyncTransforms();
     }
-    private void GroundCheck()
+    private void OnTriggerStay(Collider other)
     {
-        //if (groundCheck.Collider other)
-        RaycastHit hit;
-        if (
-            Physics.Raycast(transform.position, Vector3.down, out hit, distToGround + 0.00001f)                                                               ||
-            Physics.Raycast(new(transform.position.x - 0.5f, transform.position.y, transform.position.z - 0.5f), Vector3.down, out hit, distToGround + 0.05f) ||
-            Physics.Raycast(new(transform.position.x + 0.5f, transform.position.y, transform.position.z + 0.5f), Vector3.down, out hit, distToGround + 0.05f) ||
-            Physics.Raycast(new(transform.position.x - 0.5f, transform.position.y, transform.position.z + 0.5f), Vector3.down, out hit, distToGround + 0.05f) ||
-            Physics.Raycast(new(transform.position.x + 0.5f, transform.position.y, transform.position.z - 0.5f), Vector3.down, out hit, distToGround + 0.05f)
-           )
-        {
-            _slopeAngle = (Vector3.Angle(hit.normal, transform.forward) - 90);
-            isGrounded = true;
-        }
-        else
-        {
-            //debug.text = "Not Grounded";
-            isGrounded = false;
-        }
+        if (this.tag == "Player" || other.tag == "Player") return;
+        isGrounded = true; 
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (this.tag == "Player" || other.tag == "Player") return;
+        isGrounded = false;  
     }
     private void Move()
     {
@@ -169,15 +166,12 @@ public class Player : MonoBehaviour
     }
 
     private void Jump()
-    {
-        if (isGrounded)
+    { 
+        jumpWaiter -= 1 * Time.unscaledDeltaTime;
+        if (cb.isGrounded) if(jumpWaiter < 0) dJump = 1; 
+        if (isJumpPressed && !waitForFalse && dJump <= 1 + System.Convert.ToInt32(airRelic))
         {
-            jumpWaiter--;
-            if(jumpWaiter < 1) dJump = 1;
-        }
-        if (isJumpPressed && !waitForFalse && dJump <= 1)
-        {
-            jumpWaiter = 10;
+            jumpWaiter = 0.2f;
             _rb.velocity = new Vector3(_rb.velocity.x, _jumpHeight, _rb.velocity.z);
             dJump++;
             waitForFalse = true;
