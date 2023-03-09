@@ -36,7 +36,7 @@ public class FireBallShooter : MonoBehaviour
         if (allowHold) shooting = Input.GetKey(KeyCode.Mouse0);
         else shooting = Input.GetKeyDown(KeyCode.Mouse0);
 
-        if(readyToShoot && shooting && ballsLeft > 0 )
+        if(readyToShoot && shooting && ballsLeft > 0 && Player.fireRelic)
         {
             ballsShot = 0;
 

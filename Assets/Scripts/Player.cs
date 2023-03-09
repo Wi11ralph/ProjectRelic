@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     //[SerializeField] private Rigidbody _rb;
 
     public Text debug;
-    float _slopeAngle;
+    //float _slopeAngle;
 
     [System.Serializable]
     public class Clamp
