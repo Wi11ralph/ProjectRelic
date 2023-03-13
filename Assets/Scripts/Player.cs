@@ -34,6 +34,9 @@ public class Player : MonoBehaviour
     private float jumpWaiter = 0;
     private RaycastHit hit;
     private Vector3 transformPoint;
+    private LayerMask ignore;
+
+
     [SerializeField] private float height;
     [SerializeField] private float _turnSpeed = 360;
     [SerializeField] private float _movementSpeed = 2.8f;
@@ -45,7 +48,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Rigidbody _rb;
     [SerializeField] GameObject Camera;
     [SerializeField] private GameObject groundCheck;
-
+    [SerializeField] private GameObject shadowPoint;
 
     private Player cb;
     private int dJump;
@@ -168,13 +171,26 @@ public class Player : MonoBehaviour
         //shadow logic
         Ray ray = new Ray(transform.position, -Vector3.up); 
         Debug.DrawRay(transform.position, Vector3.down * 20f, Color.red);
-        if (Physics.Raycast(ray, out hit) && hit.collider.tag == "mapElements") Debug.Log(hit.distance);
+        if (Physics.Raycast(ray, out hit) && hit.collider.tag == "mapElements")
+        {
+            Debug.Log(hit.point);
+            transformPoint = new(
+                transform.position.x,
+                transform.position.y - hit.distance,
+                transform.position.z
+            );
+            shadowPoint.transform.position = hit.point;
+        }
+
 
         transformPoint = new(
             transform.position.x,
-            transform.position.y,
+            transformPoint.y,
             transform.position.z
         );
+
+        //shadowPoint.transform.position = transformPoint;
+        
 
         //shadow logic
 
