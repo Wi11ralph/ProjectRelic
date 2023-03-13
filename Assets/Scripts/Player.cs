@@ -32,7 +32,9 @@ public class Player : MonoBehaviour
     public static bool airRelic = false;
 
     private float jumpWaiter = 0;
-
+    private RaycastHit hit;
+    private Vector3 transformPoint;
+    [SerializeField] private float height;
     [SerializeField] private float _turnSpeed = 360;
     [SerializeField] private float _movementSpeed = 2.8f;
     [SerializeField] private float _jumpHeight = 1.8f;
@@ -162,6 +164,20 @@ public class Player : MonoBehaviour
         _rb.velocity = new(moveVec.x,_rb.velocity.y,moveVec.z);
         _rb.angularVelocity = new(0f, 0f, 0f);
         //_rb.velocity = new Vector3(0f,_rb.velocity.y,0f);
+
+        //shadow logic
+        Ray ray = new Ray(transform.position, -Vector3.up); 
+        Debug.DrawRay(transform.position, Vector3.down * 20f, Color.red);
+        if (Physics.Raycast(ray, out hit) && hit.collider.tag == "mapElements") Debug.Log(hit.distance);
+
+        transformPoint = new(
+            transform.position.x,
+            transform.position.y,
+            transform.position.z
+        );
+
+        //shadow logic
+
         Jump();
     }
 

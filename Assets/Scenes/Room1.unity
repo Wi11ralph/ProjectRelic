@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.17803791, g: 0.5823727, b: 0.73252064, a: 1}
+  m_IndirectSpecularColor: {r: 0.17799118, g: 0.5824124, b: 0.73250407, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 22703966}
   m_Layer: 0
   m_Name: Wall (1)
-  m_TagString: Untagged
+  m_TagString: mapElements
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -574,7 +574,7 @@ GameObject:
   - component: {fileID: 46992790}
   m_Layer: 0
   m_Name: Door
-  m_TagString: Untagged
+  m_TagString: mapElements
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1026,7 +1026,7 @@ GameObject:
   - component: {fileID: 48843264}
   m_Layer: 0
   m_Name: Wall
-  m_TagString: Untagged
+  m_TagString: mapElements
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1446,6 +1446,103 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 48843262}
   m_Mesh: {fileID: 1924668662}
+--- !u!1 &203302636
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 203302640}
+  - component: {fileID: 203302639}
+  - component: {fileID: 203302638}
+  - component: {fileID: 203302637}
+  m_Layer: 0
+  m_Name: Sphere
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!135 &203302637
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203302636}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &203302638
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203302636}
+  m_Enabled: 1
+  m_CastShadows: 3
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &203302639
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203302636}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &203302640
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203302636}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.781, y: 0, z: 0}
+  m_LocalScale: {x: 0.8, y: 0.5, z: 0.8}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &314753021
 GameObject:
   m_ObjectHideFlags: 0
@@ -1460,7 +1557,7 @@ GameObject:
   - component: {fileID: 314753022}
   m_Layer: 0
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: mapElements
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2343,7 +2440,7 @@ GameObject:
   - component: {fileID: 773567733}
   m_Layer: 0
   m_Name: TopStep (1)
-  m_TagString: Untagged
+  m_TagString: mapElements
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2441,7 +2538,7 @@ GameObject:
   - component: {fileID: 789829592}
   m_Layer: 0
   m_Name: Wall (2)
-  m_TagString: Untagged
+  m_TagString: mapElements
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2867,7 +2964,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh23650
+  m_Name: pb_Mesh39538
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -3469,7 +3566,7 @@ GameObject:
   - component: {fileID: 1039557465}
   m_Layer: 0
   m_Name: Ramp (1)
-  m_TagString: Untagged
+  m_TagString: mapElements
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3759,7 +3856,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh23662
+  m_Name: pb_Mesh39550
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -4379,7 +4476,7 @@ GameObject:
   - component: {fileID: 1405403791}
   m_Layer: 0
   m_Name: Ramp
-  m_TagString: Untagged
+  m_TagString: mapElements
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4515,7 +4612,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh23810
+  m_Name: pb_Mesh39710
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -4680,7 +4777,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh23772
+  m_Name: pb_Mesh39660
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -4850,7 +4947,7 @@ GameObject:
   - component: {fileID: 1574117843}
   m_Layer: 0
   m_Name: Button
-  m_TagString: Untagged
+  m_TagString: mapElements
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4907,6 +5004,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: {fileID: 0}
+  height: 0
   _turnSpeed: 360
   _movementSpeed: 2
   _jumpHeight: 7
@@ -5308,7 +5406,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh23676
+  m_Name: pb_Mesh39564
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -5481,7 +5579,7 @@ GameObject:
   - component: {fileID: 1976850524}
   m_Layer: 0
   m_Name: BottomStep
-  m_TagString: Untagged
+  m_TagString: mapElements
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5570,7 +5668,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh23752
+  m_Name: pb_Mesh39640
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -5742,7 +5840,7 @@ GameObject:
   - component: {fileID: 2088648571}
   m_Layer: 0
   m_Name: DoorTrigger
-  m_TagString: Untagged
+  m_TagString: mapElements
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5835,7 +5933,7 @@ GameObject:
   - component: {fileID: 2108787770}
   m_Layer: 0
   m_Name: TopStep
-  m_TagString: Untagged
+  m_TagString: mapElements
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5990,6 +6088,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 16c4a5fd6c8c39a4582a7252d1b6b0b4, type: 3}
       propertyPath: m_Name
       value: Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 16c4a5fd6c8c39a4582a7252d1b6b0b4, type: 3}
+      propertyPath: m_TagString
+      value: mapElements
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []

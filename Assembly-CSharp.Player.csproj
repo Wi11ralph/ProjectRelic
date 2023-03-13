@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{DFE47794-B77E-B123-E483-AD8471EECBAD}</ProjectGuid>
+    <ProjectGuid>{1E2E1B1C-20A3-5E44-0C1A-F00E8445346A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -80,6 +80,7 @@
     <Compile Include="Assets\Thirdparty\LeanTween\Testing\Testing240.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Examples\Scripts\TestingZLegacy.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Testing\TestingDescr.cs" />
+    <Compile Include="Assets\Scripts\Relic.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Testing\PerformanceTests.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Examples\Scripts\TestingZLegacyExt.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Testing\Testing246.cs" />
