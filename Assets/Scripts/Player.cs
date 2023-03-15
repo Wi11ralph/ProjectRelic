@@ -33,9 +33,7 @@ public class Player : MonoBehaviour
 
     private float jumpWaiter = 0;
     private RaycastHit hit;
-    private Vector3 transformPoint;
-    private LayerMask ignore;
-
+    private float transformPoint;
 
     [SerializeField] private float height;
     [SerializeField] private float _turnSpeed = 360;
@@ -68,7 +66,6 @@ public class Player : MonoBehaviour
     private bool isSprintPressed = false;
     private bool waitForFalse = false;
     private bool isGrounded = false;
-    
 
     private void Start()
     {
@@ -171,27 +168,9 @@ public class Player : MonoBehaviour
         //shadow logic
         Ray ray = new Ray(transform.position, -Vector3.up); 
         Debug.DrawRay(transform.position, Vector3.down * 20f, Color.red);
-        if (Physics.Raycast(ray, out hit) && hit.collider.tag == "mapElements")
-        {
-            Debug.Log(hit.point);
-            transformPoint = new(
-                transform.position.x,
-                transform.position.y - hit.distance,
-                transform.position.z
-            );
-            shadowPoint.transform.position = hit.point;
-        }
-
-
-        transformPoint = new(
-            transform.position.x,
-            transformPoint.y,
-            transform.position.z
-        );
-
-        //shadowPoint.transform.position = transformPoint;
-        
-
+        if (Physics.Raycast(ray, out hit) && hit.collider.tag == "mapElements") 
+            transformPoint = Mathf.Lerp(shadowPoint.transform.position.y, hit.point.y, 9f * Time.unscaledDeltaTime); 
+        shadowPoint.transform.position = new (transform.position.x, transformPoint, transform.position.z);
         //shadow logic
 
         Jump();
