@@ -170,7 +170,7 @@ public class Player : MonoBehaviour
 
         //shadow logic
         Ray ray = new Ray(transform.position, -Vector3.up); 
-        Debug.DrawRay(transform.position, Vector3.down * 20f, Color.red);
+        Debug.DrawRay(transform.position, Vector3.down * 20f, Color.blue);
         if (Physics.Raycast(ray, out hit) && hit.collider.tag == "mapElements") 
             transformPoint = Mathf.Lerp(shadowPoint.transform.position.y, hit.point.y, 9f * Time.unscaledDeltaTime); 
         shadowPoint.transform.position = new (transform.position.x, transformPoint, transform.position.z);
