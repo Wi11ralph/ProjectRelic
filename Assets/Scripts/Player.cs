@@ -137,12 +137,15 @@ public class Player : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if (this.tag == "Player" || other.tag == "Player") return;
+        if (this.tag == "Player" || other.tag != "mapElements") return;
+        Debug.Log("Ground");
+        Debug.Log(other.tag);
         isGrounded = true; 
     }
     private void OnTriggerExit(Collider other)
     {
         if (this.tag == "Player" || other.tag == "Player") return;
+        Debug.Log("No Ground");
         isGrounded = false;  
     }
     private void Move()
