@@ -15,6 +15,56 @@ public class GrapplePoint : MonoBehaviour
     private RaycastHit hits;
     private Color col;
     private Vector3[] rayy;
+
+    private float maxDistance = 100f;
+    private SpringJoint joint;
+    private LineRenderer lr;
+
+    private bool IsGrappleable()
+    {
+        Vector3 pos = player.transform.position;
+        Vector3 dir = (grapplePoint.position - player.transform.position).normalized;
+        Ray ray = new Ray(pos, dir);
+        Physics.Raycast(ray, out hit);
+        rayy = RayOffsets(pos);
+        bool grappleable = true;
+        for (int i = 0; i < rayy.Length; i++)
+        {
+            
+            Vector3 dirs = (grapplePoint.position - rayy[i]).normalized;
+            Ray rayz = new Ray(rayy[i], dirs);
+            Physics.Raycast(rayz, out hits);
+            if (Vector3.Distance(grapplePoint.position, hits.point) < 0.3f) col = Color.green;
+            else
+            {
+                col = Color.yellow;
+                grappleable = false;
+            }
+            if (Vector3.Distance(grapplePoint.position, rayy[i]) > 6.5f)
+            {
+                col = Color.red;
+                grappleable = false;
+            }
+            Debug.DrawRay(rayy[i], dirs * Mathf.Min(hits.distance, 6.5f), col, Time.deltaTime);
+        }
+
+        if (Vector3.Distance(grapplePoint.position, hit.point) < 0.3f) col = Color.green;
+        else
+        {
+            col = Color.yellow;
+            grappleable = false;
+        }
+        if (Vector3.Distance(grapplePoint.position, pos) > 6.5f)
+        {
+            col = Color.red;
+            grappleable = false;
+        } 
+        Debug.DrawRay(pos, dir * Mathf.Min(hit.distance, 6.5f), col, Time.deltaTime);
+        if (joint && !grappleable) StopGrapple();
+        return grappleable;
+
+        
+    }
     void Update()
     {
         distance = Vector2.Distance(
@@ -22,38 +72,56 @@ public class GrapplePoint : MonoBehaviour
             new(pointToGrapple.x, pointToGrapple.y)
         );
 
-        
-        Vector3 pos = player.transform.position;
-        Vector3 dir = (grapplePoint.position - player.transform.position).normalized;
-        Ray ray = new Ray(pos, dir);
-        Physics.Raycast(ray, out hit); 
-        rayy = RayOffsets(pos);
-        
-        for(int i =0; i < rayy.Length; i++)
-        {
-            Vector3 dirs = (grapplePoint.position - rayy[i]).normalized;
-            Ray rayz = new Ray(rayy[i], dirs);
-            Physics.Raycast(rayz, out hits);
-            if (Vector3.Distance(grapplePoint.position, hits.point) < 0.3f) col = Color.green;
-            else col = Color.yellow;
-            if (Vector3.Distance(grapplePoint.position, rayy[i]) > 6.5f) col = Color.red;
-            Debug.DrawRay(rayy[i], dirs * Mathf.Min(hits.distance, 6.5f), col, Time.deltaTime);
-        } 
-
-        if (Vector3.Distance(grapplePoint.position,hit.point) < 0.3f) col = Color.green;
-        else col = Color.yellow;
-        if (Vector3.Distance(grapplePoint.position, pos) > 6.5f) col = Color.red;
-        
-        Debug.DrawRay(pos, dir * Mathf.Min(hit.distance, 6.5f), col, Time.deltaTime);
         pointToGrapple = cam.WorldToScreenPoint(grapplePoint.position);
+
         //Debug.Log(pointToGrapple);
-        if (distance < 100f)
+        if (distance < 100f && IsGrappleable())
         {
-            //Debug.Log("Within distance of cursor: " + distance);
+            if (Input.GetMouseButtonDown(0) ) StartGrapple(); 
         }
-        else
-        {//Debug.Log("Out of distance of cursor: " + distance);
-        }
+        if (Input.GetMouseButtonUp(0)) StopGrapple();
+        if (joint) IsGrappleable();
+    }
+    private Vector3 currentGrapplePosition;
+    private void StartGrapple()
+    {
+        player.GetComponent<Player>().IsGrappling = true;
+        joint = player.gameObject.AddComponent<SpringJoint>();
+        joint.autoConfigureConnectedAnchor = false;
+        joint.connectedAnchor = grapplePoint.position;
+
+        float distanceFromPoint = Vector3.Distance(player.transform.position, grapplePoint.position);
+
+        //The distance grapple will try to keep from grapple point. 
+        joint.maxDistance = distanceFromPoint * 0.5f;
+        joint.minDistance = distanceFromPoint * 0.1f;
+
+        //Adjust these values to fit your game.
+        joint.spring = 15.5f;
+        joint.damper = 7f;
+        joint.massScale = 4.5f;
+
+        lr.positionCount = 2;
+        currentGrapplePosition = player.transform.position;
+    }
+    private void StopGrapple()
+    {
+        player.GetComponent<Player>().IsGrappling = false;
+        lr.positionCount = 0;
+        Destroy(joint);
+    }
+
+    void Awake() { lr = player.GetComponent<LineRenderer>(); }
+    private void LateUpdate() { DrawRope(); }
+    void DrawRope()
+    {
+        //If not grappling, don't draw rope
+        if (!joint) return;
+
+        currentGrapplePosition = Vector3.Lerp(currentGrapplePosition, grapplePoint.position, Time.deltaTime * 20f);
+
+        lr.SetPosition(0, player.transform.position);
+        lr.SetPosition(1, currentGrapplePosition);
     }
     private Vector3[] RayOffsets(Vector3 inn)
     {
