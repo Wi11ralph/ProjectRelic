@@ -20,6 +20,8 @@ public class GrapplePoint : MonoBehaviour
     private SpringJoint joint;
     private LineRenderer lr;
 
+    private Material[] mat;
+   
     private bool IsGrappleable()
     {
         Vector3 pos = player.transform.position;
@@ -77,10 +79,12 @@ public class GrapplePoint : MonoBehaviour
         //Debug.Log(pointToGrapple);
         if (distance < 100f && IsGrappleable())
         {
+            if (mat[1].GetFloat("_OutlineThickness") != 0.6f) mat[1].SetFloat("_OutlineThickness", 0.6f); 
             if (Input.GetMouseButtonDown(0) ) StartGrapple(); 
-        }
+        } else if (mat[1].GetFloat("_OutlineThickness") != 0 && !joint) mat[1].SetFloat("_OutlineThickness", 0);
         if (Input.GetMouseButtonUp(0)) StopGrapple();
         if (joint) IsGrappleable();
+
     }
     private Vector3 currentGrapplePosition;
     private void StartGrapple()
@@ -111,7 +115,12 @@ public class GrapplePoint : MonoBehaviour
         Destroy(joint);
     }
 
-    void Awake() { lr = player.GetComponent<LineRenderer>(); }
+    void Awake() {
+        lr = player.GetComponent<LineRenderer>();
+        //_OutlineThickness
+        mat = GetComponent<MeshRenderer>().sharedMaterials;
+
+    }
     private void LateUpdate() { DrawRope(); }
     void DrawRope()
     {
