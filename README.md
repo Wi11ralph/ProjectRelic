@@ -25,3 +25,4 @@ If you want the updated project and you are on an old version you can always do 
 ## Extra Downloads
 Git GUI: https://git-scm.com/download/win
 Unity Editor (please use this version since it is as same as the college): https://download.unity3d.com/download_unity/9636b062134a/UnityDownloadAssistant-2022.1.23f1.exe
+College downloads: https://uxbridgecollegeacuk-my.sharepoint.com/:u:/g/personal/40165278_hcuc_ac_uk/ETID-NBEJbpDsl6v1JhlKysB3SnHTXCUhKd8Wqch-F_Pnw?e=0n2EdM
