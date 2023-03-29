@@ -4904,6 +4904,7 @@ GameObject:
   - component: {fileID: 5010528666708034997}
   - component: {fileID: 8217324325124596468}
   - component: {fileID: 129561709411315202}
+  - component: {fileID: 3300539404875344060}
   m_Layer: 0
   m_Name: FireOrb
   m_TagString: Untagged
@@ -9799,6 +9800,22 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &3300539404875344060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1895397945054435881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7af6c3e1d788ae647941c0e4de8a3e82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Orb2: {fileID: 3572535052842171309}
+  OuterGlow: {fileID: 4887187188939888289}
+  Smoke: {fileID: 5879434826952302950}
+  pl: {fileID: 1078213354881297085}
 --- !u!1 &2169295139279350067
 GameObject:
   m_ObjectHideFlags: 0
@@ -14698,6 +14715,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4400502157925453854}
   - component: {fileID: 1078213354881297085}
+  - component: {fileID: 2933612407848102003}
   m_Layer: 0
   m_Name: Point Light
   m_TagString: Untagged
@@ -14782,6 +14800,26 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &2933612407848102003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4245794436017516497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &8486922408900444169
 GameObject:
   m_ObjectHideFlags: 0
