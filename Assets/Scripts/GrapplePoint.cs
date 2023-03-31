@@ -125,12 +125,18 @@ public class GrapplePoint : MonoBehaviour
     void DrawRope()
     {
         //If not grappling, don't draw rope
-        if (!joint) return;
+        if (!joint)
+        {
+            lr.positionCount = 0;
+            return;
+        }
+        else
+        {
+            currentGrapplePosition = Vector3.Lerp(currentGrapplePosition, grapplePoint.position, Time.deltaTime * 20f);
 
-        currentGrapplePosition = Vector3.Lerp(currentGrapplePosition, grapplePoint.position, Time.deltaTime * 20f);
-
-        lr.SetPosition(0, player.transform.position);
-        lr.SetPosition(1, currentGrapplePosition);
+            lr.SetPosition(0, player.transform.position);
+            lr.SetPosition(1, currentGrapplePosition);
+        }
     }
     private Vector3[] RayOffsets(Vector3 inn)
     {
