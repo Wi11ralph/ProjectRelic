@@ -99,6 +99,7 @@
     <Compile Include="Assets\Thirdparty\LeanTween\Examples\Scripts\TestingZLegacyExt.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Testing\Testing246.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Examples\Scripts\GeneralEasingTypes.cs" />
+    <Compile Include="Assets\Scripts\FireBall.cs" />
     <Compile Include="Assets\Scripts\FireBallShooter.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Testing\TestingRotate.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Examples\Scripts\GeneralCameraShake.cs" />
@@ -115,7 +116,6 @@
     <Compile Include="Assets\Scripts\NewBehaviourScript.cs" />
     <Compile Include="Assets\Scripts\GrapplePoint.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Examples\Scripts\GeneralBasic.cs" />
-    <Compile Include="Assets\Scripts\FireBall.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
