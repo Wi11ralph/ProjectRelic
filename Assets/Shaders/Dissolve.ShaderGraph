@@ -2113,7 +2113,7 @@
     "m_DefaultRefNameVersion": 0,
     "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Vector1_FEFF47F1",
-    "m_OverrideReferenceName": "",
+    "m_OverrideReferenceName": "amount",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
     "m_CustomSlotLabel": "",

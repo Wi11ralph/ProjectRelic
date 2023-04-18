@@ -138,15 +138,12 @@ public class Player : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if (this.tag == "Player" || other.tag != "mapElements") return;
-        Debug.Log("Ground");
-        Debug.Log(other.tag);
+        if (this.tag == "Player" || other.tag != "mapElements" && other.tag != "burnable") return; 
         isGrounded = true; 
     }
     private void OnTriggerExit(Collider other)
     {
         if (this.tag == "Player" || other.tag == "Player") return;
-        Debug.Log("No Ground");
         isGrounded = false;  
     }
     private void Move()
@@ -174,7 +171,10 @@ public class Player : MonoBehaviour
         Ray ray = new Ray(transform.position, -Vector3.up); 
         Debug.DrawRay(transform.position, Vector3.down * 20f, Color.blue);
         if (Physics.Raycast(ray, out hit) && hit.collider.tag == "mapElements") 
-            transformPoint = Mathf.Lerp(shadowPoint.transform.position.y, hit.point.y, 9f * Time.unscaledDeltaTime); 
+            transformPoint = Mathf.Lerp(shadowPoint.transform.position.y, hit.point.y, 9f * Time.unscaledDeltaTime);
+        if (Physics.Raycast(ray, out hit) && hit.collider.tag == "burnable")
+            transformPoint = Mathf.Lerp(shadowPoint.transform.position.y, hit.point.y, 9f * Time.unscaledDeltaTime);
+
         shadowPoint.transform.position = new (transform.position.x, transformPoint, transform.position.z);
         //shadow logic
 

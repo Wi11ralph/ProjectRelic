@@ -20,7 +20,13 @@ public class FireBall : MonoBehaviour
         Orb = this.gameObject.GetComponent<ParticleSystem>();
     }
 
-    // Update is called once per frame
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "burnable")
+        {
+            collision.gameObject.GetComponent<Dissolver>().dissolve = true;
+        }
+    }
 
     [System.Obsolete]
     void Update()
