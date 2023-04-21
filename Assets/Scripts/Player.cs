@@ -155,7 +155,7 @@ public class Player : MonoBehaviour
         //moveDirection = transform.forward * _input.normalized.magnitude * _movementSpeed * Time.deltaTime;
 
         if (isSprintPressed && _input.normalized.magnitude != 0) {
-            speedMulti = Mathf.Lerp(speedMulti, 2.7f, 0.005f);
+            speedMulti = Mathf.Lerp(speedMulti, 2.7f, 0.5f * Time.deltaTime);
             //Debug.Log(speedMulti);
         } else speedMulti = 1f;
 
@@ -171,9 +171,9 @@ public class Player : MonoBehaviour
         Ray ray = new Ray(transform.position, -Vector3.up); 
         Debug.DrawRay(transform.position, Vector3.down * 20f, Color.blue);
         if (Physics.Raycast(ray, out hit) && hit.collider.tag == "mapElements") 
-            transformPoint = Mathf.Lerp(shadowPoint.transform.position.y, hit.point.y, 9f * Time.unscaledDeltaTime);
+            transformPoint = Mathf.Lerp(shadowPoint.transform.position.y, hit.point.y, 9f * Time.deltaTime);
         if (Physics.Raycast(ray, out hit) && hit.collider.tag == "burnable")
-            transformPoint = Mathf.Lerp(shadowPoint.transform.position.y, hit.point.y, 9f * Time.unscaledDeltaTime);
+            transformPoint = Mathf.Lerp(shadowPoint.transform.position.y, hit.point.y, 9f * Time.deltaTime);
 
         shadowPoint.transform.position = new (transform.position.x, transformPoint, transform.position.z);
         //shadow logic

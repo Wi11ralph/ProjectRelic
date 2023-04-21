@@ -22,7 +22,7 @@ public class FireBall : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "burnable")
+        if(collision.gameObject.GetComponent<Dissolver>())
         {
             collision.gameObject.GetComponent<Dissolver>().dissolve = true;
         }
