@@ -30,7 +30,12 @@ public class Dissolver : MonoBehaviour
     {
         spawnitem = false;
         itemtospawn = Instantiate(itemtospawn);
-        itemtospawn.transform.position = this.transform.position;
+
+        itemtospawn.transform.position = new Vector3 ( 
+            this.transform.position.x,
+            this.transform.position.y + 0.2f,
+            this.transform.position.z
+        );
     }
 }
 
