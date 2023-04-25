@@ -60,7 +60,6 @@
     <Compile Include="Assets\Thirdparty\LeanTween\Examples\Scripts\TestingUnitTests.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Testing\Scripts\LeanPool.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Testing\TestingSequencer.cs" />
-    <Compile Include="Assets\Scripts\NewBehaviourScript.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Examples\Scripts\PathSplineEndless.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Testing\TestingOptionalCancel.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Testing\TestingIssue2.cs" />
@@ -117,6 +116,7 @@
     <Compile Include="Assets\Scripts\DoorEditor.cs" />
     <Compile Include="Assets\Scripts\GrapplePoint.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Examples\Scripts\GeneralBasic.cs" />
+    <Compile Include="Assets\Scripts\HoverPlatform.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
