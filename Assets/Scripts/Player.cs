@@ -171,7 +171,7 @@ public class Player : MonoBehaviour
         Ray ray = new Ray(transform.position, -Vector3.up); 
         Debug.DrawRay(transform.position, Vector3.down * 20f, Color.blue);
         if (Physics.Raycast(ray, out hit) && hit.collider.tag == "mapElements") 
-            transformPoint = Mathf.Lerp(shadowPoint.transform.position.y, hit.point.y, 9f * Time.deltaTime);
+            transformPoint = Mathf.Lerp(shadowPoint.transform.position.y, hit.point.y, 20f * Time.deltaTime);
         if (Physics.Raycast(ray, out hit) && hit.collider.tag == "burnable")
             transformPoint = Mathf.Lerp(shadowPoint.transform.position.y, hit.point.y, 9f * Time.deltaTime);
 

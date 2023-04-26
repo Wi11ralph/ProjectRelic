@@ -19,14 +19,17 @@ public class HoverPlatform : MonoBehaviour
         pRb = player.GetComponent<Rigidbody>();
     }
     private void FixedUpdate() {
-        float accleration = vel -pRb.velocity.y / Time.fixedDeltaTime;
-         float yVel = rigid.velocity.y + Physics.gravity.y;
-        if (playerOnTop) yVel -= pRb.mass * accleration;
 
-         //Hovering
-         rigid.AddForce(0, -yVel, 0, ForceMode.Acceleration); 
+        float yVel = rigid.velocity.y + Physics.gravity.y;
+        /*
+        float accleration = vel -pRb.velocity.y / Time.fixedDeltaTime; 
+        if (playerOnTop) yVel -= pRb.mass * accleration;
+        */
+
+        //Hovering
+        //rigid.AddForce(0, -yVel, 0, ForceMode.Acceleration); 
          //Altitude
-         rigid.AddForce(0,  height* 5, 0);
+         //rigid.AddForce(0,  height* 5, 0);
 
         vel = pRb.velocity.y;
      }

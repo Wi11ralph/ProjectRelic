@@ -66,6 +66,7 @@
     <Compile Include="Assets\Thirdparty\LeanTween\Testing\Testing240.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Testing\TestingDescr.cs" />
     <Compile Include="Assets\Scripts\Relic.cs" />
+    <Compile Include="Assets\Scripts\Dissolver.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Examples\Scripts\PathBezier2d.cs" />
     <Compile Include="Assets\Scripts\TriggerArea.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Framework\LTDescrOptional.cs" />
@@ -111,9 +112,9 @@
     <Compile Include="Assets\Thirdparty\LeanTween\Testing\TestingSceneSwitching.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Examples\Scripts\PathSplineTrack.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Framework\LeanTest.cs" />
+    <Compile Include="Assets\Scripts\HoverPlatform.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Examples\Scripts\PathSplinePerformance.cs" />
     <Compile Include="Assets\Scripts\DoorEditor.cs" />
-    <Compile Include="Assets\Scripts\NewBehaviourScript.cs" />
     <Compile Include="Assets\Scripts\GrapplePoint.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Examples\Scripts\GeneralBasic.cs" />
   </ItemGroup>
