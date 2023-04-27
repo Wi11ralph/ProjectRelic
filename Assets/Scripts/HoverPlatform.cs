@@ -4,42 +4,30 @@ using UnityEngine;
 
 public class HoverPlatform : MonoBehaviour
 {
-    [SerializeField] private Rigidbody rigid;
+    [SerializeField] private Transform[] connectors;
     [SerializeField] private float height;
 
-    [SerializeField] private GameObject player;
-    private Rigidbody pRb;
-    private bool playerOnTop = false;
-    private float vel =0f;
+    [SerializeField] private Material outline;
 
-    // Update is called once per frame
-
-    private void Awake()
+    private RaycastHit hit;
+    private void Update()
     {
-        pRb = player.GetComponent<Rigidbody>();
-    }
-    private void FixedUpdate() {
-
-        float yVel = rigid.velocity.y + Physics.gravity.y;
-        /*
-        float accleration = vel -pRb.velocity.y / Time.fixedDeltaTime; 
-        if (playerOnTop) yVel -= pRb.mass * accleration;
-        */
-
-        //Hovering
-        //rigid.AddForce(0, -yVel, 0, ForceMode.Acceleration); 
-         //Altitude
-         //rigid.AddForce(0,  height* 5, 0);
-
-        vel = pRb.velocity.y;
-     }
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.tag == "Player") playerOnTop = true;
-        
-    }
-    private void OnCollisionExit(Collision collision)
-    {
-        playerOnTop = false;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Physics.Raycast(ray, out hit);
+        if(hit.collider.gameObject == this.gameObject)
+        {
+            outline.SetFloat("sc", 1.05f);
+            if(Input.GetKeyDown(KeyCode.E))
+            {
+                for(int i=0; connectors.Length > i; i++)
+                { 
+                    connectors[i].position = new Vector3(
+                        1f,
+                        1f,
+                        1f
+                      );
+                }
+            }
+        } else outline.SetFloat("sc", 0f);
     }
 }
