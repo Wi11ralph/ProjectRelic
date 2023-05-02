@@ -339,6 +339,10 @@ MonoBehaviour:
   id: 1
   activationForce: 0.05
   timeToDrop: 0
+  buttonSounds: {fileID: 0}
+  clicks:
+    clicked: {fileID: 0}
+    unclicked: {fileID: 0}
 --- !u!153 &83084324
 ConfigurableJoint:
   m_ObjectHideFlags: 0
@@ -561,6 +565,65 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &288926788
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2625008840242370763, guid: 08fca13940fff134cb9043863e7cb359, type: 3}
+      propertyPath: m_Name
+      value: Ambience
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625008840242370765, guid: 08fca13940fff134cb9043863e7cb359, type: 3}
+      propertyPath: m_RootOrder
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625008840242370765, guid: 08fca13940fff134cb9043863e7cb359, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.5119998
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625008840242370765, guid: 08fca13940fff134cb9043863e7cb359, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.1799989
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625008840242370765, guid: 08fca13940fff134cb9043863e7cb359, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 7.8069997
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625008840242370765, guid: 08fca13940fff134cb9043863e7cb359, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625008840242370765, guid: 08fca13940fff134cb9043863e7cb359, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625008840242370765, guid: 08fca13940fff134cb9043863e7cb359, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.50000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625008840242370765, guid: 08fca13940fff134cb9043863e7cb359, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625008840242370765, guid: 08fca13940fff134cb9043863e7cb359, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625008840242370765, guid: 08fca13940fff134cb9043863e7cb359, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2625008840242370765, guid: 08fca13940fff134cb9043863e7cb359, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: 08fca13940fff134cb9043863e7cb359, type: 3}
 --- !u!1 &314753021
 GameObject:
   m_ObjectHideFlags: 0
@@ -1993,6 +2056,8 @@ MonoBehaviour:
   timeBetweenShots: 1.04
   maxBalls: 5
   allowHold: 0
+  ballShoot: {fileID: 0}
+  playerSounds: {fileID: 0}
   player: {fileID: 1581737620}
   attackPoint: {fileID: 592727668}
   allowInvoke: 1
