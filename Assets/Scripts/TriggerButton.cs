@@ -8,6 +8,16 @@ public class TriggerButton : MonoBehaviour
     [SerializeField] private int id;
     [SerializeField] private float activationForce;
     [SerializeField] private float timeToDrop = 0.8f;
+    
+    [SerializeField] private AudioSource buttonSounds;
+    [System.Serializable]
+    private class ClickSounds
+    {
+        public AudioClip clicked;
+        public AudioClip unclicked;
+       
+    }
+    [SerializeField] private ClickSounds clicks;
 
     private float time = 0.0f;
     private float startPos;
@@ -17,14 +27,16 @@ public class TriggerButton : MonoBehaviour
     { 
         if (!buttonClicked && transform.position.y < startPos - activationForce)
         {
-            Debug.Log("clicked");
+            //Debug.Log("clicked");
+            buttonSounds.PlayOneShot(clicks.clicked);
             buttonClicked = true ;
             triggerWait   = false;
             GameEvents.current.DoorwayTriggerEnter(id);
         }
         else if(buttonClicked && transform.position.y > startPos - activationForce)
         {
-            Debug.Log("unclicked");
+            //Debug.Log("unclicked");
+            buttonSounds.PlayOneShot(clicks.unclicked);
             buttonClicked = false;
             triggerWait   = true ;
         }
