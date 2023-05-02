@@ -1948,6 +1948,8 @@ MonoBehaviour:
   timeBetweenShots: 1.04
   maxBalls: 5
   allowHold: 0
+  ballShoot: {fileID: 0}
+  playerSounds: {fileID: 0}
   player: {fileID: 1581737620}
   attackPoint: {fileID: 592727668}
   allowInvoke: 1
@@ -6092,6 +6094,10 @@ PrefabInstance:
       propertyPath: sc
       value: 
       objectReference: {fileID: 1538811702}
+    - target: {fileID: 44054110358823260, guid: 8b9031dfb5468ba4d92c9d8f0d0d83ce, type: 3}
+      propertyPath: audio
+      value: 
+      objectReference: {fileID: 8300000, guid: 6ae77b8bf88697d46b60721c2a6968fb, type: 3}
     - target: {fileID: 44054110358823260, guid: 8b9031dfb5468ba4d92c9d8f0d0d83ce, type: 3}
       propertyPath: select
       value: 

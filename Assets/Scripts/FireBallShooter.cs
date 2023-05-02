@@ -12,6 +12,9 @@ public class FireBallShooter : MonoBehaviour
     [SerializeField] private int maxBalls;
     [SerializeField] private bool allowHold;
 
+    [SerializeField] private AudioClip ballShoot;
+    [SerializeField] private AudioSource playerSounds;
+
     private int ballsLeft, ballsShot;
 
     private bool shooting, readyToShoot;
@@ -40,9 +43,12 @@ public class FireBallShooter : MonoBehaviour
         {
             ballsShot = 0;
 
+            playerSounds.PlayOneShot(ballShoot);
+
             Shoot();
         }
     }
+    
     private void Shoot()
     {
 
