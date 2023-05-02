@@ -16,6 +16,8 @@ public class Pause : MonoBehaviour
 
     [SerializeField] private CanvasGroup tint;
     [SerializeField] private GameObject t;
+
+    [SerializeField] private AudioSource select;
     private enum Button
     {
         Continue,
@@ -145,6 +147,7 @@ public class Pause : MonoBehaviour
         if(button2.Hover(xLined())) bttn = Button.Restart;
         if(button3.Hover(xLined())) bttn = Button.Menu;
 
+        if (bttn != lastBttn && bttn != Button.None) select.Play();
     }
     private void Click()
     {

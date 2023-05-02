@@ -4,42 +4,60 @@ using UnityEngine;
 
 public class HoverPlatform : MonoBehaviour
 {
-    [SerializeField] private Rigidbody rigid;
+    [SerializeField] private Transform[] connectors;
     [SerializeField] private float height;
+    private float startHeight;
+    private bool floating;
+    private float floatT = 0f;
 
-    [SerializeField] private GameObject player;
-    private Rigidbody pRb;
-    private bool playerOnTop = false;
-    private float vel =0f;
+    [SerializeField] private Material outline;
 
-    // Update is called once per frame
-
+    private RaycastHit hit;
     private void Awake()
     {
-        pRb = player.GetComponent<Rigidbody>();
+        startHeight = connectors[0].position.y;
     }
-    private void FixedUpdate() {
-
-        float yVel = rigid.velocity.y + Physics.gravity.y;
-        /*
-        float accleration = vel -pRb.velocity.y / Time.fixedDeltaTime; 
-        if (playerOnTop) yVel -= pRb.mass * accleration;
-        */
-
-        //Hovering
-        //rigid.AddForce(0, -yVel, 0, ForceMode.Acceleration); 
-         //Altitude
-         //rigid.AddForce(0,  height* 5, 0);
-
-        vel = pRb.velocity.y;
-     }
-    private void OnCollisionEnter(Collision collision)
+    private void Update()
     {
-        if(collision.gameObject.tag == "Player") playerOnTop = true;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Physics.Raycast(ray, out hit);
         
+        if (IsHovering()) {
+            floatT = 0f;
+            outline.SetFloat("sc", 1.05f);
+            if (Input.GetKeyDown(KeyCode.E)) floating = !floating;
+        } else {
+            outline.SetFloat("sc", 0f); 
+            if (Input.GetKeyDown(KeyCode.E)) floating = false;
+        }
+
+        if (floating) SetHeight(Mathf.Lerp(connectors[0].position.y, height, Time.deltaTime * 1.5f));
+        else SetHeight(Mathf.Lerp(connectors[0].position.y, startHeight, Time.deltaTime * 1.5f));
+
+        if (floating)  {
+            floatT += Time.deltaTime;
+            if (floatT > 5f) floating = false;
+        }
     }
-    private void OnCollisionExit(Collision collision)
+    private void SetHeight(float heightPos)
     {
-        playerOnTop = false;
+        for (int i = 0; connectors.Length > i; i++)
+        {
+            connectors[i].position = new Vector3(
+                connectors[i].position.x,
+                heightPos,
+                connectors[i].position.z
+              );
+        }
+    }
+    private bool IsHovering()
+    {
+        try {
+            if (hit.collider.gameObject == this.gameObject) return true;
+            else return false;
+        }
+        catch (System.NullReferenceException) {
+            return false;
+        }
     }
 }
