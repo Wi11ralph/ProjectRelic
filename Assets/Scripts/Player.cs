@@ -30,6 +30,7 @@ public class Player : MonoBehaviour
 
     public static bool fireRelic = false;
     public static bool airRelic = false;
+    public static bool natureRelic = false;
 
     private float jumpWaiter = 0;
     private RaycastHit hit;

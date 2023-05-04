@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class GrapplePoint : MonoBehaviour
 {
+    [SerializeField] private Grapple grapple;
     [SerializeField] private Transform grapplePoint;
     [SerializeField] private GameObject player;
     [SerializeField] private Camera cam;
@@ -18,9 +19,10 @@ public class GrapplePoint : MonoBehaviour
 
     private float maxDistance = 100f;
     private SpringJoint joint;
-    private LineRenderer lr;
+    
 
-    private Material[] mat;
+    private Material mat;
+    private Renderer rend;
    
     private bool IsGrappleable()
     {
@@ -62,13 +64,15 @@ public class GrapplePoint : MonoBehaviour
             grappleable = false;
         } 
         Debug.DrawRay(pos, dir * Mathf.Min(hit.distance, 6.5f), col, Time.deltaTime);
-        if (joint && !grappleable) StopGrapple();
+        if (joint && !grappleable) grapple.StopGrapple();
         return grappleable;
 
         
     }
     void Update()
     {
+        if (!Player.natureRelic) return;
+
         distance = Vector2.Distance(
             new(Input.mousePosition.x, Input.mousePosition.y),
             new(pointToGrapple.x, pointToGrapple.y)
@@ -79,66 +83,35 @@ public class GrapplePoint : MonoBehaviour
         //Debug.Log(pointToGrapple);
         if (distance < 100f && IsGrappleable())
         {
-            if (mat[1].GetFloat("_OutlineThickness") != 0.6f) mat[1].SetFloat("_OutlineThickness", 0.6f); 
-            if (Input.GetMouseButtonDown(1) ) StartGrapple();
-            
-        } else if (mat[1].GetFloat("_OutlineThickness") != 0 && !joint) mat[1].SetFloat("_OutlineThickness", 0);
-        if (Input.GetMouseButtonUp(1)) StopGrapple();
+            if (mat.GetFloat("_OutlineThickness") != 0.6f)
+            {
+                mat.SetFloat("_OutlineThickness", 0.6f);
+                Debug.Log(mat.GetFloat("_OutlineThickness"));
+            }
+                if (Input.GetMouseButtonDown(1)) grapple.StartGrapple(grapplePoint.position);
+
+        }
+        else if (mat.GetFloat("_OutlineThickness") != 0 && !joint)
+        {
+            mat.SetFloat("_OutlineThickness", 0);
+            Debug.Log(mat.GetFloat("_OutlineThickness"));
+        }
+        if (Input.GetMouseButtonUp(1)) grapple.StopGrapple();
         if (joint) IsGrappleable();
 
     }
-    private Vector3 currentGrapplePosition;
-    private void StartGrapple()
-    {
-        player.GetComponent<Player>().IsGrappling = true;
-        joint = player.gameObject.AddComponent<SpringJoint>();
-        joint.autoConfigureConnectedAnchor = false;
-        joint.connectedAnchor = grapplePoint.position;
+    
+    
+    
 
-        float distanceFromPoint = Vector3.Distance(player.transform.position, grapplePoint.position);
-
-        //The distance grapple will try to keep from grapple point. 
-        joint.maxDistance = distanceFromPoint * 0.5f;
-        joint.minDistance = distanceFromPoint * 0.1f;
-
-        //Adjust these values to fit your game.
-        joint.spring = 15.5f;
-        joint.damper = 7f;
-        joint.massScale = 4.5f;
-
-        lr.positionCount = 2;
-        currentGrapplePosition = player.transform.position;
-    }
-    private void StopGrapple()
-    {
-        player.GetComponent<Player>().IsGrappling = false;
-        lr.positionCount = 0;
-        Destroy(joint);
-    }
-
-    void Awake() {
-        lr = player.GetComponent<LineRenderer>();
+    void Start() {
+        
         //_OutlineThickness
-        mat = GetComponent<MeshRenderer>().sharedMaterials;
+        rend = GetComponent<MeshRenderer>(); 
+        mat = rend.materials[1];
 
     }
-    private void LateUpdate() { DrawRope(); }
-    void DrawRope()
-    {
-        //If not grappling, don't draw rope
-        if (!joint)
-        {
-            lr.positionCount = 0;
-            return;
-        }
-        else
-        {
-            currentGrapplePosition = Vector3.Lerp(currentGrapplePosition, grapplePoint.position, Time.deltaTime * 20f);
-
-            lr.SetPosition(0, player.transform.position);
-            lr.SetPosition(1, currentGrapplePosition);
-        }
-    }
+   
     private Vector3[] RayOffsets(Vector3 inn)
     {
         Vector3[] rays = new Vector3[6];

@@ -38,7 +38,7 @@ public class Relic : MonoBehaviour
                 newMat = Resources.Load("fireMat", typeof(Material)) as Material; 
                 break;
             case relicOption.nature:
-                //newMat = Resources.Load("natureMat", typeof(Material)) as Material;
+                newMat = Resources.Load("natureMat", typeof(Material)) as Material;
                 break;
         }
         rend.material = newMat;
@@ -58,7 +58,7 @@ public class Relic : MonoBehaviour
                     Player.fireRelic = true;
                     break;
                 case relicOption.nature:
-                    //Player.natureRelic = true;
+                    Player.natureRelic = true;
                     break;
             }
             Destroy(this.gameObject);

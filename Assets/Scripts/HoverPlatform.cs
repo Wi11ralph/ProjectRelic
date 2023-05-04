@@ -22,7 +22,7 @@ public class HoverPlatform : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Physics.Raycast(ray, out hit);
         
-        if (IsHovering()) {
+        if (Player.airRelic && IsHovering()) {
             floatT = 0f;
             outline.SetFloat("sc", 1.05f);
             if (Input.GetKeyDown(KeyCode.E)) floating = !floating;

@@ -143,6 +143,7 @@ public class Pause : MonoBehaviour
     }
     private void IfHover()
     {
+        
         lastBttn = bttn;
 
         bttn = Button.None;
@@ -150,7 +151,7 @@ public class Pause : MonoBehaviour
         if(button2.Hover(xLined())) bttn = Button.Restart;
         if(button3.Hover(xLined())) bttn = Button.Menu;
 
-        if (bttn != lastBttn && bttn != Button.None) select.PlayOneShot(audio);
+        if (bttn != lastBttn && bttn != Button.None && active) select.PlayOneShot(audio);
     }
     private void Click()
     {
