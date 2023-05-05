@@ -9,19 +9,19 @@ public class MovingPlatform : MonoBehaviour
     [HideInInspector] public GameObject[] points;
     private Vector3[] connectors = new Vector3[4];
 
-    private Vector3[] CreateConnectors(float y)
+    private Vector3[] CreateOffsets(float o,float y)
     {
         Vector3[] connections = {
-            new(connectorOffset ,y, connectorOffset),
-            new(-connectorOffset,y, connectorOffset),
-            new(-connectorOffset,y,-connectorOffset),
-            new(connectorOffset ,y,-connectorOffset)
+            new(o ,y, o),
+            new(-o,y, o),
+            new(-o,y,-o),
+            new(o ,y,-o)
         };
         return connections;
     }
     public void InstantiateConnectors()
     {
-        connectors = CreateConnectors(transform.position.y+height);
+        connectors = CreateOffsets(connectorOffset,transform.position.y+height);
         for (int i = 0; i < 4; i++)
         {
             if (points[i] != null) DestroyImmediate(points[i]);
@@ -35,7 +35,7 @@ public class MovingPlatform : MonoBehaviour
     }
     public void SetConnectors()
     {
-        connectors = CreateConnectors(transform.position.y+height);
+        connectors = CreateOffsets(connectorOffset,transform.position.y+height);
         for (int i = 0; i < 4; i++)
         {
             Debug.DrawLine(points[(i+1)%4].transform.position, points[(i+2)%4].transform.position, Color.cyan,Time.deltaTime);
