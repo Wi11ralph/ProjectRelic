@@ -38,18 +38,21 @@ public class GrapplePoint : MonoBehaviour
             Vector3 dirs = (grapplePoint.position - rayy[i]).normalized;
             Ray rayz = new Ray(rayy[i], dirs);
             Physics.Raycast(rayz, out hits);
+            float debugShowForS = 1f;
             if (Vector3.Distance(grapplePoint.position, hits.point) < 0.3f) col = Color.green;
             else
             {
                 col = Color.yellow;
                 grappleable = false;
+                debugShowForS = 30;
             }
             if (Vector3.Distance(grapplePoint.position, rayy[i]) > 6.5f)
             {
                 col = Color.red;
                 grappleable = false;
+                debugShowForS = 15;
             }
-            Debug.DrawRay(rayy[i], dirs * Mathf.Min(hits.distance, 6.5f), col, Time.deltaTime);
+            Debug.DrawRay(rayy[i], dirs * Mathf.Min(hits.distance, 6.5f), col, Time.deltaTime * debugShowForS);
         }
 
         if (Vector3.Distance(grapplePoint.position, hit.point) < 0.3f) col = Color.green;
@@ -73,12 +76,12 @@ public class GrapplePoint : MonoBehaviour
     {
         if (!Player.natureRelic) return;
 
+        pointToGrapple = cam.WorldToScreenPoint(grapplePoint.position);
+
         distance = Vector2.Distance(
             new(Input.mousePosition.x, Input.mousePosition.y),
             new(pointToGrapple.x, pointToGrapple.y)
         );
-
-        pointToGrapple = cam.WorldToScreenPoint(grapplePoint.position);
 
         //Debug.Log(pointToGrapple);
         if (distance < 100f && IsGrappleable())
@@ -91,13 +94,18 @@ public class GrapplePoint : MonoBehaviour
                 if (Input.GetMouseButtonDown(1)) grapple.StartGrapple(grapplePoint.position);
 
         }
-        else if (mat.GetFloat("_OutlineThickness") != 0 && !joint)
+        else if (mat.GetFloat("_OutlineThickness") != 0 && !player.GetComponent<Player>().IsGrappling || grapple.grapplePoint != grapplePoint.position)
         {
             mat.SetFloat("_OutlineThickness", 0);
             Debug.Log(mat.GetFloat("_OutlineThickness"));
         }
         if (Input.GetMouseButtonUp(1)) grapple.StopGrapple();
-        if (joint) IsGrappleable();
+
+        if ( 
+            player.GetComponent<Player>().IsGrappling &&
+            grapple.grapplePoint == grapplePoint.position
+        )
+            if (!IsGrappleable()) grapple.StopGrapple();
 
     }
     

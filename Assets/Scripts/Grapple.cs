@@ -6,8 +6,8 @@ public class Grapple : MonoBehaviour
 {
     [SerializeField] private GameObject player;
     // Start is called before the first frame update
-    private Vector3 currentGrapplePosition;
-    private Vector3 grapplePoint;
+    private Vector3 currentGrapplePosition; 
+    [HideInInspector] public Vector3 grapplePoint;
     private SpringJoint joint;
     private LineRenderer lr;
 
@@ -21,6 +21,7 @@ public class Grapple : MonoBehaviour
         joint = player.gameObject.AddComponent<SpringJoint>();
         joint.autoConfigureConnectedAnchor = false;
         joint.connectedAnchor = gP;
+        grapplePoint = gP;
 
         float distanceFromPoint = Vector3.Distance(player.transform.position, gP);
 

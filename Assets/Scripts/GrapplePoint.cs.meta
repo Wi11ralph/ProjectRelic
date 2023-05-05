@@ -3,7 +3,11 @@ guid: 0f5571f6912fdb842bd38b0a1619ef0c
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - grapple: {instanceID: 0}
+  - grapplePoint: {instanceID: 0}
+  - player: {fileID: 9145102979131456421, guid: ef14a1ef8eb2d704d9c0eae48f564d0a, type: 3}
+  - cam: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

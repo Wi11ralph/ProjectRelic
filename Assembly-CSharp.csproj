@@ -105,6 +105,7 @@
     <Compile Include="Assets\Scripts\FireBallShooter.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Testing\TestingRotate.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Examples\Scripts\GeneralCameraShake.cs" />
+    <Compile Include="Assets\Scripts\Grapple.cs" />
     <Compile Include="Assets\Scripts\PlayerEditor.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Framework\LeanAudio.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Testing\FollowingTests.cs" />
@@ -118,7 +119,8 @@
     <Compile Include="Assets\Scripts\DoorEditor.cs" />
     <Compile Include="Assets\Scripts\GrapplePoint.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Examples\Scripts\GeneralBasic.cs" />
-    <Compile Include="Assets\Scripts\Grapple.cs" />
+    <Compile Include="Assets\Scripts\Platformlol.cs" />
+    <Compile Include="Assets\Scripts\MovingPlatform.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
