@@ -75,6 +75,7 @@
     <Compile Include="Assets\Thirdparty\LeanTween\Testing\TestingIssue.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Testing\TestingMaxTweens.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Examples\Scripts\GeneralAdvancedTechniques.cs" />
+    <Compile Include="Assets\Outlines\Scripts\RendererFeatures\ScreenSpaceOutlines.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Examples\Scripts\GeneralBasics2d.cs" />
     <Compile Include="Assets\Scripts\GameEvents.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Examples\Scripts\PathSpline2d.cs" />
@@ -104,8 +105,11 @@
     <Compile Include="Assets\Scripts\FireBallShooter.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Testing\TestingRotate.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Examples\Scripts\GeneralCameraShake.cs" />
+    <Compile Include="Assets\Scripts\MovingPlatformEditor.cs" />
+    <Compile Include="Assets\Scripts\Grapple.cs" />
     <Compile Include="Assets\Scripts\PlayerEditor.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Framework\LeanAudio.cs" />
+    <Compile Include="Assets\Scripts\MovingPlatform.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Testing\FollowingTests.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Examples\Scripts\PathSpline.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Framework\LeanSmooth.cs" />

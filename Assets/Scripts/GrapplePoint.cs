@@ -89,7 +89,7 @@ public class GrapplePoint : MonoBehaviour
             if (mat.GetFloat("_OutlineThickness") != 0.6f)
             {
                 mat.SetFloat("_OutlineThickness", 0.6f);
-                Debug.Log(mat.GetFloat("_OutlineThickness"));
+                //Debug.Log(mat.GetFloat("_OutlineThickness"));
             }
                 if (Input.GetMouseButtonDown(1)) grapple.StartGrapple(grapplePoint.position);
 
@@ -97,7 +97,7 @@ public class GrapplePoint : MonoBehaviour
         else if (mat.GetFloat("_OutlineThickness") != 0 && !player.GetComponent<Player>().IsGrappling || grapple.grapplePoint != grapplePoint.position)
         {
             mat.SetFloat("_OutlineThickness", 0);
-            Debug.Log(mat.GetFloat("_OutlineThickness"));
+            //Debug.Log(mat.GetFloat("_OutlineThickness"));
         }
         if (Input.GetMouseButtonUp(1)) grapple.StopGrapple();
 
