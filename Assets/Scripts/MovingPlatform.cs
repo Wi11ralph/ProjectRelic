@@ -7,16 +7,27 @@ public class MovingPlatform : MonoBehaviour
     [SerializeField] private float connectorOffset;
     [SerializeField] private float connectionOffset;
     [SerializeField] private float height;
+
     [HideInInspector] public GameObject[] points;
     private Vector3[] connectors = new Vector3[4];
     private Vector3[] connections = new Vector3[4];
     private SpringJoint[] joints = new SpringJoint[4];
     private Vector3 startPos;
+    private Color orange;
     [SerializeField] private float spring = 10f;
+    [Header("Path")]
+    [SerializeField] private float speed;
+    [SerializeField] private Transform startPathPos;
+    [SerializeField] private Transform endPathPos;
+    private Vector3 pathPos;
 
     private void Awake()
     {
         startPos = transform.position;
+        
+        orange.r = 255;
+        orange.g = 165;
+        orange.b = 0;
     }
     private Vector3[] CreateOffsets(float o,float y)
     {
@@ -28,6 +39,29 @@ public class MovingPlatform : MonoBehaviour
         };
         return connections;
     }
+    private void PathFollow()
+    {
+         
+        startPos = new Vector3(
+            Mathf.MoveTowards(transform.position.x, endPathPos.position.x, speed * Time.deltaTime),
+            startPos.y,
+            Mathf.MoveTowards(transform.position.z, endPathPos.position.z, speed * Time.deltaTime)
+         );
+         
+        for (int i = 0; i < 4; i++)
+        {
+            points[i].transform.position = Vector3.MoveTowards(transform.position, endPathPos.position, speed * Time.deltaTime);
+        }
+
+        //Debug.DrawLine(transform.position, endPathPos.position,Color.red,Time.deltaTime);
+        transform.position = new Vector3(
+            startPos.x,
+            transform.position.y,
+            startPos.z 
+        );
+
+    }
+    
     public void InstantiateConnectors()
     {
         if (!Application.isPlaying) startPos = transform.position;
@@ -69,15 +103,18 @@ public class MovingPlatform : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             joints = GetComponents<SpringJoint>();
-            int firstPoint   = (i + 1) % 4;
-            int secoundPoint = (i + 2) % 4;
-
-            Debug.DrawLine(points[firstPoint].transform.position, points[secoundPoint].transform.position, Color.cyan,Time.deltaTime);
+            int firstPoint   = (i) % 4;
+            int secoundPoint = (i+1) % 4;
+            Debug.Log(firstPoint + " " + secoundPoint);
+            if(secoundPoint != 0) Debug.DrawLine(points[firstPoint].transform.position, points[secoundPoint].transform.position, Color.cyan,0.5f);
             points[i].transform.position = connectors[i] + startPos;
-            
-            Debug.DrawLine(Vector3Multiply(connections[firstPoint],transform.localScale) + startPos, Vector3Multiply(connections[secoundPoint],transform.localScale)+ startPos, Color.cyan, Time.deltaTime);
-            joints[i].anchor = connections[i];
 
+            
+            Debug.DrawLine(points[firstPoint].transform.position, Vector3Multiply(connections[firstPoint], transform.localScale) + transform.position, Color.blue, 0.5f);
+
+            Debug.DrawLine(Vector3Multiply(connections[firstPoint],transform.localScale) + transform.position, Vector3Multiply(connections[secoundPoint],transform.localScale)+ transform.position, Color.cyan, 0.5f);
+            joints[i].anchor = connections[i];
+            if (points[secoundPoint].transform.position == transform.position) Debug.Log("true");
             joints[i].spring = spring;
         }
     }
@@ -93,7 +130,8 @@ public class MovingPlatform : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        PathFollow();
+        SetConnectors();
     }
 
 
