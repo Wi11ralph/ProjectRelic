@@ -4,9 +4,31 @@ using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
 {
+    [System.Serializable]
+    private class WayPoints
+    {
+        public Transform wayPointPosition; 
+        public float speed;
+        public float waitTime;
+
+        [HideInInspector]
+        public Vector3 pos()
+        {
+            return wayPointPosition.position;
+        }
+        
+    }
+    [Header("Path")]
+    [SerializeField] private WayPoints[] wayPoints = new WayPoints[1];
+
+    [Header("Physics")]
+    [SerializeField] private float height;
+    [SerializeField] private float spring = 10f;
+
+    [Header("Connections/connectors")]
     [SerializeField] private float connectorOffset;
     [SerializeField] private float connectionOffset;
-    [SerializeField] private float height;
+    
 
     [HideInInspector] public GameObject[] points;
     private Vector3[] connectors = new Vector3[4];
@@ -14,12 +36,12 @@ public class MovingPlatform : MonoBehaviour
     private SpringJoint[] joints = new SpringJoint[4];
     private Vector3 startPos;
     private Color orange;
-    [SerializeField] private float spring = 10f;
-    [Header("Path")]
-    [SerializeField] private float speed;
-    [SerializeField] private Transform startPathPos;
-    [SerializeField] private Transform endPathPos;
-    private Vector3 pathPos;
+    
+    
+    private Vector3 currentPathTarget; 
+    private int pathPos = 0;
+    private bool wait = false;
+    private float waitTime = 0;
 
     private void Awake()
     {
@@ -41,27 +63,75 @@ public class MovingPlatform : MonoBehaviour
     }
     private void PathFollow()
     {
-         
+        int thisPos = (pathPos+1) % wayPoints.Length;
+        int lastPos = pathPos % wayPoints.Length;
+
+        if(wait)
+        {
+
+            waitTime += Time.deltaTime;
+            if (waitTime >= wayPoints[lastPos].waitTime)
+            {
+                wait = false;
+                waitTime = 0;
+            }
+            else return;
+        } 
+
+        Vector2 pathXZ = Vector2.MoveTowards(
+            new Vector2(transform.position.x, transform.position.z),
+            new Vector2(wayPoints[thisPos].pos().x, wayPoints[thisPos].pos().z),
+            wayPoints[lastPos].speed * Time.deltaTime
+        );
+
         startPos = new Vector3(
-            Mathf.MoveTowards(transform.position.x, endPathPos.position.x, speed * Time.deltaTime),
-            startPos.y,
-            Mathf.MoveTowards(transform.position.z, endPathPos.position.z, speed * Time.deltaTime)
+            pathXZ.x,
+            Mathf.MoveTowards(startPos.y, wayPoints[thisPos].pos().y, wayPoints[lastPos].speed * Time.deltaTime),
+            pathXZ.y
          );
-         
+        
+        /*
         for (int i = 0; i < 4; i++)
         {
-            points[i].transform.position = Vector3.MoveTowards(transform.position, endPathPos.position, speed * Time.deltaTime);
+            points[i].transform.position = Vector3.MoveTowards(transform.position, wayPoints[thisPos].pos(), wayPoints[lastPos].speed * Time.deltaTime);
         }
-
-        //Debug.DrawLine(transform.position, endPathPos.position,Color.red,Time.deltaTime);
+        */
+        Debug.DrawLine(startPos, wayPoints[thisPos].pos(), Color.red,Time.deltaTime);
         transform.position = new Vector3(
             startPos.x,
             transform.position.y,
             startPos.z 
         );
+        //if at the end of path
+        if (Vector3.Distance(startPos, wayPoints[thisPos].pos()) < wayPoints[lastPos].speed * Time.deltaTime)
+        {
+            pathPos++;
+            wait = true;
+        }
 
     }
-    
+    private void OnCollisionStay(Collision collision)
+    {
+        int thisPos = (pathPos + 1) % wayPoints.Length;
+        int lastPos = pathPos % wayPoints.Length;
+
+        if (collision.gameObject.GetComponent<Rigidbody>() && collision.gameObject.GetComponent<Player>() && !wait)
+        {
+            Vector2 pathXZ = new Vector2(transform.position.x, transform.position.z) - Vector2.MoveTowards(
+                new Vector2(transform.position.x, transform.position.z),
+                new Vector2(wayPoints[thisPos].pos().x, wayPoints[thisPos].pos().z),
+                wayPoints[lastPos].speed * Time.deltaTime
+            );
+
+            collision.transform.position += new Vector3(
+                -1*pathXZ.x,
+                0f,
+                -1*pathXZ.y
+            );
+        }
+        
+    }
+
     public void InstantiateConnectors()
     {
         if (!Application.isPlaying) startPos = transform.position;
@@ -102,20 +172,25 @@ public class MovingPlatform : MonoBehaviour
 
         for (int i = 0; i < 4; i++)
         {
-            joints = GetComponents<SpringJoint>();
-            int firstPoint   = (i) % 4;
-            int secoundPoint = (i+1) % 4;
-            Debug.Log(firstPoint + " " + secoundPoint);
-            if(secoundPoint != 0) Debug.DrawLine(points[firstPoint].transform.position, points[secoundPoint].transform.position, Color.cyan,0.5f);
+            joints = GetComponents<SpringJoint>(); 
             points[i].transform.position = connectors[i] + startPos;
-
-            
-            Debug.DrawLine(points[firstPoint].transform.position, Vector3Multiply(connections[firstPoint], transform.localScale) + transform.position, Color.blue, 0.5f);
-
-            Debug.DrawLine(Vector3Multiply(connections[firstPoint],transform.localScale) + transform.position, Vector3Multiply(connections[secoundPoint],transform.localScale)+ transform.position, Color.cyan, 0.5f);
-            joints[i].anchor = connections[i];
-            if (points[secoundPoint].transform.position == transform.position) Debug.Log("true");
+             
+            joints[i].anchor = connections[i]; 
             joints[i].spring = spring;
+        }
+    }
+    private void OnDrawGizmos()
+    {
+        for (int i = 0; i < 4; i++) {
+
+            int firstPoint = (i) % 4;
+            int secoundPoint = (i + 1) % 4; 
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawLine(points[firstPoint].transform.position, points[secoundPoint].transform.position/*, Color.cyan,0.5f*/);
+            Gizmos.DrawLine(Vector3Multiply(connections[firstPoint], transform.localScale) + transform.position, Vector3Multiply(connections[secoundPoint], transform.localScale) + transform.position/*, Color.cyan, 0.5f*/);
+            Gizmos.color = new Color { r = 0.988f, g = 0.55686f, b = 0.247058f, a = 1 };
+            Gizmos.DrawLine(points[firstPoint].transform.position, Vector3Multiply(connections[firstPoint], transform.localScale) + transform.position/*, Color.blue, 0.5f*/);
+            
         }
     }
     private Vector3 Vector3Multiply(Vector3 a, Vector3 b)
