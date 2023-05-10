@@ -11,10 +11,27 @@ public class MovingPlatform : MonoBehaviour
         public float speed;
         public float waitTime;
 
+        private Vector3 defaultPos; 
+
+        [HideInInspector]
+        public WayPoints(Vector3 defaultt,float spd,float wait)
+        {
+            defaultPos = defaultt;
+            speed = spd;
+            waitTime = wait;
+        }
+        [HideInInspector]
+        public WayPoints(){ }
         [HideInInspector]
         public Vector3 pos()
         {
-            return wayPointPosition.position;
+            try
+            {
+                return wayPointPosition.position;
+            } catch (System.NullReferenceException)
+            {
+                return defaultPos;
+            }
         }
         
     }
@@ -35,8 +52,7 @@ public class MovingPlatform : MonoBehaviour
     private Vector3[] connections = new Vector3[4];
     private SpringJoint[] joints = new SpringJoint[4];
     private Vector3 startPos;
-    private Color orange;
-    
+    private Vector3 realSPos; 
     
     private Vector3 currentPathTarget; 
     private int pathPos = 0;
@@ -46,11 +62,14 @@ public class MovingPlatform : MonoBehaviour
     private void Awake()
     {
         startPos = transform.position;
-        
-        orange.r = 255;
-        orange.g = 165;
-        orange.b = 0;
-    }
+        realSPos = transform.position;
+
+        if (wayPoints.Length == 0) wayPoints = new WayPoints[1];
+        if (wayPoints[0].wayPointPosition ==  null) wayPoints[0] = new WayPoints(realSPos,wayPoints[0].speed, wayPoints[0].waitTime);
+
+        Debug.Log(wayPoints[0].pos());
+        Debug.Log(realSPos);
+    } 
     private Vector3[] CreateOffsets(float o,float y)
     {
         Vector3[] connections = {
@@ -62,7 +81,7 @@ public class MovingPlatform : MonoBehaviour
         return connections;
     }
     private void PathFollow()
-    {
+    { 
         int thisPos = (pathPos+1) % wayPoints.Length;
         int lastPos = pathPos % wayPoints.Length;
 
@@ -88,14 +107,7 @@ public class MovingPlatform : MonoBehaviour
             pathXZ.x,
             Mathf.MoveTowards(startPos.y, wayPoints[thisPos].pos().y, wayPoints[lastPos].speed * Time.deltaTime),
             pathXZ.y
-         );
-        
-        /*
-        for (int i = 0; i < 4; i++)
-        {
-            points[i].transform.position = Vector3.MoveTowards(transform.position, wayPoints[thisPos].pos(), wayPoints[lastPos].speed * Time.deltaTime);
-        }
-        */
+         ); 
         Debug.DrawLine(startPos, wayPoints[thisPos].pos(), Color.red,Time.deltaTime);
         transform.position = new Vector3(
             startPos.x,
@@ -139,10 +151,13 @@ public class MovingPlatform : MonoBehaviour
             connectors  = CreateOffsets(connectorOffset,  transform.position.y   + height) ;
             connections = CreateOffsets(connectionOffset, transform.position.y)/*- height*/;
 
+        points = new GameObject[4];
+
         while (GetComponents<SpringJoint>().Length != 0) DestroyImmediate(GetComponents<SpringJoint>()[0]); 
-        for (int i = 0; i < 4; i++)
-        {
-            if (points[i] != null) DestroyImmediate(points[i]);
+        for (int i = 0; i < points.Length; i++)
+        { 
+            if (points[i] != null) DestroyImmediate(points[i]); 
+
             //if (joints[i] != null) DestroyImmediate(joints[i]); 
             GameObject newObj = new GameObject();
             points[i] = newObj;
@@ -164,24 +179,29 @@ public class MovingPlatform : MonoBehaviour
         }
     }
     public void SetConnectors()
-    {
+    { 
         if (!Application.isPlaying) startPos = transform.position;
 
         connectors =  CreateOffsets(connectorOffset,  startPos.y   + height) ;
         connections = CreateOffsets(connectionOffset, startPos.y)/*- height*/;
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < points.Length; i++)
         {
             joints = GetComponents<SpringJoint>(); 
             points[i].transform.position = connectors[i] + startPos;
-             
+
+            joints[i].maxDistance = height;
+            joints[i].minDistance = height;
+
             joints[i].anchor = connections[i]; 
             joints[i].spring = spring;
         }
     }
     private void OnDrawGizmos()
     {
-        for (int i = 0; i < 4; i++) {
+        if (points.Length != 4) return;
+        SetConnectors();
+        for (int i = 0; i < points.Length; i++) {
 
             int firstPoint = (i) % 4;
             int secoundPoint = (i + 1) % 4; 
@@ -206,8 +226,6 @@ public class MovingPlatform : MonoBehaviour
     void Update()
     {
         PathFollow();
-        SetConnectors();
-    }
-
-
+        
+    } 
 }

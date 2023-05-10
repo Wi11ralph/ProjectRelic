@@ -162,7 +162,7 @@ public class Pause : MonoBehaviour
                 break;
             case Button.Restart:
                 Scene sm = SceneManager.GetActiveScene();
-                sc.LoadScene(sm.name,true);
+                sc.LoadScene(sm.name,SceneLoader.SpawnType.reset);
                 //SceneManager.LoadScene(sm.name);
                 break;
             case Button.Menu:

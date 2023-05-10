@@ -67,7 +67,7 @@ public class Player : MonoBehaviour
     private bool isSprintPressed = false;
     private bool waitForFalse = false;
     private bool isGrounded = false;
-
+    private bool zooming = false;
     public bool IsGrappling;
     private void Start()
     {
@@ -108,6 +108,14 @@ public class Player : MonoBehaviour
             Mathf.Lerp(Camera.transform.position.y, targetCamPos.y, 4.5f * Time.unscaledDeltaTime),
             Mathf.Lerp(Camera.transform.position.z, targetCamPos.z, 1.2f * Time.unscaledDeltaTime)
         );
+        if(zooming)
+        {
+            Camera.GetComponentInChildren<Camera>().orthographicSize = Mathf.Lerp(
+                Camera.GetComponentInChildren<Camera>().orthographicSize,
+                SceneLoader.pzoom,
+                1.2f * Time.unscaledDeltaTime
+            );
+        }
         //Debug.Log(_input);
     }
 
@@ -131,10 +139,17 @@ public class Player : MonoBehaviour
         //jumpSpeed = Mathf.Sqrt(_jumpHeight * -2f * gravityAcceleration);
 
         if (SceneLoader.pos.y >= 0.5f) transform.position = SceneLoader.pos;
+        Debug.Log(SceneLoader.spawnT + " " + SceneLoader.pos);
         transform.rotation = SceneLoader.rot;
         //Camera.transform.position = SceneLoader.camPos;
         //targetCamPos = SceneLoader.camPos;
-        Camera.transform.position = SceneLoader.camPos;
+        if (SceneLoader.spawnT != SceneLoader.SpawnType.nextLevel) Camera.transform.position = SceneLoader.camPos;
+        else
+        {
+            Camera.transform.position = SceneLoader.camOffset + transform.position;
+            zooming = true;
+            Camera.GetComponentInChildren<Camera>().orthographicSize = SceneLoader.currentZoom;
+        }
         Physics.SyncTransforms();
     }
     private void OnTriggerStay(Collider other)

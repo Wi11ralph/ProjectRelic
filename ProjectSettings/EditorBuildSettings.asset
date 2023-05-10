@@ -5,13 +5,34 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
-    path: Assets/Scenes/R1 Blockout.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/Room2.unity
     guid: ea86e3ff316909441afadb643d4d94ce
   - enabled: 1
     path: Assets/Scenes/RoomDebug.unity
     guid: 5109fbaee438bb446b81ec46caeab578
+  - enabled: 1
+    path: Assets/Scenes/Room1.unity
+    guid: ace6d6b9da5761a4cbd00cdb45cca582
+  - enabled: 1
+    path: Assets/Scenes/Tuto1Blockout.unity
+    guid: 99eced3f04bba334c9dbed3053c9093c
+  - enabled: 1
+    path: Assets/Scenes/Tuto2Blockout.unity
+    guid: f1984606bb994634eb74739b3a9e8d59
+  - enabled: 1
+    path: Assets/Scenes/Tuto3Blockout.unity
+    guid: 486b909b9bd685d489e4085372fe50ae
+  - enabled: 1
+    path: Assets/Scenes/Room1Blockout.unity
+    guid: 87b6bcb277c670441997f90ea4327b44
+  - enabled: 1
+    path: Assets/Scenes/Room2Blockout.unity
+    guid: d06d908919cae12498bb970242c56461
+  - enabled: 1
+    path: Assets/Scenes/Room3Blockout 1.unity
+    guid: a51b07f6a55d2414a81e05d239ba5155
   m_configObjects: {}
