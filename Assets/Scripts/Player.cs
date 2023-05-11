@@ -4,11 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEditor;
 
-
-enum{
-
-}
-
 public class Player : MonoBehaviour
 {
     //kqc3yy is a noob
@@ -123,6 +118,7 @@ public class Player : MonoBehaviour
             );
         }
         anim.SetFloat("speed", _input.normalized.magnitude * speedMulti * _movementSpeed);
+        Debug.Log(_input.normalized.magnitude * speedMulti * _movementSpeed);
         anim.SetBool("isGrounded",isGrounded);
         //Debug.Log(_input);
     }
@@ -179,7 +175,7 @@ public class Player : MonoBehaviour
         //moveDirection = transform.forward * _input.normalized.magnitude * _movementSpeed * Time.deltaTime;
 
         if (isSprintPressed && _input.normalized.magnitude != 0) {
-            speedMulti = Mathf.Lerp(speedMulti, 2.7f, 0.5f * Time.deltaTime);
+            speedMulti = Mathf.Lerp(speedMulti, 2.7f, 2.5f * Time.deltaTime);
             //Debug.Log(speedMulti);
         } else speedMulti = 1f;
 
