@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Relic : MonoBehaviour
+public class Item : MonoBehaviour
 {
     private Vector3 realStartPos;
     private Vector3 startPos;
@@ -12,14 +12,15 @@ public class Relic : MonoBehaviour
     [SerializeField] private float bobbingSpeed = 1.5f;
     [SerializeField] private float bobbingRange = 0.5f; //0.5 up, 0.5 down
     private RaycastHit hit;
-    private enum relicOption
+    private enum itemOption
     {
         air,
         fire,
-        nature
+        nature,
+        key
     }
 
-    [SerializeField] private relicOption selectedRelic = relicOption.air;
+    [SerializeField] private itemOption selectedItem = itemOption.air;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,15 +30,15 @@ public class Relic : MonoBehaviour
         
         Renderer rend = this.gameObject.GetComponent<Renderer>();
 
-        switch (selectedRelic)
+        switch (selectedItem)
         {
-            case relicOption.air:
+            case itemOption.air:
                 newMat = Resources.Load("airMat", typeof(Material)) as Material; 
                 break;
-            case relicOption.fire:
+            case itemOption.fire:
                 newMat = Resources.Load("fireMat", typeof(Material)) as Material; 
                 break;
-            case relicOption.nature:
+            case itemOption.nature:
                 newMat = Resources.Load("natureMat", typeof(Material)) as Material;
                 break;
         }
@@ -49,16 +50,19 @@ public class Relic : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             //Debug.Log("You collided with the object!");
-            switch(selectedRelic)
+            switch(selectedItem)
             {
-                case relicOption.air:
+                case itemOption.air:
                     Player.airRelic = true;
                     break;
-                case relicOption.fire:
+                case itemOption.fire:
                     Player.fireRelic = true;
                     break;
-                case relicOption.nature:
+                case itemOption.nature:
                     Player.natureRelic = true;
+                    break;
+                case itemOption.key:
+                    Player.keys.Add(1);
                     break;
             }
             Destroy(this.gameObject);

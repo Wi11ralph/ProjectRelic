@@ -17,7 +17,7 @@ public class GrapplePoint : MonoBehaviour
     private Color col;
     private Vector3[] rayy;
 
-    private float maxDistance = 100f;
+  //private float maxDistance = 100f;
     private SpringJoint joint;
     
 

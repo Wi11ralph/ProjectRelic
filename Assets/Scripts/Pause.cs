@@ -18,7 +18,9 @@ public class Pause : MonoBehaviour
     [SerializeField] private GameObject t;
 
     [SerializeField] private AudioSource select;
+    #pragma warning disable CS0108 // Member hides inherited member; missing new keyword
     [SerializeField] private AudioClip audio;
+    #pragma warning restore CS0108 // Member hides inherited member; missing new keyword
 
     [SerializeField] private AudioSource ambienceAudio;
     private enum Button
