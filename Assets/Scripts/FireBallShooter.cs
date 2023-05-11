@@ -15,9 +15,10 @@ public class FireBallShooter : MonoBehaviour
     [SerializeField] private AudioClip ballShoot;
     [SerializeField] private AudioSource playerSounds;
 
+    [SerializeField] private Animator anim;
     private int ballsLeft, ballsShot;
 
-    private bool shooting, readyToShoot;
+    private bool shooting, isShooting, readyToShoot;
 
     [SerializeField] private GameObject player;
     [SerializeField] private Transform attackPoint;
@@ -39,14 +40,17 @@ public class FireBallShooter : MonoBehaviour
         if (allowHold) shooting = Input.GetKey(KeyCode.Mouse0);
         else shooting = Input.GetKeyDown(KeyCode.Mouse0);
 
-        if(readyToShoot && shooting && ballsLeft > 0 && Player.fireRelic)
+        if (readyToShoot) isShooting = false;
+        if (readyToShoot && shooting && ballsLeft > 0 && Player.fireRelic)
         {
+            isShooting = true;
             ballsShot = 0;
-
+             
             playerSounds.PlayOneShot(ballShoot);
 
             Shoot();
         }
+        anim.SetBool("isShooting", isShooting);
     }
     
     private void Shoot()

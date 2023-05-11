@@ -16,7 +16,8 @@ public class MyPlayerEditor : Editor
         jumpHeight,
         xClampMax, zClampMax,
         xClampMin, zClampMin,
-        cnrtl, cam, rb, grn, sp;
+        cnrtl, cam, rb, grn, sp,
+        anim;
 
     private void OnEnable()
     {
@@ -36,6 +37,7 @@ public class MyPlayerEditor : Editor
         rb = serializedObject.FindProperty("_rb");
         grn = serializedObject.FindProperty("groundCheck");
         sp = serializedObject.FindProperty("shadowPoint");
+        anim = serializedObject.FindProperty("anim");
     }
     protected static bool showRef = false;
     protected static bool showClamp = true;
@@ -89,6 +91,7 @@ public class MyPlayerEditor : Editor
             EditorGUILayout.PropertyField(cam);
             EditorGUILayout.PropertyField(grn);
             EditorGUILayout.PropertyField(sp);
+            EditorGUILayout.PropertyField(anim);
             EditorGUI.indentLevel--;
         }
 

@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEditor;
+
+
+enum{
+
+}
+
 public class Player : MonoBehaviour
 {
     //kqc3yy is a noob
@@ -10,7 +16,7 @@ public class Player : MonoBehaviour
     //SecSad is a noob
     //TexturephobeCreator is a noob
     //hm
-
+    [SerializeField] private Animator anim;
     //[SerializeField] private Rigidbody _rb;
 
     public Text debug;
@@ -116,6 +122,8 @@ public class Player : MonoBehaviour
                 1.2f * Time.unscaledDeltaTime
             );
         }
+        anim.SetFloat("speed", _input.normalized.magnitude * speedMulti * _movementSpeed);
+        anim.SetBool("isGrounded",isGrounded);
         //Debug.Log(_input);
     }
 
