@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
     public static bool airRelic = false;
     public static bool natureRelic = false;
 
-    public static List<int> keys;
+    public List<int> keys;
 
     private float jumpWaiter = 0;
     private RaycastHit hit;
@@ -120,7 +120,7 @@ public class Player : MonoBehaviour
             );
         }
         anim.SetFloat("speed", _input.normalized.magnitude * speedMulti * _movementSpeed);
-        Debug.Log(_input.normalized.magnitude * speedMulti * _movementSpeed);
+        //Debug.Log(_input.normalized.magnitude * speedMulti * _movementSpeed);
         anim.SetBool("isGrounded",isGrounded);
         //Debug.Log(_input);
     }

@@ -18,10 +18,7 @@ public class HoverPlatform : MonoBehaviour
         startHeight = connectors[0].position.y;
     }
     private void Update()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Physics.Raycast(ray, out hit);
-        
+    { 
         if (Player.airRelic && IsHovering()) {
             floatT = 0f;
             outline.SetFloat("sc", 1.05f);
@@ -52,6 +49,8 @@ public class HoverPlatform : MonoBehaviour
     }
     private bool IsHovering()
     {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Physics.Raycast(ray, out hit);
         try {
             if (hit.collider.gameObject == this.gameObject) return true;
             else return false;

@@ -11,6 +11,8 @@ public class Item : MonoBehaviour
     [SerializeField] private float rotationSpeed = 72f;
     [SerializeField] private float bobbingSpeed = 1.5f;
     [SerializeField] private float bobbingRange = 0.5f; //0.5 up, 0.5 down
+
+
     private RaycastHit hit;
     private enum itemOption
     {
@@ -21,6 +23,8 @@ public class Item : MonoBehaviour
     }
 
     [SerializeField] private itemOption selectedItem = itemOption.air;
+    [SerializeField] private int keyID;
+    [SerializeField] private Player player;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,14 +46,15 @@ public class Item : MonoBehaviour
                 newMat = Resources.Load("natureMat", typeof(Material)) as Material;
                 break;
         }
-        rend.material = newMat;
+        if(selectedItem != itemOption.key) rend.material = newMat;
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("You collided with the object!");
         if (other.gameObject.tag == "Player")
         {
-            //Debug.Log("You collided with the object!");
+            Debug.Log("You collided with the object!");
             switch(selectedItem)
             {
                 case itemOption.air:
@@ -62,7 +67,7 @@ public class Item : MonoBehaviour
                     Player.natureRelic = true;
                     break;
                 case itemOption.key:
-                    Player.keys.Add(1);
+                    player.keys.Add(keyID);
                     break;
             }
             Destroy(this.gameObject);

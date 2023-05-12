@@ -13,6 +13,12 @@ public class DoorController : MonoBehaviour
     [SerializeField] private float openTime;
     [SerializeField] private float closeTime;
 
+    [SerializeField] private bool keyMode = false; 
+    [SerializeField] private Material outline;
+    [SerializeField] private Player player;
+
+    private RaycastHit hit;
+
     //private bool closeWait;
     //private bool openWait;
     private void Start()
@@ -36,6 +42,36 @@ public class DoorController : MonoBehaviour
         LeanTween.moveLocal(gameObject, startPos, closeTime).setEaseOutQuad();
         
     }
+    private void Update()
+    {
+        if (!keyMode) return;
+        if(IsHovering() && player.keys.Contains(id))
+        {
+            outline.SetFloat("sc", 1.05f);
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                GameEvents.current.DoorwayTriggerEnter(id);
+                player.keys.Remove(id);
+            }
 
-   
+        } else outline.SetFloat("sc", 0f);
+
+    }
+
+    private bool IsHovering()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Physics.Raycast(ray, out hit);
+        try
+        {
+            if (hit.collider.gameObject == this.gameObject) return true;
+            else return false;
+        }
+        catch (System.NullReferenceException)
+        {
+            return false;
+        }
+    }
+
+
 }
