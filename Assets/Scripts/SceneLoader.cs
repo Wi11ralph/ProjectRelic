@@ -24,10 +24,13 @@ public class SceneLoader : MonoBehaviour
         nextRoom //retains transforms
     }
     public static SpawnType spawnT = SpawnType.reset;
+
+    /*
     void OnGUI()
     {
         if (GUI.Button(new Rect(10, 10, 100, 30), "Change Scene")) LoadScene(scene, SpawnType.nextRoom);
     }
+    */
     public void LoadScene(string s, SpawnType spawnType, Vector3? position = null,float? zoom = 5)
     {  
         camPos = cam.transform.position;
