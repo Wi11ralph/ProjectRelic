@@ -5,6 +5,7 @@ using UnityEngine;
 public class Grapple : MonoBehaviour
 {
     [SerializeField] private GameObject player;
+    public GameObject palm;
     // Start is called before the first frame update
     private Vector3 currentGrapplePosition; 
     [HideInInspector] public Vector3 grapplePoint;
@@ -21,21 +22,22 @@ public class Grapple : MonoBehaviour
         joint = player.gameObject.AddComponent<SpringJoint>();
         joint.autoConfigureConnectedAnchor = false;
         joint.connectedAnchor = gP;
+        
         grapplePoint = gP;
 
-        float distanceFromPoint = Vector3.Distance(player.transform.position, gP);
+        float distanceFromPoint = Vector3.Distance(palm.transform.position, gP);
 
         //The distance grapple will try to keep from grapple point. 
         joint.maxDistance = distanceFromPoint * 0.5f;
         joint.minDistance = distanceFromPoint * 0.1f;
 
         //Adjust these values to fit your game.
-        joint.spring = 15.5f;
+        joint.spring = 30.5f;
         joint.damper = 7f;
         joint.massScale = 4.5f;
 
         lr.positionCount = 2;
-        currentGrapplePosition = player.transform.position;
+        currentGrapplePosition = palm.transform.position;
     }
     private void LateUpdate() { DrawRope(); }
     void DrawRope()
@@ -50,9 +52,14 @@ public class Grapple : MonoBehaviour
         {
             currentGrapplePosition = Vector3.Lerp(currentGrapplePosition, grapplePoint, Time.deltaTime * 20f);
 
-            lr.SetPosition(0, player.transform.position);
+            lr.SetPosition(0, palm.transform.position);
             lr.SetPosition(1, currentGrapplePosition);
         }
+    }
+    private void Update()
+    {
+        if (!joint) return;
+        joint.anchor = palm.transform.position - player.transform.position;
     }
     public void StopGrapple()
     {

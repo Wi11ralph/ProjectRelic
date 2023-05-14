@@ -26,8 +26,13 @@ public class GrapplePoint : MonoBehaviour
    
     private bool IsGrappleable()
     {
-        Vector3 pos = player.transform.position;
-        Vector3 dir = (grapplePoint.position - player.transform.position).normalized;
+        Vector3 pos = new Vector3(
+            player.transform.position.x,
+            grapple.palm.transform.position.y,
+            player.transform.position.z
+        );
+
+        Vector3 dir = (grapplePoint.position - pos).normalized;
         Ray ray = new Ray(pos, dir);
         Physics.Raycast(ray, out hit);
         rayy = RayOffsets(pos);
@@ -44,15 +49,15 @@ public class GrapplePoint : MonoBehaviour
             {
                 col = Color.yellow;
                 grappleable = false;
-                debugShowForS = 30;
+                debugShowForS = 60;
             }
-            if (Vector3.Distance(grapplePoint.position, rayy[i]) > 6.5f)
+            if (Vector3.Distance(grapplePoint.position, rayy[i]) > 12f)
             {
                 col = Color.red;
                 grappleable = false;
-                debugShowForS = 15;
+                debugShowForS = 30;
             }
-            Debug.DrawRay(rayy[i], dirs * Mathf.Min(hits.distance, 6.5f), col, Time.deltaTime * debugShowForS);
+            Debug.DrawRay(rayy[i], dirs * Mathf.Min(hits.distance, 12f), col, Time.deltaTime * debugShowForS);
         }
 
         if (Vector3.Distance(grapplePoint.position, hit.point) < 0.3f) col = Color.green;
@@ -123,12 +128,12 @@ public class GrapplePoint : MonoBehaviour
     private Vector3[] RayOffsets(Vector3 inn)
     {
         Vector3[] rays = new Vector3[6];
-        rays[0] = new Vector3(inn.x - 0.5f, inn.y, inn.z);
-        rays[1] = new Vector3(inn.x , inn.y - 0.5f, inn.z);
-        rays[2] = new Vector3(inn.x, inn.y, inn.z - 0.5f);
-        rays[3] = new Vector3(inn.x + 0.5f, inn.y, inn.z);
-        rays[4] = new Vector3(inn.x, inn.y + 0.5f, inn.z);
-        rays[5] = new Vector3(inn.x, inn.y, inn.z + 0.5f);
+        rays[0] = new Vector3(inn.x - 0.265f, inn.y, inn.z);
+        rays[1] = new Vector3(inn.x , inn.y - 0.265f, inn.z);
+        rays[2] = new Vector3(inn.x, inn.y, inn.z - 0.265f);
+        rays[3] = new Vector3(inn.x + 0.265f, inn.y, inn.z);
+        rays[4] = new Vector3(inn.x, inn.y + 0.265f, inn.z);
+        rays[5] = new Vector3(inn.x, inn.y, inn.z + 0.265f);
         return rays;
     } 
 }

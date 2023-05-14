@@ -15,6 +15,7 @@ public class Menu : MonoBehaviour
     [Header("Images")]
     [SerializeField] private GameObject title;
     [SerializeField] private GameObject character;
+    [SerializeField] private GameObject fade;
 
     [Header("Play button")]
     [SerializeField] private string firstLevel;
@@ -35,10 +36,27 @@ public class Menu : MonoBehaviour
     private Vector3 startPos;
     private Vector3 targetPos;
     private float time;
-     
+
+    private Vector3 titleTarget;
+    private Vector3 characterTarget;
+    private Vector3 buttonsTarget;
+    [Header("AnimPos")]
+
+    [SerializeField] private float titleAnimHeight;
+    [SerializeField] private float characterAnimHeight;
+    [SerializeField] private float buttonsAnimHeight;
+    [SerializeField] private float animSpeed;
+    [SerializeField] private float leeway;
+
+    [Header("Ref")]
+    [SerializeField] private SceneLoader sc;
+
     public void OnPlayClick()
     {
-        SceneManager.LoadScene(firstLevel, LoadSceneMode.Single);
+        titleTarget = SetTarget(title, titleAnimHeight, titleTarget, true);
+        characterTarget = SetTarget(character, characterAnimHeight, characterTarget, true);
+        buttonsTarget = SetTarget(buttons, buttonsAnimHeight, buttonsTarget, true);
+        StartCoroutine(sc.LoadLevel(firstLevel));
     }
     public void OnQuitClick()
     {
@@ -47,14 +65,50 @@ public class Menu : MonoBehaviour
 
     private void Start()
     {
-        startY = character.transform.position.y;
+        Time.timeScale = 1;
         startPos = background.transform.position;
         targetPos = startPos;
-    }
 
+        titleTarget     = SetTarget(title    , titleAnimHeight    , titleTarget     );
+        characterTarget = SetTarget(character, characterAnimHeight, characterTarget );
+        buttonsTarget   = SetTarget(buttons  , buttonsAnimHeight  , buttonsTarget   );
+        startY = character.transform.position.y;
+    }
+    private Vector3 SetTarget(GameObject obj,float height,Vector3 target,bool animOut = false)
+    {
+        if (!animOut)
+        {
+            target = obj.transform.position;
+
+            obj.transform.position = new Vector3(
+                obj.transform.position.x,
+                height,
+                obj.transform.position.z
+            );
+        } else
+        {
+            target = new Vector3(
+                obj.transform.position.x,
+                height,
+                obj.transform.position.z
+            );
+        }
+        return target;
+    }
+    private bool firstFrame = true;
+    private void LateUpdate()
+    {
+        if (!firstFrame) return;
+        firstFrame = false; 
+    }
     // Update is called once per frame
     void Update()
-    { 
+    {
+        if (firstFrame) return;
+        title.transform.position = Vector3.Lerp(title.transform.position, titleTarget, Time.deltaTime * animSpeed);
+        character.transform.position = Vector3.Lerp(character.transform.position, characterTarget, Time.deltaTime * animSpeed);
+        buttons.transform.position = Vector3.Lerp(buttons.transform.position, buttonsTarget, Time.deltaTime * animSpeed);
+
         //title sine scaling
         title.transform.localScale = new Vector3(
             1f + (SineScale * Mathf.Sin(Time.time * SineSpeed)),
@@ -63,6 +117,8 @@ public class Menu : MonoBehaviour
         );
         //end
         //character bobbing
+        startY = Mathf.Lerp(startY, characterTarget.y, Time.deltaTime * animSpeed);
+
         character.transform.position = new Vector3(
             character.transform.position.x,
             startY+(SineRange * Mathf.Sin(Time.time * SineSpeed)),
@@ -92,8 +148,7 @@ public class Menu : MonoBehaviour
     }
     private void IfHovering(GameObject button)
     { 
-        RectTransform rect = button.GetComponent<RectTransform>(); 
-        if (Input.mousePosition.x > rect.position.x - (rect.sizeDelta.x / 2)) Debug.Log("xOver");
+        RectTransform rect = button.GetComponent<RectTransform>();  
         if (
             Input.mousePosition.x > rect.position.x - (rect.sizeDelta.x / 2) && (rect.position.x - (rect.sizeDelta.x / 2)) + rect.sizeDelta.x > Input.mousePosition.x &&
             Input.mousePosition.y > rect.position.y - (rect.sizeDelta.y / 2) && (rect.position.y - (rect.sizeDelta.y / 2)) + rect.sizeDelta.y > Input.mousePosition.y

@@ -85,6 +85,12 @@ public class Player : MonoBehaviour
 
         Initialize();  
     }
+    private bool firstFrame = true;
+    private void LateUpdate()
+    {
+        if (!firstFrame) return;
+        firstFrame = false;
+    }
     private void FixedUpdate()
     {
         if (this.tag != "Player") return;
@@ -92,6 +98,7 @@ public class Player : MonoBehaviour
     }
     private void Update()
     {
+        if (firstFrame) return;
         //Debug.Log(Camera.transform.position);
         if (this.tag != "Player") return;
         
@@ -121,7 +128,8 @@ public class Player : MonoBehaviour
         }
         anim.SetFloat("speed", _input.normalized.magnitude * speedMulti * _movementSpeed);
         //Debug.Log(_input.normalized.magnitude * speedMulti * _movementSpeed);
-        anim.SetBool("isGrounded",isGrounded);
+        anim.SetBool("isGrounded",groundCheck.GetComponent<Player>().isGrounded);
+        anim.SetBool("grappling", IsGrappling);
         //Debug.Log(_input);
     }
 
@@ -211,10 +219,13 @@ public class Player : MonoBehaviour
         {
             jumpWaiter = 0.2f;
             _rb.velocity = new Vector3(_rb.velocity.x, _jumpHeight, _rb.velocity.z);
-            dJump++;
+            if (dJump == 2) anim.SetTrigger("dj");
+            dJump++; 
             waitForFalse = true;
         }
         else if (!isJumpPressed) waitForFalse = false;
+        anim.SetBool("isJumping", isJumpPressed);
+        //Debug.Log(anim.GetBool("isJumping"));
     }
 }
 

@@ -67,8 +67,8 @@ public class MovingPlatform : MonoBehaviour
         if (wayPoints.Length == 0) wayPoints = new WayPoints[1];
         if (wayPoints[0].wayPointPosition ==  null) wayPoints[0] = new WayPoints(realSPos,wayPoints[0].speed, wayPoints[0].waitTime);
 
-        Debug.Log(wayPoints[0].pos());
-        Debug.Log(realSPos);
+        //Debug.Log(wayPoints[0].pos());
+        //Debug.Log(realSPos);
     } 
     private Vector3[] CreateOffsets(float o,float y)
     {

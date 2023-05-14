@@ -51,7 +51,7 @@ public class Item : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("You collided with the object!");
+        //Debug.Log("You collided with the object!");
         if (other.gameObject.tag == "Player")
         {
             Debug.Log("You collided with the object!");

@@ -4,12 +4,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class SceneLoader : MonoBehaviour
 {
-    //private string scenePath = "Assets/Scenes/";
-    [SerializeField] private string scene;
+    //private string scenePath = "Assets/Scenes/"; 
     [SerializeField] GameObject player;
 
     [SerializeField] private Vector3 spawnPoint;
     [SerializeField] GameObject cam;
+    [SerializeField] private Animator transition;
+
     public static Vector3 pos = new (0,0,0);
     public static Vector3 camPos = new (0,0,0);
     public static Vector3 camOffset = new(0, 0, 0);
@@ -31,6 +32,10 @@ public class SceneLoader : MonoBehaviour
         if (GUI.Button(new Rect(10, 10, 100, 30), "Change Scene")) LoadScene(scene, SpawnType.nextRoom);
     }
     */
+    private void LateUpdate()
+    {
+        transition.SetBool("Loaded",true);
+    }
     public void LoadScene(string s, SpawnType spawnType, Vector3? position = null,float? zoom = 5)
     {  
         camPos = cam.transform.position;
@@ -46,8 +51,16 @@ public class SceneLoader : MonoBehaviour
                 pzoom = (float)       zoom;
             }
         }  
-        spawnT = spawnType;
-        SceneManager.LoadScene(s, LoadSceneMode.Single);
+        spawnT = spawnType; 
+        StartCoroutine(LoadLevel(s));
+         
+    }
+
+    public IEnumerator LoadLevel(string levelName)
+    { 
+        transition.SetTrigger("Start");
+        yield return new WaitForSecondsRealtime(1);
+        SceneManager.LoadScene(levelName, LoadSceneMode.Single);
     }
 
 }

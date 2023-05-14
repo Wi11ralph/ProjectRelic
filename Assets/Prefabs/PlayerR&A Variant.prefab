@@ -240,7 +240,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 387b0e9e071edbe4f927094bec9ce5fa, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 387b0e9e071edbe4f927094bec9ce5fa, type: 3}
       propertyPath: m_LocalScale.x
@@ -296,7 +296,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 387b0e9e071edbe4f927094bec9ce5fa, type: 3}
       propertyPath: m_Name
-      value: PlayerR&A
+      value: PlayerR&A Variant
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 387b0e9e071edbe4f927094bec9ce5fa, type: 3}
       propertyPath: m_Layer
@@ -415,13 +415,31 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0.11200009
         inSlope: 0
         outSlope: 0
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.4724138
+        value: 0.023999996
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.9620689
+        value: 0.088
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -498,6 +516,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 5706583341465790313}
+  palm: {fileID: 0}
   grapplePoint: {x: 0, y: 0, z: 0}
 --- !u!114 &817733436
 MonoBehaviour:
@@ -513,6 +532,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 817733437}
   debug: {fileID: 0}
+  keys: 
   height: 0
   _turnSpeed: 360
   _movementSpeed: 2

@@ -11,6 +11,8 @@ public class Pause : MonoBehaviour
 
     public static bool active;
     public static bool wait;
+    private bool menuCommitted = false;
+
     public static float currentValue;
     private float scaleTime = 1f;
 
@@ -119,6 +121,16 @@ public class Pause : MonoBehaviour
         button1 = new Bttn(bt1,660,560);
         button2 = new Bttn(bt2,485,385);
         button3 = new Bttn(bt3,310,210);
+
+        active = false;
+        tint.alpha = 0;
+    }
+    private bool firstFrame = true;
+    private void LateUpdate()
+    {
+        if (!firstFrame) return;
+        firstFrame = false;
+        t.transform.localPosition = new(-600f, 0f, 0f);
     }
     void Update()
     {
@@ -127,25 +139,29 @@ public class Pause : MonoBehaviour
         if (mouse) Click();
         GatherInput();
 
-        if (input) Pauser();
+        if (input && !menuCommitted) Pauser();
         else wait = false;
 
-        if (active)
+        if (active && !firstFrame)
         {
             scaleTime = Mathf.Lerp(scaleTime, 0f, 3f * Time.unscaledDeltaTime);
             if (scaleTime <= 0.009) scaleTime = 0;
-            t.transform.localPosition = new (Mathf.Lerp(t.transform.localPosition.x, 0f, 5f * Time.unscaledDeltaTime),0f,0f);
-        } else
+            if(!menuCommitted)t.transform.localPosition = new (Mathf.Lerp(t.transform.localPosition.x, 0f, 5f * Time.unscaledDeltaTime),0f,0f);
+        } else if(!firstFrame)
         {
             scaleTime = Mathf.Lerp(scaleTime, 1f, 12f * Time.unscaledDeltaTime);
-            if (scaleTime >= 0.99999) scaleTime = 1;
+            if (scaleTime >= 0.99999) {
+                scaleTime = 1;
+                menuCommitted = false;
+            }
             t.transform.localPosition = new(Mathf.Lerp(t.transform.localPosition.x, -600f, 5f * Time.unscaledDeltaTime), 0f, 0f);
         }
+        if(menuCommitted) t.transform.localPosition = new(Mathf.Lerp(t.transform.localPosition.x, -600f, 5f * Time.unscaledDeltaTime), 0f, 0f);
         Time.timeScale = scaleTime;
     }
     private void IfHover()
     {
-        
+        if (menuCommitted) return;
         lastBttn = bttn;
 
         bttn = Button.None;
@@ -157,6 +173,7 @@ public class Pause : MonoBehaviour
     }
     private void Click()
     {
+        if (menuCommitted) return;
         switch (bttn)
         {
             case Button.Continue:
@@ -168,12 +185,12 @@ public class Pause : MonoBehaviour
                 //SceneManager.LoadScene(sm.name);
                 break;
             case Button.Menu:
-                //button 1
+                sc.StartCoroutine(sc.LoadLevel("Menu"));
                 break;
             case Button.None:
-                //do nothing
-                break;
+                return;
         }
+        menuCommitted = true;
     }
     private void Pauser()
     {
