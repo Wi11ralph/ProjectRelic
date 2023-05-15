@@ -18,6 +18,7 @@ public class Pause : MonoBehaviour
 
     [SerializeField] private CanvasGroup tint;
     [SerializeField] private GameObject t;
+    [SerializeField] private GameObject Relics; 
 
     [SerializeField] private AudioSource select;
     #pragma warning disable CS0108 // Member hides inherited member; missing new keyword
