@@ -56,6 +56,11 @@ public class Menu : MonoBehaviour
         titleTarget = SetTarget(title, titleAnimHeight, titleTarget, true);
         characterTarget = SetTarget(character, characterAnimHeight, characterTarget, true);
         buttonsTarget = SetTarget(buttons, buttonsAnimHeight, buttonsTarget, true);
+
+        Player.fireRelic = false;
+        Player.airRelic = false;
+        Player.natureRelic = false; 
+
         StartCoroutine(sc.LoadLevel(firstLevel));
     }
     public void OnQuitClick()

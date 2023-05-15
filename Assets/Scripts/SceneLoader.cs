@@ -18,6 +18,22 @@ public class SceneLoader : MonoBehaviour
     public static float pzoom = 5f;
     public static float currentZoom = 5f;
 
+    private bool fireR;
+    private bool airR;
+    private bool natureR;
+    private List<int> keys;
+    private void Start()
+    {
+        fireR = Player.fireRelic;
+        airR = Player.airRelic;
+        natureR = Player.natureRelic;
+        try
+        {
+            keys = player.GetComponent<Player>().keys;
+        } catch(UnityEngine.UnassignedReferenceException)
+        {}
+
+    }
     public enum SpawnType
     {
         reset, //teleports you to beginning, retains cam pos
@@ -50,7 +66,13 @@ public class SceneLoader : MonoBehaviour
                 pos   = (Vector3) position;
                 pzoom = (float)       zoom;
             }
-        }  
+        }  else
+        {
+            Player.fireRelic = fireR;
+            Player.airRelic = airR;
+            Player.natureRelic = natureR;
+            player.GetComponent<Player>().keys = keys;
+        }
         spawnT = spawnType; 
         StartCoroutine(LoadLevel(s));
          
