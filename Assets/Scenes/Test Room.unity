@@ -486,6 +486,7 @@ MonoBehaviour:
   allowHold: 0
   ballShoot: {fileID: 0}
   playerSounds: {fileID: 0}
+  anim: {fileID: 0}
   player: {fileID: 1581737620}
   attackPoint: {fileID: 592727668}
   allowInvoke: 1
@@ -864,7 +865,9 @@ MonoBehaviour:
   rotationSpeed: 72
   bobbingSpeed: 1.5
   bobbingRange: 0.5
-  selectedRelic: 1
+  selectedItem: 0
+  keyID: 0
+  player: {fileID: 0}
 --- !u!65 &1068904815
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -972,9 +975,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88b17fa041d00c744a1f41a5ff1adcaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene: Room2
   player: {fileID: 1581737620}
+  spawnPoint: {x: 0, y: 0, z: 0}
   cam: {fileID: 2106826421}
+  transition: {fileID: 0}
 --- !u!4 &1538811703
 Transform:
   m_ObjectHideFlags: 0
@@ -1025,7 +1029,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a3a27005dfa5dd4ab02ac14041efac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 0}
   debug: {fileID: 0}
+  keys: 
   height: 0
   _turnSpeed: 360
   _movementSpeed: 2
@@ -1586,7 +1592,9 @@ MonoBehaviour:
   rotationSpeed: 72
   bobbingSpeed: 1.5
   bobbingRange: 0.5
-  selectedRelic: 0
+  selectedItem: 0
+  keyID: 0
+  player: {fileID: 0}
 --- !u!65 &1923908764
 BoxCollider:
   m_ObjectHideFlags: 0
