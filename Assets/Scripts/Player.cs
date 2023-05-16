@@ -34,6 +34,7 @@ public class Player : MonoBehaviour
     private class Sounds
     {
         public AudioSource audioSource;
+        public AudioSource feetSource;
         public AudioClip jump;
         public AudioClip land;
         public AudioClip footsteps;
@@ -107,12 +108,20 @@ public class Player : MonoBehaviour
         if (this.tag != "Player") return;
         Look();
     }
+    private bool waitForLand = false;
+    private bool steps = true;
     private void Update()
     { 
         if (firstFrame) return;
         //Debug.Log(Camera.transform.position);
         if (this.tag != "Player") return;
-        
+
+        if (waitForLand && groundCheck.GetComponent<Player>().isGrounded)
+        {
+            waitForLand = false;
+            sounds.audioSource.PlayOneShot(sounds.land);
+        }
+        if (!groundCheck.GetComponent<Player>().isGrounded) waitForLand = true;
         //Debug.Log(newPos); (-4.17, 3.95, -4.15)
         GatherInput();
         
@@ -137,7 +146,28 @@ public class Player : MonoBehaviour
                 1.2f * Time.unscaledDeltaTime
             );
         }
-        anim.SetFloat("speed", _input.normalized.magnitude * speedMulti * _movementSpeed);
+        float speedd = _input.normalized.magnitude * speedMulti * _movementSpeed;
+        anim.SetFloat("speed", speedd);
+        if (speedd > 0.1f && speedd < 3f && groundCheck.GetComponent<Player>().isGrounded)
+        {
+            sounds.audioSource.loop = true;
+            if (steps)
+            {
+                //sounds.feetSource.clip = sounds.footsteps;
+                sounds.feetSource.Play();
+                steps = false;
+            }
+        }
+        else
+        {
+            try
+            {
+                sounds.feetSource.Pause(); 
+                sounds.feetSource.time = Mathf.Min(Mathf.Round(sounds.feetSource.time * 2)/2,1.9f);
+            }
+            catch (System.NullReferenceException) { }
+            steps = true;
+        }
         //Debug.Log(_input.normalized.magnitude * speedMulti * _movementSpeed);
         anim.SetBool("isGrounded",groundCheck.GetComponent<Player>().isGrounded);
         anim.SetBool("grappling", IsGrappling);
@@ -177,16 +207,12 @@ public class Player : MonoBehaviour
         }
         Physics.SyncTransforms();
     }
-    private bool waitForLand = false;
+    
     private void OnTriggerStay(Collider other)
     {
         if (this.tag == "Player" || other.tag != "mapElements" && other.tag != "burnable") return; 
         isGrounded = true; 
-        if(waitForLand)
-        {
-            waitForLand = false;
-            //sounds.audioSource.PlayOneShot(sounds.land);
-        }
+        
     }
     private void OnTriggerExit(Collider other)
     {

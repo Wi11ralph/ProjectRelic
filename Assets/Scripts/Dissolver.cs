@@ -5,11 +5,13 @@ using UnityEngine;
 public class Dissolver : MonoBehaviour
 {
     [SerializeField] private GameObject itemtospawn;
+    [SerializeField] private AudioClip dissolveSound;
     [SerializeField] private float animationTime =1f;
 
     private bool spawnitem = true;
     private Material mat;
-    public bool dissolve = false; 
+    public bool dissolve = false;
+    private bool trigger = true;
     private void Awake()
     {
         mat = GetComponent<MeshRenderer>().material;
@@ -17,6 +19,16 @@ public class Dissolver : MonoBehaviour
     private void Update()
     {
         if (!dissolve) return;
+
+        if(trigger)
+        {
+            AudioSource aSor = GetComponent<AudioSource>();
+            aSor.loop = false;
+            aSor.volume = 1f;
+            aSor.PlayOneShot(dissolveSound);
+
+            trigger = false;
+        }
 
         float amount = mat.GetFloat("amount");
 

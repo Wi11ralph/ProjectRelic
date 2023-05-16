@@ -62,6 +62,7 @@
     <Compile Include="Assets\Thirdparty\LeanTween\Testing\TestingSequencer.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Examples\Scripts\PathSplineEndless.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Testing\TestingOptionalCancel.cs" />
+    <Compile Include="Assets\Scripts\BoxSounds.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Testing\TestingIssue2.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Testing\Testing240.cs" />
     <Compile Include="Assets\Thirdparty\LeanTween\Testing\TestingDescr.cs" />
@@ -127,6 +128,8 @@
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\Shaders\CustomHLSL\CustomLighting.hlsl" />
+    <None Include="Assets\Shaders\CustomHLSL\NoiseGenerator3D.hlsl" />
     <None Include="Assets\Thirdparty\LeanTween\ReadMe.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\Scripts\buttonPos.txt" />
@@ -142,6 +145,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
+    <None Include="Assets\Shaders\CustomHLSL\Outline.hlsl" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />

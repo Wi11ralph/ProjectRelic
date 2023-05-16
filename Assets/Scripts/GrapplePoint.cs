@@ -17,7 +17,17 @@ public class GrapplePoint : MonoBehaviour
     private Color col;
     private Vector3[] rayy;
 
-  //private float maxDistance = 100f;
+    [System.Serializable]
+    private class GrappleSounds
+    {
+        public AudioSource audio;
+        public AudioClip grapple;
+        public AudioClip ungrapple;
+
+    }
+    [SerializeField] private GrappleSounds gs;
+
+    //private float maxDistance = 100f;
     private SpringJoint joint;
     
 
@@ -96,7 +106,11 @@ public class GrapplePoint : MonoBehaviour
                 mat.SetFloat("_OutlineThickness", 0.6f);
                 //Debug.Log(mat.GetFloat("_OutlineThickness"));
             }
-                if (Input.GetMouseButtonDown(1)) grapple.StartGrapple(grapplePoint.position);
+            if (Input.GetMouseButtonDown(1))
+            {
+                grapple.StartGrapple(grapplePoint.position);
+                gs.audio.PlayOneShot(gs.grapple);
+            }
 
         }
         else if (mat.GetFloat("_OutlineThickness") != 0 && !player.GetComponent<Player>().IsGrappling || grapple.grapplePoint != grapplePoint.position)
@@ -104,13 +118,21 @@ public class GrapplePoint : MonoBehaviour
             mat.SetFloat("_OutlineThickness", 0);
             //Debug.Log(mat.GetFloat("_OutlineThickness"));
         }
-        if (Input.GetMouseButtonUp(1)) grapple.StopGrapple();
+        if (Input.GetMouseButtonUp(1))
+        {
+            grapple.StopGrapple();
+            gs.audio.PlayOneShot(gs.ungrapple);
+        }
 
-        if ( 
+        if (
             player.GetComponent<Player>().IsGrappling &&
             grapple.grapplePoint == grapplePoint.position
         )
-            if (!IsGrappleable()) grapple.StopGrapple();
+            if (!IsGrappleable())
+            {
+                grapple.StopGrapple();
+                gs.audio.PlayOneShot(gs.ungrapple);
+            }
 
     }
     
