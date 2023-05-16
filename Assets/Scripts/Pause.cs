@@ -19,6 +19,11 @@ public class Pause : MonoBehaviour
     [SerializeField] private CanvasGroup tint;
     [SerializeField] private GameObject t;
 
+    [SerializeField] private GameObject Relics;
+    private GameObject fire;
+    private GameObject nature;
+    private GameObject air;
+
     [SerializeField] private AudioSource select;
     #pragma warning disable CS0108 // Member hides inherited member; missing new keyword
     [SerializeField] private AudioClip audio;
@@ -124,6 +129,10 @@ public class Pause : MonoBehaviour
 
         active = false;
         tint.alpha = 0;
+
+        air = Relics.transform.GetChild(0).gameObject;
+        fire = Relics.transform.GetChild(1).gameObject;
+        nature = Relics.transform.GetChild(2).gameObject;
     }
     private bool firstFrame = true;
     private void LateUpdate()
@@ -134,6 +143,10 @@ public class Pause : MonoBehaviour
     }
     void Update()
     {
+        air.SetActive(Player.airRelic);
+        fire.SetActive(Player.fireRelic);
+        nature.SetActive(Player.natureRelic);
+
         ambienceAudio.volume = Time.timeScale;
         IfHover();
         if (mouse) Click();
@@ -146,7 +159,11 @@ public class Pause : MonoBehaviour
         {
             scaleTime = Mathf.Lerp(scaleTime, 0f, 3f * Time.unscaledDeltaTime);
             if (scaleTime <= 0.009) scaleTime = 0;
-            if(!menuCommitted)t.transform.localPosition = new (Mathf.Lerp(t.transform.localPosition.x, 0f, 5f * Time.unscaledDeltaTime),0f,0f);
+            if (!menuCommitted)
+            {
+                t.transform.localPosition = new(Mathf.Lerp(t.transform.localPosition.x, 0f, 5f * Time.unscaledDeltaTime), 0f, 0f);
+                Relics.transform.localPosition = new(570f, Mathf.Lerp(Relics.transform.localPosition.y, 48f, 5f * Time.unscaledDeltaTime), 0f);
+            }
         } else if(!firstFrame)
         {
             scaleTime = Mathf.Lerp(scaleTime, 1f, 12f * Time.unscaledDeltaTime);
@@ -155,8 +172,13 @@ public class Pause : MonoBehaviour
                 menuCommitted = false;
             }
             t.transform.localPosition = new(Mathf.Lerp(t.transform.localPosition.x, -600f, 5f * Time.unscaledDeltaTime), 0f, 0f);
+            Relics.transform.localPosition = new(570f, Mathf.Lerp(Relics.transform.localPosition.y, 1350f, 5f * Time.unscaledDeltaTime), 0f);
         }
-        if(menuCommitted) t.transform.localPosition = new(Mathf.Lerp(t.transform.localPosition.x, -600f, 5f * Time.unscaledDeltaTime), 0f, 0f);
+        if (menuCommitted)
+        {
+            t.transform.localPosition = new(Mathf.Lerp(t.transform.localPosition.x, -600f, 5f * Time.unscaledDeltaTime), 0f, 0f);
+            Relics.transform.localPosition = new(570f, Mathf.Lerp(Relics.transform.localPosition.y, 1350f, 5f * Time.unscaledDeltaTime), 0f);
+        }
         Time.timeScale = scaleTime;
     }
     private void IfHover()
