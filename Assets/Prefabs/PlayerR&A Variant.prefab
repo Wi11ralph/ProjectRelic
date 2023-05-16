@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1212070104}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.0682148, y: 0.096617445, z: 1.3332605}
+  m_LocalPosition: {x: 0.11, y: 0.71, z: 0.13}
   m_LocalScale: {x: 0.803169, y: 0.803169, z: 0.803169}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -198,7 +198,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1658246154}
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: 1.0682148, y: 0.2974097, z: 0.28914082}
+  m_LocalPosition: {x: -0.14, y: 0.68, z: 0.23}
   m_LocalScale: {x: 0.803169, y: 0.803169, z: 0.803169}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -532,6 +532,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 817733437}
   debug: {fileID: 0}
+  sounds:
+    audioSource: {fileID: 1212070106}
+    jump: {fileID: 8300000, guid: 5c04c717ecab97c46bcff500a4d0ec13, type: 3}
+    land: {fileID: 8300000, guid: 2b31edd621488e841b2f5c582a627140, type: 3}
+    footsteps: {fileID: 0}
   keys: 
   height: 0
   _turnSpeed: 360

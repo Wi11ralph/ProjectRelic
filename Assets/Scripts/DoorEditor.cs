@@ -9,7 +9,7 @@ using UnityEditor;
 [HideInInspector]
 public class DoorEditor : Editor
 {
-    private SerializedProperty _id, _startPos, _openPos, ot, ct,booll,rf,p;
+    private SerializedProperty _id, _startPos, _openPos, ot, ct,booll,rf,p,audio;
 
     private void OnEnable()
     {
@@ -21,6 +21,7 @@ public class DoorEditor : Editor
         ct = serializedObject.FindProperty("closeTime");
         rf = serializedObject.FindProperty("outline");
         p = serializedObject.FindProperty("player");
+        audio = serializedObject.FindProperty("doorSounds");
     }
     protected static bool showPos = true, showTime = true, reff =  false;
     public override void OnInspectorGUI()
@@ -61,17 +62,20 @@ public class DoorEditor : Editor
             EditorGUILayout.PropertyField(ct, new GUIContent("Closing time"));
             EditorGUI.indentLevel--;
         }
-        if (booll.boolValue)
-        {
+        
             reff = EditorGUILayout.Foldout(reff, "Refrences", myFoldoutStyle);
             if (reff)
             {
                 EditorGUI.indentLevel++;
-                EditorGUILayout.PropertyField(rf, new GUIContent("Outline material"));
-                EditorGUILayout.PropertyField(p, new GUIContent("Player"));
+                if (booll.boolValue)
+                {
+                    EditorGUILayout.PropertyField(rf, new GUIContent("Outline material"));
+                    EditorGUILayout.PropertyField(p, new GUIContent("Player"));
+                }
+                EditorGUILayout.PropertyField(audio, new GUIContent("Audio"));
                 EditorGUI.indentLevel--;
             }
-        }
+       
 
         serializedObject.ApplyModifiedProperties();
     }

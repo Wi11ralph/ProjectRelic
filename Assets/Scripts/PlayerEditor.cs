@@ -15,9 +15,9 @@ public class MyPlayerEditor : Editor
         movementSpeed,
         jumpHeight,
         xClampMax, zClampMax,
-        xClampMin, zClampMin,
-        cnrtl, cam, rb, grn, sp,
-        anim;
+        xClampMin, zClampMin, 
+        cam, rb, grn, sp,
+        anim, sounds;
 
     private void OnEnable()
     {
@@ -38,6 +38,7 @@ public class MyPlayerEditor : Editor
         grn = serializedObject.FindProperty("groundCheck");
         sp = serializedObject.FindProperty("shadowPoint");
         anim = serializedObject.FindProperty("anim");
+        sounds = serializedObject.FindProperty("sounds");
     }
     protected static bool showRef = false;
     protected static bool showClamp = true;
@@ -92,6 +93,7 @@ public class MyPlayerEditor : Editor
             EditorGUILayout.PropertyField(grn);
             EditorGUILayout.PropertyField(sp);
             EditorGUILayout.PropertyField(anim);
+            EditorGUILayout.PropertyField(sounds, new GUIContent("Audio"));
             EditorGUI.indentLevel--;
         }
 

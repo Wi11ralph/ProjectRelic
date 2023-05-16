@@ -142,7 +142,8 @@ public class Pause : MonoBehaviour
         t.transform.localPosition = new(-600f, 0f, 0f);
     }
     void Update()
-    {
+    { 
+        //
         air.SetActive(Player.airRelic);
         fire.SetActive(Player.fireRelic);
         nature.SetActive(Player.natureRelic);
@@ -187,10 +188,17 @@ public class Pause : MonoBehaviour
         lastBttn = bttn;
 
         bttn = Button.None;
-        if(button1.Hover(xLined())) bttn = Button.Continue;
-        if(button2.Hover(xLined())) bttn = Button.Restart;
-        if(button3.Hover(xLined())) bttn = Button.Menu;
-
+        try
+        {
+            if (button1.Hover(xLined())) bttn = Button.Continue;
+            if (button2.Hover(xLined())) bttn = Button.Restart;
+            if (button3.Hover(xLined())) bttn = Button.Menu;
+        } catch (System.NullReferenceException)
+        {
+            button1 = new Bttn(bt1, 660, 560);
+            button2 = new Bttn(bt2, 485, 385);
+            button3 = new Bttn(bt3, 310, 210);
+        }
         if (bttn != lastBttn && bttn != Button.None && active) select.PlayOneShot(audio);
     }
     private void Click()

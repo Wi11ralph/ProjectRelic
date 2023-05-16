@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
     //TexturephobeCreator is a noob
     //hm
     [SerializeField] private Animator anim;
+    
+    
     //[SerializeField] private Rigidbody _rb;
 
     public Text debug;
@@ -28,6 +30,15 @@ public class Player : MonoBehaviour
             max = maxx;
         }
     }
+    [System.Serializable]
+    private class Sounds
+    {
+        public AudioSource audioSource;
+        public AudioClip jump;
+        public AudioClip land;
+        public AudioClip footsteps;
+    }
+    [SerializeField] private Sounds sounds;
 
     public static bool fireRelic = false;
     public static bool airRelic = false;
@@ -97,7 +108,7 @@ public class Player : MonoBehaviour
         Look();
     }
     private void Update()
-    {
+    { 
         if (firstFrame) return;
         //Debug.Log(Camera.transform.position);
         if (this.tag != "Player") return;
@@ -166,15 +177,22 @@ public class Player : MonoBehaviour
         }
         Physics.SyncTransforms();
     }
+    private bool waitForLand = false;
     private void OnTriggerStay(Collider other)
     {
         if (this.tag == "Player" || other.tag != "mapElements" && other.tag != "burnable") return; 
         isGrounded = true; 
+        if(waitForLand)
+        {
+            waitForLand = false;
+            //sounds.audioSource.PlayOneShot(sounds.land);
+        }
     }
     private void OnTriggerExit(Collider other)
     {
         if (this.tag == "Player" || other.tag == "Player") return;
-        isGrounded = false;  
+        isGrounded = false;
+        waitForLand = true;
     }
     private void Move()
     {
@@ -217,6 +235,7 @@ public class Player : MonoBehaviour
         if (cb.isGrounded) if(jumpWaiter < 0) dJump = 1; 
         if (isJumpPressed && !waitForFalse && dJump <= 1 + System.Convert.ToInt32(airRelic))
         {
+            sounds.audioSource.PlayOneShot(sounds.jump);
             jumpWaiter = 0.2f;
             _rb.velocity = new Vector3(_rb.velocity.x, _jumpHeight, _rb.velocity.z);
             if (dJump == 2) anim.SetTrigger("dj");

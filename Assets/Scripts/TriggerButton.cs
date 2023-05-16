@@ -29,9 +29,11 @@ public class TriggerButton : MonoBehaviour
         {
             //Debug.Log("clicked");
             buttonSounds.PlayOneShot(clicks.clicked);
+            try {
             buttonClicked = true ;
             triggerWait   = false;
             GameEvents.current.DoorwayTriggerEnter(id);
+            } catch (System.NullReferenceException) { Debug.LogWarning("Please restart the game"); }
         }
         else if(buttonClicked && transform.position.y > startPos - activationForce)
         {
@@ -45,9 +47,11 @@ public class TriggerButton : MonoBehaviour
         else time = 0.0f;
         if (time >= timeToDrop && triggerWait)
         {
-            GameEvents.current.DoorwayTriggerExit(id);
-            time = 0.0f;
-            triggerWait = false;
+            try {
+                GameEvents.current.DoorwayTriggerExit(id);
+                time = 0.0f;
+                triggerWait = false; 
+            } catch (System.NullReferenceException) { }
         }
     }
     private void Start()
