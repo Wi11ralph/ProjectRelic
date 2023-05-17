@@ -120,8 +120,8 @@ public class GrapplePoint : MonoBehaviour
         }
         if (Input.GetMouseButtonUp(1))
         {
-            grapple.StopGrapple();
-            gs.audio.PlayOneShot(gs.ungrapple);
+            if (player.GetComponent<Player>().IsGrappling) gs.audio.PlayOneShot(gs.ungrapple);
+            grapple.StopGrapple(); 
         }
 
         if (

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-
+#if (UNITY_EDITOR)
 [CustomEditor(typeof(MovingPlatform))]
 [CanEditMultipleObjects]
 public class PlatformEditor : Editor
@@ -25,3 +25,4 @@ public class PlatformEditor : Editor
 
     }
 }
+#endif
