@@ -10,6 +10,7 @@ public class FireBall : MonoBehaviour
     [SerializeField] private ParticleSystem Smoke;
     [SerializeField] private Light pl;
 
+
     private float timeAlive;
     private void Start()
     {
@@ -20,12 +21,18 @@ public class FireBall : MonoBehaviour
         Orb = this.gameObject.GetComponent<ParticleSystem>();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision) 
     {
         if(collision.gameObject.GetComponent<Dissolver>())
         {
             collision.gameObject.GetComponent<Dissolver>().dissolve = true;
         }
+        if (collision.gameObject.tag != "torch") return;
+        if (collision.gameObject.GetComponent<BoxCollider>() != null)
+        {
+            TorchTrigger.FireballCollide(collision.gameObject);
+        }
+        else Debug.LogError("There is no boxcollider atached to this torch");
     }
 
     [System.Obsolete]

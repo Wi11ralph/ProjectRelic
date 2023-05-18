@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 478456449575933536}
   - component: {fileID: 5179346582911020246}
   m_Layer: 0
-  m_Name: Point Light
+  m_Name: light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 6122215802503049520}
   m_Layer: 0
   m_Name: Torch Prefab
-  m_TagString: Untagged
+  m_TagString: torch
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -147,7 +147,7 @@ Transform:
   - {fileID: 1758731160609875731}
   - {fileID: 3480032388744108070}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3480032388744289444
 PrefabInstance:
@@ -159,7 +159,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 184082, guid: 5d7d20cd12171e64dbf63552d530e567, type: 3}
       propertyPath: m_Name
-      value: Fire_Orange_BigFire
+      value: flame
       objectReference: {fileID: 0}
     - target: {fileID: 476290, guid: 5d7d20cd12171e64dbf63552d530e567, type: 3}
       propertyPath: m_RootOrder
@@ -279,7 +279,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5e4eadf723c06b548b9611e7031ca6cc, type: 3}
       propertyPath: m_Name
-      value: Torch Asset
+      value: Torch
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []

@@ -11,6 +11,16 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] GameObject cam;
     [SerializeField] private Animator transition;
 
+    private enum RelicActions
+    {
+        give,
+        keep,
+        remove
+    }
+    [SerializeField] private RelicActions airRelic = RelicActions.keep;
+    [SerializeField] private RelicActions fireRelic = RelicActions.keep;
+    [SerializeField] private RelicActions natureRelic = RelicActions.keep;
+
     public static Vector3 pos = new (0,0,0);
     public static Vector3 camPos = new (0,0,0);
     public static Vector3 camOffset = new(0, 0, 0);
@@ -33,6 +43,24 @@ public class SceneLoader : MonoBehaviour
         } catch(UnityEngine.UnassignedReferenceException)
         {}
 
+        Player.airRelic = RelicSwitch(airRelic, Player.airRelic);
+        Player.fireRelic = RelicSwitch(fireRelic, Player.fireRelic);
+        Player.natureRelic = RelicSwitch(natureRelic, Player.natureRelic);
+    }
+    private bool RelicSwitch(RelicActions a,bool current)
+    {
+        switch (a)
+        {
+            case RelicActions.give:
+                return true;
+            case RelicActions.keep:
+                return current;
+            case RelicActions.remove:
+                return false;
+            default:
+                return current;
+        }
+        
     }
     public enum SpawnType
     {
