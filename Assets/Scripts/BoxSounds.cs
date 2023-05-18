@@ -15,7 +15,7 @@ public class BoxSounds : MonoBehaviour
     }
     private void OnCollisionStay(Collision collision)
     {
-        if (GetComponent<Dissolver>().dissolve) return;
+        if (GetComponent<Dissolver>() != null && GetComponent<Dissolver>().dissolve) return;
         if (collision.gameObject.tag != "Player")
         {
             audioSource.volume = Mathf.Lerp(audioSource.volume,0f,Time.deltaTime*7.5f);
