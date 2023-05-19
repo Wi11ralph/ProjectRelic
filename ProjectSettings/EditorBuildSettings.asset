@@ -36,6 +36,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Room2Blockout.unity
     guid: d06d908919cae12498bb970242c56461
   - enabled: 1
-    path: Assets/Scenes/Room3Blockout 1.unity
+    path: Assets/Scenes/Room3Blockout.unity
     guid: a51b07f6a55d2414a81e05d239ba5155
   m_configObjects: {}

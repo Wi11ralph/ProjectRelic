@@ -5217,7 +5217,7 @@ MonoBehaviour:
   sceneLoader: {fileID: 1538811702}
   sceneName: Room2Blockout
   player: {fileID: 120936214}
-  spawnPosition: {x: -14.61, y: 4.64, z: -1.16}
+  spawnPosition: {x: -5.1569867, y: 2.4118829, z: 26.002232}
   spawnZoom: 5
 --- !u!65 &1272996071
 BoxCollider:
@@ -6147,9 +6147,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 120936214}
-  spawnPoint: {x: 0, y: 0, z: 0}
+  spawnPoint: {x: -5.1569867, y: 2.4118829, z: 26.002232}
   cam: {fileID: 2106826421}
   transition: {fileID: 1487967491}
+  airRelic: 1
+  fireRelic: 1
+  natureRelic: 1
 --- !u!4 &1538811703
 Transform:
   m_ObjectHideFlags: 0
