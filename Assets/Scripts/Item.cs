@@ -12,6 +12,7 @@ public class Item : MonoBehaviour
     [SerializeField] private float bobbingSpeed = 1.5f;
     [SerializeField] private float bobbingRange = 0.5f; //0.5 up, 0.5 down
 
+    [SerializeField] private bool bobNearGround = true;
 
     private RaycastHit hit;
     private enum itemOption
@@ -28,7 +29,7 @@ public class Item : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        realStartPos = transform.position;
+        realStartPos = transform.localPosition;
         startPos = realStartPos;
 
         
@@ -78,16 +79,17 @@ public class Item : MonoBehaviour
     void Update()
     {
 
-        transform.eulerAngles = new Vector3(
-            transform.eulerAngles.x,
-            transform.eulerAngles.y + (Time.deltaTime * rotationSpeed),
-            transform.eulerAngles.z
+        transform.localEulerAngles = new Vector3(
+            transform.localEulerAngles.x,
+            transform.localEulerAngles.y + (Time.deltaTime * rotationSpeed),
+            transform.localEulerAngles.z
         );
-        transform.position = new Vector3(
-            transform.position.x,
+        transform.localPosition = new Vector3(
+            transform.localPosition.x,
             startPos.y +(bobbingRange*Mathf.Sin(Time.time*bobbingSpeed)),
-            transform.position.z
+            transform.localPosition.z
         );
+        if (!bobNearGround) return;
         Ray ray = new Ray(startPos, -Vector3.up);
         Physics.Raycast(ray, out hit);
         float dist = startPos.y - (hit.point.y);

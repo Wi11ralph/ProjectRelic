@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
     {
         public AudioSource audioSource;
         public AudioSource feetSource;
+        public AudioSource sprintSource;
         public AudioClip jump;
         public AudioClip land;
         public AudioClip footsteps;
@@ -110,6 +111,7 @@ public class Player : MonoBehaviour
     }
     private bool waitForLand = false;
     private bool steps = true;
+    private bool stomps = true;
     private void Update()
     { 
         if (firstFrame) return;
@@ -157,6 +159,23 @@ public class Player : MonoBehaviour
                 sounds.feetSource.Play();
                 steps = false;
             }
+            sounds.sprintSource.Stop();
+            stomps = true;
+        }
+        else if(speedd > 3 && groundCheck.GetComponent<Player>().isGrounded) {
+            if (stomps)
+            {
+                sounds.sprintSource.Play();
+                stomps = false;
+            }
+            try
+            {
+                sounds.feetSource.Pause();
+                sounds.feetSource.time = Mathf.Min(Mathf.Round(sounds.feetSource.time * 2) / 2, 1.9f);
+            }
+            catch (System.NullReferenceException) { }
+            steps = true;
+
         }
         else
         {
@@ -167,6 +186,8 @@ public class Player : MonoBehaviour
             }
             catch (System.NullReferenceException) { }
             steps = true;
+            sounds.sprintSource.Stop();
+            stomps = true;
         }
         //Debug.Log(_input.normalized.magnitude * speedMulti * _movementSpeed);
         anim.SetBool("isGrounded",groundCheck.GetComponent<Player>().isGrounded);

@@ -23,16 +23,19 @@ public class FireBall : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision) 
     {
-        if(collision.gameObject.GetComponent<Dissolver>())
-        {
-            collision.gameObject.GetComponent<Dissolver>().dissolve = true;
-        }
         if (collision.gameObject.tag != "torch") return;
         if (collision.gameObject.GetComponent<BoxCollider>() != null)
         {
             TorchTrigger.FireballCollide(collision.gameObject);
         }
         else Debug.LogError("There is no boxcollider atached to this torch");
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.GetComponent<Dissolver>())
+        {
+            collision.gameObject.GetComponent<Dissolver>().dissolve = true;
+        }
     }
 
     [System.Obsolete]

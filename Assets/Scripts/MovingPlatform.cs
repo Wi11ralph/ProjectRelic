@@ -45,7 +45,8 @@ public class MovingPlatform : MonoBehaviour
     [Header("Connections/connectors")]
     [SerializeField] private float connectorOffset;
     [SerializeField] private float connectionOffset;
-    
+    [SerializeField] private float connectionHeightOffset;
+
 
     [HideInInspector] public GameObject[] points;
     private Vector3[] connectors = new Vector3[4];
@@ -149,7 +150,7 @@ public class MovingPlatform : MonoBehaviour
         if (!Application.isPlaying) startPos = transform.position;
         
             connectors  = CreateOffsets(connectorOffset,  transform.position.y   + height) ;
-            connections = CreateOffsets(connectionOffset, transform.position.y)/*- height*/;
+            connections = CreateOffsets(connectionOffset, connectionHeightOffset)/*- height*/;
 
         points = new GameObject[4];
 
@@ -175,7 +176,7 @@ public class MovingPlatform : MonoBehaviour
 
             points[i].name = "point " + (i+1).ToString();
             //points[i].transform.parent = transform;
-            points[i].transform.position = connectors[i] + startPos; 
+            points[i].transform.position = connectors[i] + new Vector3(startPos.x,0f,startPos.z); 
         }
     }
     public void SetConnectors()
@@ -183,12 +184,12 @@ public class MovingPlatform : MonoBehaviour
         if (!Application.isPlaying) startPos = transform.position;
 
         connectors =  CreateOffsets(connectorOffset,  startPos.y   + height) ;
-        connections = CreateOffsets(connectionOffset, startPos.y)/*- height*/;
+        connections = CreateOffsets(connectionOffset, connectionHeightOffset)/*- height*/;
 
         for (int i = 0; i < points.Length; i++)
         {
             joints = GetComponents<SpringJoint>(); 
-            points[i].transform.position = connectors[i] + startPos;
+            points[i].transform.position = connectors[i] + new Vector3(startPos.x, 0f, startPos.z);
 
             joints[i].maxDistance = height;
             joints[i].minDistance = height;
@@ -199,7 +200,7 @@ public class MovingPlatform : MonoBehaviour
     }
     private void OnDrawGizmos()
     {
-        if (points.Length != 4) return;
+        if (points == null || points.Length != 4) return;
         SetConnectors();
         for (int i = 0; i < points.Length; i++) {
 

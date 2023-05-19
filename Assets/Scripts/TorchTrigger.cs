@@ -45,6 +45,7 @@ public class TorchTrigger : MonoBehaviour
             
             if (torch[i].torch == collision)
             {
+                if (torch[i].on) return;
                 torch[i].on = true;
                 torch[i].flame.SetActive(true);
                 torch[i].light.SetActive(true); 
