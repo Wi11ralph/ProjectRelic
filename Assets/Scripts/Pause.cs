@@ -150,7 +150,7 @@ public class Pause : MonoBehaviour
 
         ambienceAudio.volume = Time.timeScale;
         IfHover();
-        if (mouse) Click();
+        if (mouse && active) Click();
         GatherInput();
 
         if (input && !menuCommitted) Pauser();
