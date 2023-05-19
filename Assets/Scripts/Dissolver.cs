@@ -23,11 +23,14 @@ public class Dissolver : MonoBehaviour
         if(trigger)
         {
             AudioSource aSor = GetComponent<AudioSource>();
-            aSor.loop = false;
-            aSor.volume = 1f;
-            aSor.PlayOneShot(dissolveSound);
-
             trigger = false;
+            try
+            {
+                aSor.loop = false;
+                aSor.volume = 1f;
+                aSor.PlayOneShot(dissolveSound);
+            } catch(UnityEngine.MissingComponentException) { }
+            
         }
 
         float amount = mat.GetFloat("amount");
@@ -41,13 +44,17 @@ public class Dissolver : MonoBehaviour
     private void spawn()
     {
         spawnitem = false;
-        itemtospawn = Instantiate(itemtospawn);
+        try
+        {
+            itemtospawn = Instantiate(itemtospawn);
 
-        itemtospawn.transform.position = new Vector3 ( 
-            this.transform.position.x,
-            this.transform.position.y + 0.2f,
-            this.transform.position.z
-        );
+            itemtospawn.transform.position = new Vector3(
+                this.transform.position.x,
+                this.transform.position.y + 0.2f,
+                this.transform.position.z
+            );
+        }
+        catch (UnityEngine.UnassignedReferenceException) { }
     }
 }
 
