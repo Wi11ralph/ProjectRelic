@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 345681570608707473}
   - component: {fileID: 2533535131979154267}
   - component: {fileID: 2159359365610171783}
+  - component: {fileID: 2639853102810870022}
   m_Layer: 0
   m_Name: Key_Asset
   m_TagString: Untagged
@@ -32,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -180, y: 0, z: 45}
 --- !u!33 &345681570608707473
 MeshFilter:
@@ -103,3 +104,16 @@ MonoBehaviour:
   selectedItem: 3
   keyID: 8
   player: {fileID: 0}
+--- !u!65 &2639853102810870022
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4046502644585898638}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.6181877, y: 11.104035, z: 1.397475}
+  m_Center: {x: -1.144555, y: 1.1562816, z: 0}

@@ -31,7 +31,7 @@ public class Item : MonoBehaviour
     {
         realStartPos = transform.localPosition;
         startPos = realStartPos;
-
+        if (player == null) player = GameObject.Find("PlayerR&A Variant 1").GetComponent<Player>();
         
         Renderer rend = this.gameObject.GetComponent<Renderer>();
 
