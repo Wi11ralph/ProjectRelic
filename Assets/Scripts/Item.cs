@@ -15,7 +15,7 @@ public class Item : MonoBehaviour
     [SerializeField] private bool bobNearGround = true;
 
     private RaycastHit hit;
-    private enum itemOption
+    public enum itemOption
     {
         air,
         fire,
@@ -55,7 +55,7 @@ public class Item : MonoBehaviour
         //Debug.Log("You collided with the object!");
         if (other.gameObject.tag == "Player")
         {
-            Debug.Log("You collided with the object!");
+            //Debug.Log("You collided with the object!");
             switch(selectedItem)
             {
                 case itemOption.air:
@@ -71,6 +71,7 @@ public class Item : MonoBehaviour
                     player.keys.Add(keyID);
                     break;
             }
+            Tips.TriggerTip(selectedItem);
             Destroy(this.gameObject);
         }
     }
