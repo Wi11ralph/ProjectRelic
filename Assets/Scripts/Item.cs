@@ -11,6 +11,7 @@ public class Item : MonoBehaviour
     [SerializeField] private float rotationSpeed = 72f;
     [SerializeField] private float bobbingSpeed = 1.5f;
     [SerializeField] private float bobbingRange = 0.5f; //0.5 up, 0.5 down
+    [SerializeField] private string pName = "PlayerR&A Variant 1";
 
     [SerializeField] private bool bobNearGround = true;
 
@@ -31,7 +32,7 @@ public class Item : MonoBehaviour
     {
         realStartPos = transform.localPosition;
         startPos = realStartPos;
-        if (player == null) player = GameObject.Find("PlayerR&A Variant 1").GetComponent<Player>();
+        if (player == null) player = GameObject.Find(pName).GetComponent<Player>();
         
         Renderer rend = this.gameObject.GetComponent<Renderer>();
 
