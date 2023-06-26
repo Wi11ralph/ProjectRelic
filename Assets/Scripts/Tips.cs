@@ -43,9 +43,9 @@ public class Tips : MonoBehaviour
     {
         time += Time.deltaTime;
 
-        if (time < 10f) canvas.alpha = Mathf.Lerp(canvas.alpha, 4, 2f * Time.unscaledDeltaTime);
-        if (time < 20f) canvas.alpha = Mathf.Lerp(canvas.alpha, 0, 5.5f * Time.unscaledDeltaTime);
-        if (time == 30f) {
+        if (time < 5f) canvas.alpha = Mathf.Lerp(canvas.alpha, 1, 5f * Time.unscaledDeltaTime);
+        if (time > 15f) canvas.alpha = Mathf.Lerp(canvas.alpha, 0, 10f * Time.unscaledDeltaTime);
+        if (time == 20f) {
             canvas.alpha = 0;
             SetActive(101);
         }

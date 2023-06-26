@@ -113,7 +113,7 @@ MonoBehaviour:
   rotationSpeed: 72
   bobbingSpeed: 1.5
   bobbingRange: 0.5
-  pName: PlayerR&A
+  pName: PlayerR&A Variant 1
   bobNearGround: 1
   selectedItem: 0
   keyID: 0
