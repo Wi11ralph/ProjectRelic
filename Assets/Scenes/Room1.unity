@@ -548,7 +548,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh73664
+  m_Name: pb_Mesh33746
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -1591,7 +1591,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-43044
+  m_Name: pb_Mesh-10352
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -1985,7 +1985,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-43070
+  m_Name: pb_Mesh-10378
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -2957,7 +2957,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 113.5, y: 147}
+  m_AnchoredPosition: {x: 106, y: 155}
   m_SizeDelta: {x: 558.73, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &546246141
@@ -2980,7 +2980,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: funny tip message blah blah blah
+  m_text: You now have the double jump ability
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5489,6 +5489,8 @@ GameObject:
   - component: {fileID: 1404678166}
   - component: {fileID: 1404678165}
   - component: {fileID: 1404678164}
+  - component: {fileID: 1404678169}
+  - component: {fileID: 1404678168}
   m_Layer: 5
   m_Name: tips
   m_TagString: Untagged
@@ -5579,6 +5581,35 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1404678168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1404678163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fc3dbde2202faf428c919eec3b8cae3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tipCG: {fileID: 1404678169}
+  popups:
+  - {fileID: 408988626}
+  - {fileID: 408988626}
+  - {fileID: 408988626}
+--- !u!225 &1404678169
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1404678163}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1424434847
 GameObject:
   m_ObjectHideFlags: 0
@@ -7435,8 +7466,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -340.7, y: 147}
-  m_SizeDelta: {x: 260, y: 260}
+  m_AnchoredPosition: {x: -350.6627, y: 106.33616}
+  m_SizeDelta: {x: 297.463, y: 363.2622}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2118861244
 MonoBehaviour:
@@ -7458,7 +7489,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 57e7807cabad5204188abe5354f28a42, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7814,6 +7845,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3655591725410590631, guid: db8a46823c05c554eb517a4bba8a0df1, type: 3}
+      propertyPath: dissolve
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3833122054657061897, guid: db8a46823c05c554eb517a4bba8a0df1, type: 3}
       propertyPath: m_RootOrder
       value: 11

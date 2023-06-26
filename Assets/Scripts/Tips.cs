@@ -6,27 +6,77 @@ public class Tips : MonoBehaviour
 {
 
 
-    [SerializeField] private GameObject tips;
+
+    
+    [SerializeField] private CanvasGroup tipCG;
+    /*
+    [System.Serializable]
+    private class Tip
+    {
+        public GameObject popup;
+        private GameObject text;
+        private GameObject image;
+
+    }
+    [SerializeField] private static Tip[] tips = new Tip[3];
+    */
+    [SerializeField] private GameObject[] popups = new GameObject[3];
+    private static GameObject[] tips = new GameObject[3];
     //private CanvasGroup cG;
-    private static CanvasGroup canvas;
+    private CanvasGroup canvas;
     private static float time = 20f;
     //private static 
     // Start is called before the first frame update
     void Start()
     {
-        canvas = tips.GetComponent<CanvasGroup>();
+        canvas = tipCG.GetComponent<CanvasGroup>();
         canvas.alpha = 0;
+        for(int i = 0; i < tips.Length; i++)
+        {
+            Debug.Log(i);
+            tips[i] = popups[i];
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         time += Time.deltaTime;
-        if (time == 5f) canvas.alpha = 0;
+
+        if (time < 10f) canvas.alpha = Mathf.Lerp(canvas.alpha, 4, 2f * Time.unscaledDeltaTime);
+        if (time < 20f) canvas.alpha = Mathf.Lerp(canvas.alpha, 0, 5.5f * Time.unscaledDeltaTime);
+        if (time == 30f) {
+            canvas.alpha = 0;
+            SetActive(101);
+        }
     }
     public static void TriggerTip(Item.itemOption tipType) {
         time = 0f;
-        canvas.alpha = 1;
+        
+        switch (tipType)
+        {
+            case Item.itemOption.air:
+                SetActive(0);
+                break;
+            case Item.itemOption.fire:
+                SetActive(1);
+                break;
+            case Item.itemOption.nature:
+                SetActive(2);
+                break;
+            default:
+                SetActive(101);
+                break;
+        }
+    }
+    
+    private static void SetActive(int e)
+    { 
+        for(int i = 0; i < tips.Length; i++)
+        {
+            tips[i].SetActive(false);
+        }
+        if(e < tips.Length) tips[e].SetActive(true);
     }
 
 }
