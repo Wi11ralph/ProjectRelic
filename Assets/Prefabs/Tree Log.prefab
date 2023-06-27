@@ -88,6 +88,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree Log
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 89c9bf4c6980e4c46aaeee34df7fe05d, type: 3}
+      propertyPath: m_TagString
+      value: mapElements
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 89c9bf4c6980e4c46aaeee34df7fe05d, type: 3}
