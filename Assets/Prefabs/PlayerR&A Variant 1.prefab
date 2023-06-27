@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2066696925774668202}
   - component: {fileID: 5881054381619127282}
   - component: {fileID: 7414994721026267822}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Spot Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,14 +25,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 663691426984310378}
-  m_LocalRotation: {x: 0.102246016, y: -0, z: -0, w: 0.99475914}
-  m_LocalPosition: {x: 0.06, y: 1.374, z: 0.249}
+  m_LocalRotation: {x: 0.18700613, y: -0, z: -0, w: 0.9823588}
+  m_LocalPosition: {x: 0.06, y: 1.486, z: 0.547}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8938751348051991146}
   m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 11.737, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 21.556, y: 0, z: 0}
 --- !u!108 &5881054381619127282
 Light:
   m_ObjectHideFlags: 0
@@ -51,7 +51,7 @@ Light:
   m_InnerSpotAngle: 37.73207
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -109,7 +109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Version: 1
   m_UsePipelineSettings: 1
-  m_AdditionalLightsShadowResolutionTier: 2
+  m_AdditionalLightsShadowResolutionTier: 1
   m_LightLayerMask: 1
   m_CustomShadowLayers: 0
   m_ShadowLayerMask: 1
