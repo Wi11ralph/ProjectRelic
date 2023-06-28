@@ -36,6 +36,7 @@ public class MovingPlatform : MonoBehaviour
         
     }
     [Header("Path")]
+    [SerializeField] private bool startOnNatureRelic = false;
     [SerializeField] private WayPoints[] wayPoints = new WayPoints[1];
 
     [Header("Physics")]
@@ -57,7 +58,7 @@ public class MovingPlatform : MonoBehaviour
     
     private Vector3 currentPathTarget; 
     private int pathPos = 0;
-    private bool wait = false;
+    private bool wait = true;
     private float waitTime = 0;
 
     private void Awake()
@@ -88,8 +89,8 @@ public class MovingPlatform : MonoBehaviour
 
         if(wait)
         {
-
-            waitTime += Time.deltaTime;
+            if (startOnNatureRelic && !Player.natureRelic) return;
+            waitTime += Time.deltaTime; 
             if (waitTime >= wayPoints[lastPos].waitTime)
             {
                 wait = false;
