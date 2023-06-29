@@ -19,7 +19,7 @@ public class Dissolver : MonoBehaviour
     private void Update()
     {
         if (!dissolve) return;
-
+        Debug.Log("hi");
         if(trigger)
         {
             AudioSource aSor = GetComponent<AudioSource>();
@@ -32,9 +32,9 @@ public class Dissolver : MonoBehaviour
             } catch(UnityEngine.MissingComponentException) { }
             
         }
-
+        
         float amount = mat.GetFloat("amount");
-
+        Debug.Log(amount);
         mat.SetFloat("amount", amount + Time.deltaTime * animationTime);
 
         if (amount <= 0.5 && spawnitem) spawn();

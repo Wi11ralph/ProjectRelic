@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemtospawn: {fileID: 0}
-  dissolveSound: {fileID: 0}
+  dissolveSound: {fileID: 8300000, guid: d9d2c84a28e9e9547bf51f884360119d, type: 3}
   animationTime: 1
   dissolve: 0
 --- !u!4 &7891407414034869619 stripped
