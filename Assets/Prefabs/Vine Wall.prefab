@@ -84,6 +84,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5754084199372789682, guid: 591da9873ae58d8459c18333ddfcac22, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 2264603066538292134, guid: 748d75bb814989642aa8a3dbd492e297, type: 3}
     - target: {fileID: 919132149155446097, guid: 591da9873ae58d8459c18333ddfcac22, type: 3}
       propertyPath: m_Name
       value: Vine Wall
