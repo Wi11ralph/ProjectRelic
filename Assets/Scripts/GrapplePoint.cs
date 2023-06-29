@@ -101,9 +101,9 @@ public class GrapplePoint : MonoBehaviour
         //Debug.Log(pointToGrapple);
         if (distance < 100f && IsGrappleable())
         {
-            if (mat.GetFloat("_OutlineThickness") != 0.6f)
+            if (mat.GetFloat("_OutlineThickness") != 0.002f)
             {
-                mat.SetFloat("_OutlineThickness", 0.6f);
+                mat.SetFloat("_OutlineThickness", 0.002f);
                 //Debug.Log(mat.GetFloat("_OutlineThickness"));
             }
             if (Input.GetMouseButtonDown(1))
