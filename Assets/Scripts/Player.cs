@@ -258,7 +258,7 @@ public class Player : MonoBehaviour
         //_rb.MovePosition(transform.position + transform.forward * _input.normalized.magnitude * speedMulti * _movementSpeed * Time.deltaTime);
         moveVec = transform.forward * _input.normalized.magnitude * speedMulti * _movementSpeed;
         if (!IsGrappling) _rb.velocity = new(moveVec.x, _rb.velocity.y, moveVec.z);
-        else _rb.AddForce(moveVec * 5f);
+        else _rb.AddForce(moveVec * 250f * Time.deltaTime);
         _rb.angularVelocity = new(0f, 0f, 0f);
         //_rb.velocity = new Vector3(0f,_rb.velocity.y,0f);
 

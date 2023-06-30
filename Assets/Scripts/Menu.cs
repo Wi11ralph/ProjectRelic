@@ -59,9 +59,9 @@ public class Menu : MonoBehaviour
 
         Player.fireRelic = false;
         Player.airRelic = false;
-        Player.natureRelic = false; 
+        Player.natureRelic = false;
 
-        StartCoroutine(sc.LoadLevel(firstLevel));
+        sc.FirstLevelLoad(firstLevel);
     }
     public void OnQuitClick()
     {

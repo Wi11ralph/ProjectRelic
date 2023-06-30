@@ -61,7 +61,7 @@ public class MovingPlatform : MonoBehaviour
     private bool wait = true;
     private float waitTime = 0;
 
-    private void Awake()
+    private void Start()
     {
         startPos = transform.position;
         realSPos = transform.position;
@@ -89,8 +89,10 @@ public class MovingPlatform : MonoBehaviour
 
         if(wait)
         {
+            Debug.Log("relic: " + Player.natureRelic);
+            Debug.Log(startOnNatureRelic);
+            waitTime += Time.deltaTime;
             if (startOnNatureRelic && !Player.natureRelic) return;
-            waitTime += Time.deltaTime; 
             if (waitTime >= wayPoints[lastPos].waitTime)
             {
                 wait = false;

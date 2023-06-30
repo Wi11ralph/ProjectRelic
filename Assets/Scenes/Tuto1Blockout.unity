@@ -3098,7 +3098,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6122215802503049520, guid: edfbaaed4d6a3ab40866591802a26bf3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.64
+      value: -1.476
       objectReference: {fileID: 0}
     - target: {fileID: 6122215802503049520, guid: edfbaaed4d6a3ab40866591802a26bf3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -16317,77 +16317,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7057861826193586179, guid: e3d8a93f4f7b2a5458c9b18a0c4be189, type: 3}
   m_PrefabInstance: {fileID: 632977486}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &633497967
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 2
-    m_TransformParent: {fileID: 724117196}
-    m_Modifications:
-    - target: {fileID: 6122215802503049520, guid: edfbaaed4d6a3ab40866591802a26bf3, type: 3}
-      propertyPath: m_RootOrder
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6122215802503049520, guid: edfbaaed4d6a3ab40866591802a26bf3, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.71716005
-      objectReference: {fileID: 0}
-    - target: {fileID: 6122215802503049520, guid: edfbaaed4d6a3ab40866591802a26bf3, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.71716
-      objectReference: {fileID: 0}
-    - target: {fileID: 6122215802503049520, guid: edfbaaed4d6a3ab40866591802a26bf3, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.71716005
-      objectReference: {fileID: 0}
-    - target: {fileID: 6122215802503049520, guid: edfbaaed4d6a3ab40866591802a26bf3, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1.3800011
-      objectReference: {fileID: 0}
-    - target: {fileID: 6122215802503049520, guid: edfbaaed4d6a3ab40866591802a26bf3, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.64400005
-      objectReference: {fileID: 0}
-    - target: {fileID: 6122215802503049520, guid: edfbaaed4d6a3ab40866591802a26bf3, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.40999985
-      objectReference: {fileID: 0}
-    - target: {fileID: 6122215802503049520, guid: edfbaaed4d6a3ab40866591802a26bf3, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.98447454
-      objectReference: {fileID: 0}
-    - target: {fileID: 6122215802503049520, guid: edfbaaed4d6a3ab40866591802a26bf3, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6122215802503049520, guid: edfbaaed4d6a3ab40866591802a26bf3, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.17552765
-      objectReference: {fileID: 0}
-    - target: {fileID: 6122215802503049520, guid: edfbaaed4d6a3ab40866591802a26bf3, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6122215802503049520, guid: edfbaaed4d6a3ab40866591802a26bf3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6122215802503049520, guid: edfbaaed4d6a3ab40866591802a26bf3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 20.219
-      objectReference: {fileID: 0}
-    - target: {fileID: 6122215802503049520, guid: edfbaaed4d6a3ab40866591802a26bf3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8720768205826706943, guid: edfbaaed4d6a3ab40866591802a26bf3, type: 3}
-      propertyPath: m_Name
-      value: Torch Prefab
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_AddedGameObjects: []
-  m_SourcePrefab: {fileID: 100100000, guid: edfbaaed4d6a3ab40866591802a26bf3, type: 3}
 --- !u!1001 &634085743
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18437,7 +18366,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: NaN, z: 0, w: 3.4e-44}
+  m_BoundingSphereOverride: {x: 5.84e-43, y: 0, z: 0, w: 0.9999}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -18992,7 +18921,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1894786395}
-  - {fileID: 1123944060}
   - {fileID: 20775705}
   - {fileID: 706660035}
   - {fileID: 1083584524}
@@ -30063,11 +29991,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6122215802503049520, guid: edfbaaed4d6a3ab40866591802a26bf3, type: 3}
   m_PrefabInstance: {fileID: 1123887250}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1123944060 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6122215802503049520, guid: edfbaaed4d6a3ab40866591802a26bf3, type: 3}
-  m_PrefabInstance: {fileID: 633497967}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1127207247
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35296,7 +35219,7 @@ MonoBehaviour:
   sceneLoader: {fileID: 1538811702}
   sceneName: Tuto3Blockout
   player: {fileID: 120936214}
-  spawnPosition: {x: -20.780184, y: 3.9956546, z: -3.9300852}
+  spawnPosition: {x: -21.28, y: 3.9956546, z: -13.91}
   spawnZoom: 5
 --- !u!65 &1272996071
 BoxCollider:

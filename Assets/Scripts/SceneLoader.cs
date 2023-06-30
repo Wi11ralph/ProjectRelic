@@ -105,6 +105,11 @@ public class SceneLoader : MonoBehaviour
         StartCoroutine(LoadLevel(s));
          
     }
+    public void FirstLevelLoad(string s)
+    {
+        pos = new Vector3(-5.73172379f, 3.58822083f, -2.66669297f);
+        StartCoroutine(LoadLevel(s));
+    }
 
     public IEnumerator LoadLevel(string levelName)
     { 
